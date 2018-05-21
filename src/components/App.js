@@ -49,20 +49,24 @@ export default class App extends Component {
                 {
                     label: 'Add Account',
                     backgroundColor: '#cccccc',
+                    icon: 'md-accounts-list',
                     color: '#333333',
                     url: ''
                 },
                 {
                     label: 'Add Category',
                     backgroundColor: '#cccccc',
-                    color: '#333333',
+                    color: '#555555',
+                    icon: 'md-folder',
                     url: ''
                 },
                 {
                     label: 'Add Transaction',
+                    icon: 'md-receipt',
                     url: ''
                 }
             ]}
+            onFabClick={this.fabClicked}
         />;
     }
 
@@ -72,6 +76,10 @@ export default class App extends Component {
 
     hideFabMenu () {
         this.setState({ fabMenuIsOpen: false });
+    }
+
+    fabClicked (fab) {
+        console.log({ fab });
     }
 
     render () {
@@ -99,23 +107,23 @@ export default class App extends Component {
                             dataSource={[
                                 {
                                     title: 'Accounts',
-                                    icon: { default: '', material: '' }
+                                    icon: 'md-accounts-list'
                                 },
                                 {
                                     title: 'Transactions',
-                                    icon: { default: '', material: '' }
+                                    icon: 'md-receipt'
                                 },
                                 {
                                     title: 'Budgets',
-                                    icon: { default: '', material: '' }
+                                    icon: 'md-chart'
                                 },
                                 {
                                     title: 'Categories',
-                                    icon: { default: '', material: '' }
+                                    icon: 'md-folder'
                                 },
                                 {
                                     title: 'Settings',
-                                    icon: { default: 'ion-settings', material: 'md-settings' }
+                                    icon: 'md-settings'
                                 }
                             ]}
                             renderRow={(item) => (

@@ -9,11 +9,18 @@ export default class AppFabs extends Component {
         this.state = {
             expandTimeout: null
         };
+        this.collapsedFabs=this.collapsedFabs.bind(this);
         this.expandFabs=this.expandFabs.bind(this);
         this.collapseFabs=this.collapseFabs.bind(this);
         this.expandedFabs=this.expandedFabs.bind(this);
         this.expandFabsOnHover=this.expandFabsOnHover.bind(this);
         this.cancelExpandFabsOnHover=this.cancelExpandFabsOnHover.bind(this);
+    }
+
+    fabClicked (fab) {
+        if (typeof this.props.onFabClick === "function") {
+            this.props.onFabClick(fab);
+        }
     }
 
     expandFabs () {
@@ -49,7 +56,7 @@ export default class AppFabs extends Component {
                     backgroundColor: "#4282cc",
                     boxShadow: "0 2px 5px rgba(0,0,0,0.33)"
                 }}
-                onClick={this.expandFabs}
+                onClick={() => { this.fabClicked() }}
                 onMouseEnter={this.expandFabsOnHover}
                 onMouseLeave={this.cancelExpandFabsOnHover}
             >
@@ -75,9 +82,10 @@ export default class AppFabs extends Component {
                         }}>
                             {fab.label}
                         </span>
-                        <Ons.Fab
+                        <Ons.Fab onClick={() => { this.fabClicked(fab) }}
                             style={{
                                 backgroundColor: fab.backgroundColor ? fab.backgroundColor : "#4282cc",
+                                color: fab.color ? fab.color : "#ffffff",
                                 boxShadow: "0 2px 5px rgba(0,0,0,0.33)"
                             }}
                         >
