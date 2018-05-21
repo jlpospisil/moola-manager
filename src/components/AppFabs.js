@@ -17,13 +17,23 @@ export default class AppFabs extends Component {
         this.cancelExpandFabsOnHover=this.cancelExpandFabsOnHover.bind(this);
     }
 
-    fabClicked (fab) {
+    fabClicked (fab, event) {
+        event.stopPropagation();
+
+        console.log('here', fab);
+
         if (typeof this.props.onFabClick === "function") {
             this.props.onFabClick(fab);
         }
     }
 
-    expandFabs () {
+    expandFabs (event) {
+        if (event && typeof event.stopPropagation === "function") {
+            event.stopPropagation();
+        }
+
+        this.cancelExpandFabsOnHover();
+
         if (typeof this.props.onExpand === "function") {
             this.props.onExpand();
         }
@@ -31,7 +41,7 @@ export default class AppFabs extends Component {
 
     collapseFabs () {
         if (typeof this.props.onCollapse === "function") {
-            this.props.onCollapse();
+            setTimeout(this.props.onCollapse, 200);
         }
     }
 
@@ -44,8 +54,6 @@ export default class AppFabs extends Component {
         if (this.state.expandTimeout) {
             clearTimeout(this.state.expandTimeout);
         }
-
-        this.collapseFabs();
     }
 
     collapsedFabs () {
@@ -56,7 +64,7 @@ export default class AppFabs extends Component {
                     backgroundColor: "#4282cc",
                     boxShadow: "0 2px 5px rgba(0,0,0,0.33)"
                 }}
-                onClick={() => { this.fabClicked() }}
+                onClick={this.expandFabs.bind(this)}
                 onMouseEnter={this.expandFabsOnHover}
                 onMouseLeave={this.cancelExpandFabsOnHover}
             >
@@ -73,7 +81,7 @@ export default class AppFabs extends Component {
                 return (
                     <div key={index} style={{
                         textAlign: "right",
-                        marginTop: "10px"
+                        marginTop: "15px"
                     }}>
                         <span className="tabbar__badge notification" style={{
                             marginRight: "10px",
@@ -82,7 +90,7 @@ export default class AppFabs extends Component {
                         }}>
                             {fab.label}
                         </span>
-                        <Ons.Fab onClick={() => { this.fabClicked(fab) }}
+                        <Ons.Fab onClick={this.fabClicked.bind(this, fab)}
                             style={{
                                 backgroundColor: fab.backgroundColor ? fab.backgroundColor : "#4282cc",
                                 color: fab.color ? fab.color : "#ffffff",
@@ -97,7 +105,7 @@ export default class AppFabs extends Component {
         }
 
         return (
-            <div className="ons-fab fab--bottom__right" onMouseLeave={this.cancelExpandFabsOnHover}>
+            <div className="ons-fab fab--bottom__right" onMouseLeave={this.collapseFabs}>
                 {fabs}
             </div>
         );
