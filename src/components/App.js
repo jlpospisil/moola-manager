@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import * as Ons from 'react-onsenui';
+import AppFabs from './AppFabs';
 
-
-class App extends Component {
+export default class App extends Component {
 
     constructor (props) {
         super(props);
@@ -15,6 +15,8 @@ class App extends Component {
         this.showMenu=this.showMenu.bind(this);
         this.renderToolbar=this.renderToolbar.bind(this);
         this.showFabMenu=this.showFabMenu.bind(this);
+        this.hideFabMenu=this.hideFabMenu.bind(this);
+        this.renderFabs=this.renderFabs.bind(this);
     }
 
     hideMenu () {
@@ -28,14 +30,40 @@ class App extends Component {
     renderToolbar () {
         return (
             <Ons.Toolbar>
-                <div className='left'>
+                <div className="left">
                     <Ons.ToolbarButton onClick={this.showMenu}>
-                        <Ons.Icon icon='ion-navicon, material:md-menu' />
+                        <Ons.Icon icon="ion-navicon, material:md-menu" />
                     </Ons.ToolbarButton>
                 </div>
-                <div className='center'>Moola Manager</div>
+                <div className="center">Moola Manager</div>
             </Ons.Toolbar>
         );
+    }
+
+    renderFabs () {
+        return <AppFabs
+            expanded={this.state.fabMenuIsOpen}
+            onExpand={this.showFabMenu}
+            onCollapse={this.hideFabMenu}
+            fabItems={[
+                {
+                    label: 'Add Account',
+                    backgroundColor: '#cccccc',
+                    color: '#333333',
+                    url: ''
+                },
+                {
+                    label: 'Add Category',
+                    backgroundColor: '#cccccc',
+                    color: '#333333',
+                    url: ''
+                },
+                {
+                    label: 'Add Transaction',
+                    url: ''
+                }
+            ]}
+        />;
     }
 
     showFabMenu () {
@@ -104,7 +132,7 @@ class App extends Component {
                     </Ons.Page>
                 </Ons.SplitterSide>
                 <Ons.SplitterContent>
-                    <Ons.Page renderToolbar={this.renderToolbar}>
+                    <Ons.Page renderToolbar={this.renderToolbar} renderFixed={this.renderFabs}>
                         <section style={{margin: '16px'}}>
                             <p>
                                 Swipe right to open the menu.
@@ -112,12 +140,7 @@ class App extends Component {
                         </section>
                     </Ons.Page>
                 </Ons.SplitterContent>
-                <Ons.Fab position="bottom right" style={{backgroundColor: '#4282cc'}}>
-                    <Ons.Icon icon="md-plus" />
-                </Ons.Fab>
             </Ons.Splitter>
         );
     }
 }
-
-export default App;
