@@ -7,23 +7,11 @@ import * as UiActions from '../../actions/ui-actions';
 
 class TopToolbar extends Component {
 
-    constructor (props) {
-        super(props);
-
-        this.showMenu = this.showMenu.bind(this);
-    }
-
-
-    showMenu () {
-        // TODO: make app respect the newly set state
-        this.props.actions.showLeftNav()
-    }
-
     render () {
         return (
             <Toolbar>
                 <div className="left">
-                    <ToolbarButton onClick={this.showMenu}>
+                    <ToolbarButton onClick={this.props.actions.showLeftNav}>
                         <Icon icon="ion-navicon, material:md-menu" />
                     </ToolbarButton>
                 </div>

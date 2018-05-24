@@ -2,31 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Ons from 'react-onsenui';
 // import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { bindActionCreators } from 'redux'
 import * as UI from './ui';
+import * as UiActions from '../actions/ui-actions';
 
 class App extends Component {
 
     constructor (props) {
         super(props);
         this.state = {
-            leftMenuIsOpen: false,
             fabMenuIsOpen: false
         };
-        this.hideMenu=this.hideMenu.bind(this);
-        this.showMenu=this.showMenu.bind(this);
         this.showFabMenu=this.showFabMenu.bind(this);
         this.hideFabMenu=this.hideFabMenu.bind(this);
         this.renderFabs=this.renderFabs.bind(this);
-    }
-
-    hideMenu () {
-        alert('TODO fix this to use redux');
-        this.setState({ leftMenuIsOpen: false });
-    }
-
-    showMenu () {
-        alert('TODO fix this to use redux');
-        this.setState({ leftMenuIsOpen: true });
     }
 
     renderFabs () {
@@ -83,8 +72,8 @@ class App extends Component {
                     collapse={true}
                     swipeable={true}
                     isOpen={this.props.left_nav.open}
-                    onClose={this.hideMenu}
-                    onOpen={this.showMenu}
+                    onClose={this.props.actions.hideLeftNav}
+                    onOpen={this.props.actions.showLeftNav}
                 >
                     <Ons.Page>
                         <Ons.Card style={{margin: 0, padding: '50px 10px', borderRadius: 0}}>
@@ -93,30 +82,9 @@ class App extends Component {
                             </div>
                         </Ons.Card>
                         <Ons.List
-                            dataSource={[
-                                {
-                                    title: 'Accounts',
-                                    icon: 'md-accounts-list'
-                                },
-                                {
-                                    title: 'Transactions',
-                                    icon: 'md-receipt'
-                                },
-                                {
-                                    title: 'Budgets',
-                                    icon: 'md-chart'
-                                },
-                                {
-                                    title: 'Categories',
-                                    icon: 'md-folder'
-                                },
-                                {
-                                    title: 'Settings',
-                                    icon: 'md-settings'
-                                }
-                            ]}
+                            dataSource={this.props.menu_items}
                             renderRow={(item) => (
-                                <Ons.ListItem key={item.title} onClick={this.hideMenu} tappable>
+                                <Ons.ListItem key={item.title} onClick={this.props.actions.hideLeftNav} tappable>
                                     <div className="left">
                                         <Ons.Icon style={{color: '#888'}} icon={item.icon} fixedWidth />
                                     </div>
@@ -143,9 +111,17 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log('here', state.ui);
     return {
+        menu_items: state.ui.menu_items,
         left_nav: state.ui.left_nav
     };
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: bindActionCreators(UiActions, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
