@@ -2,18 +2,11 @@
 const express = require('express');
 const createError = require('http-errors');
 const db = require('./database/connector');
-const mongoose = require("mongoose");
-const mongooseSchema = mongoose.Schema;
 const cors = require('cors');
 const logger = require('morgan');
-const path = require('path');
 
 // Create app
 let app = express();
-
-// Setup view engine
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 app.use(logger('combined'));
 app.use(express.json());
@@ -42,5 +35,6 @@ app.use((err, req, res, next) => {
 
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    res.setHeader('Content-Type', 'application/json');
+    res.send(err);
 });
