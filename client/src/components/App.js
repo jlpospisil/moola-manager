@@ -20,12 +20,12 @@ class App extends Component {
     }
 
     hideMenu () {
-        alert('fix this to use redux');
+        alert('TODO fix this to use redux');
         this.setState({ leftMenuIsOpen: false });
     }
 
     showMenu () {
-        alert('fix this to use redux');
+        alert('TODO fix this to use redux');
         this.setState({ leftMenuIsOpen: true });
     }
 
