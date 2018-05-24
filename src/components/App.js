@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../css/App.css';
 import * as Ons from 'react-onsenui';
 import AppFabs from './AppFabs';
 
