@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import * as Ons from 'react-onsenui';
-import AppFabs from './AppFabs';
+// import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import * as UI from './ui';
 
-export default class App extends Component {
+class App extends Component {
 
     constructor (props) {
         super(props);
@@ -12,35 +14,23 @@ export default class App extends Component {
         };
         this.hideMenu=this.hideMenu.bind(this);
         this.showMenu=this.showMenu.bind(this);
-        this.renderToolbar=this.renderToolbar.bind(this);
         this.showFabMenu=this.showFabMenu.bind(this);
         this.hideFabMenu=this.hideFabMenu.bind(this);
         this.renderFabs=this.renderFabs.bind(this);
     }
 
     hideMenu () {
+        alert('fix this to use redux');
         this.setState({ leftMenuIsOpen: false });
     }
 
     showMenu () {
+        alert('fix this to use redux');
         this.setState({ leftMenuIsOpen: true });
     }
 
-    renderToolbar () {
-        return (
-            <Ons.Toolbar>
-                <div className="left">
-                    <Ons.ToolbarButton onClick={this.showMenu}>
-                        <Ons.Icon icon="ion-navicon, material:md-menu" />
-                    </Ons.ToolbarButton>
-                </div>
-                <div className="center">Moola Manager</div>
-            </Ons.Toolbar>
-        );
-    }
-
     renderFabs () {
-        return <AppFabs
+        return <UI.FloatingActionButtons
             expanded={this.state.fabMenuIsOpen}
             onExpand={this.showFabMenu}
             onCollapse={this.hideFabMenu}
@@ -92,7 +82,7 @@ export default class App extends Component {
                     width={200}
                     collapse={true}
                     swipeable={true}
-                    isOpen={this.state.leftMenuIsOpen}
+                    isOpen={this.props.left_nav.open}
                     onClose={this.hideMenu}
                     onOpen={this.showMenu}
                 >
@@ -139,7 +129,7 @@ export default class App extends Component {
                     </Ons.Page>
                 </Ons.SplitterSide>
                 <Ons.SplitterContent>
-                    <Ons.Page renderToolbar={this.renderToolbar} renderFixed={this.renderFabs}>
+                    <Ons.Page renderToolbar={() => { return <UI.TopToolbar /> }} renderFixed={this.renderFabs}>
                         <section style={{margin: '16px'}}>
                             <p>
                                 Swipe right to open the menu.
@@ -151,3 +141,11 @@ export default class App extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        left_nav: state.ui.left_nav
+    };
+};
+
+export default connect(mapStateToProps)(App);

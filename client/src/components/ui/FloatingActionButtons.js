@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as Ons from 'react-onsenui';
 
 
-export default class AppFabs extends Component {
+export default class FloatingActionButtons extends Component {
 
     constructor(props) {
         super(props);
@@ -91,11 +91,11 @@ export default class AppFabs extends Component {
                             {fab.label}
                         </span>
                         <Ons.Fab onClick={this.fabClicked.bind(this, fab)}
-                            style={{
-                                backgroundColor: fab.backgroundColor ? fab.backgroundColor : "#4282cc",
-                                color: fab.color ? fab.color : "#ffffff",
-                                boxShadow: "0 2px 5px rgba(0,0,0,0.33)"
-                            }}
+                                 style={{
+                                     backgroundColor: fab.backgroundColor ? fab.backgroundColor : "#4282cc",
+                                     color: fab.color ? fab.color : "#ffffff",
+                                     boxShadow: "0 2px 5px rgba(0,0,0,0.33)"
+                                 }}
                         >
                             <Ons.Icon icon={fab.icon ? fab.icon : 'md-plus'} />
                         </Ons.Fab>
