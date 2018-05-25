@@ -18,32 +18,30 @@ class App extends Component {
         this.renderFabs=this.renderFabs.bind(this);
     }
 
+    fabItems () {
+        return this.props.menu_items.filter(item => item.fab)
+            .sort((a, b) => {
+                return a.fab.index - b.fab.index;
+            })
+            .map((item, index) => {
+                item.label = item.fab.label;
+
+                if (index > 0) {
+                    item.backgroundColor = "#cccccc";
+                    item.color = "#333333";
+                }
+
+                return item;
+            })
+            .reverse();
+    }
+
     renderFabs () {
         return <UI.FloatingActionButtons
             expanded={this.state.fabMenuIsOpen}
             onExpand={this.showFabMenu}
             onCollapse={this.hideFabMenu}
-            fabItems={[
-                {
-                    label: 'Add Account',
-                    backgroundColor: '#cccccc',
-                    icon: 'md-accounts-list',
-                    color: '#333333',
-                    url: ''
-                },
-                {
-                    label: 'Add Category',
-                    backgroundColor: '#cccccc',
-                    color: '#555555',
-                    icon: 'md-folder',
-                    url: ''
-                },
-                {
-                    label: 'Add Transaction',
-                    icon: 'md-receipt',
-                    url: ''
-                }
-            ]}
+            fabItems={this.fabItems()}
             onFabClick={this.fabClicked}
         />;
     }

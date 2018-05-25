@@ -4,10 +4,18 @@ const initialState = {
     menu_items: [
         {
             title: 'Accounts',
-            icon: 'md-accounts-list'
+            fab: {
+                index: 3,
+                label: 'Add Account'
+            },
+            icon: 'md-card'
         },
         {
             title: 'Transactions',
+            fab: {
+                index: 1,
+                label: 'Add Transaction'
+            },
             icon: 'md-receipt'
         },
         {
@@ -16,6 +24,10 @@ const initialState = {
         },
         {
             title: 'Categories',
+            fab: {
+                index: 2,
+                label: 'Add Category'
+            },
             icon: 'md-folder'
         },
         {
