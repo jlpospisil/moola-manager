@@ -8,30 +8,12 @@ import * as UiActions from '../actions/ui-actions';
 
 class App extends Component {
 
-    constructor (props) {
-        super(props);
-
-        this.renderFabs=this.renderFabs.bind(this);
-    }
-
     renderLeftNav () {
-        return (
-            <UI.TopToolbar />
-        );
+        return <UI.TopToolbar />;
     }
 
     renderFabs () {
-        return <UI.FloatingActionButtons
-            expanded={this.props.fabs.expanded}
-            onExpand={this.props.actions.expandFabs}
-            onCollapse={this.props.actions.collapseFabs}
-            fabItems={this.props.fab_items}
-            onFabClick={this.fabClicked}
-        />;
-    }
-
-    fabClicked (fab) {
-        console.log({ fab });
+        return <UI.FloatingActionButtons />;
     }
 
     render () {
@@ -55,10 +37,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        menu_items: state.ui.menu_items,
-        left_nav: state.ui.left_nav,
-        fabs: state.ui.fabs,
-        fab_items: state.ui.fab_items
+        left_nav: state.ui.left_nav
     };
 };
 

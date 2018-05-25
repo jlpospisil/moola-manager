@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 import * as Ons from 'react-onsenui';
+import * as UiActions from '../../actions/ui-actions';
 
-
-export default class FloatingActionButtons extends Component {
+class FloatingActionButtons extends Component {
 
     constructor(props) {
         super(props);
@@ -20,9 +22,7 @@ export default class FloatingActionButtons extends Component {
     fabClicked (fab, event) {
         event.stopPropagation();
 
-        if (typeof this.props.onFabClick === "function") {
-            this.props.onFabClick(fab);
-        }
+        console.log({ fab });
     }
 
     expandFabs (event) {
@@ -32,14 +32,14 @@ export default class FloatingActionButtons extends Component {
 
         this.cancelExpandFabsOnHover();
 
-        if (typeof this.props.onExpand === "function") {
-            this.props.onExpand();
+        if (typeof this.props.actions.expandFabs === "function") {
+            this.props.actions.expandFabs();
         }
     }
 
     collapseFabs () {
-        if (typeof this.props.onCollapse === "function") {
-            setTimeout(this.props.onCollapse, 200);
+        if (typeof this.props.actions.collapseFabs === "function") {
+            setTimeout(this.props.actions.collapseFabs, 200);
         }
     }
 
@@ -74,8 +74,8 @@ export default class FloatingActionButtons extends Component {
     expandedFabs () {
         let fabs = [];
 
-        if (Array.isArray(this.props.fabItems)) {
-            fabs = this.props.fabItems.map((fab, index) => {
+        if (Array.isArray(this.props.fab_items)) {
+            fabs = this.props.fab_items.map((fab, index) => {
                 return (
                     <div key={index} style={{
                         textAlign: "right",
@@ -110,10 +110,25 @@ export default class FloatingActionButtons extends Component {
     }
 
     render () {
-        if (this.props.expanded) {
+        if (this.props.fabs.expanded) {
             return this.expandedFabs();
         }
 
         return this.collapsedFabs();
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        fabs: state.ui.fabs,
+        fab_items: state.ui.fab_items
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: bindActionCreators(UiActions, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FloatingActionButtons);
