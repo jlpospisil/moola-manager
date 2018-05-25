@@ -39,9 +39,12 @@ class Accounts extends Component {
                         renderRow={(account, index) => (
                             <ListItem key={index}>
                                 <div className="center">{account.name}</div>
-                                <div className="right" style={{padding: "12px"}} onClick={() => { this.deleteAccount(account) }}>
-                                    <Button outline color="danger" style={{borderRadius: "100%"}}>
+                                <div className="right" style={{padding: "12px"}}>
+                                    <Button outline color="danger" className="mr-2" style={{borderRadius: "100%"}} onClick={() => { this.deleteAccount(account) }}>
                                         <Icon icon="fa-trash" />
+                                    </Button>
+                                    <Button outline color="secondary" style={{borderRadius: "100%"}}>
+                                        <Icon icon="fa-pencil" />
                                     </Button>
                                 </div>
                             </ListItem>
