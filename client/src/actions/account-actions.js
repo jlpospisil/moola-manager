@@ -60,3 +60,15 @@ export const createAccount = (account) => {
             });
     };
 };
+
+export const deleteAccount = (accountId) => {
+    return (dispatch) => {
+        return Axios.delete(url(accountId))
+            .then((response) => {
+                dispatch(get(response.data));
+            })
+            .catch((error) => {
+                console.error('Error deleting account with id=' + accountId, error);
+            });
+    };
+};

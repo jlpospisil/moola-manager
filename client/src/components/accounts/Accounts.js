@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Page, List, ListItem, Button } from 'react-onsenui';
+import { Page, List, ListItem, Icon } from 'react-onsenui';
+import { Button } from 'reactstrap';
 import * as AccountActions from '../../actions/account-actions';
 import * as UiActions from '../../actions/ui-actions';
 
@@ -21,6 +22,13 @@ class Accounts extends Component {
         ]);
     }
 
+    deleteAccount (account) {
+        if (account._id) {
+            this.props.actions.account.deleteAccount(account._id)
+                .then(this.props.actions.account.getAccounts);
+        }
+    }
+
     render () {
         return (
             <Page>
@@ -30,12 +38,17 @@ class Accounts extends Component {
                         dataSource={this.props.accounts}
                         renderRow={(account, index) => (
                             <ListItem key={index}>
-                                <div>{account.name}</div>
+                                <div className="center">{account.name}</div>
+                                <div className="right" style={{padding: "12px"}} onClick={() => { this.deleteAccount(account) }}>
+                                    <Button outline color="danger" style={{borderRadius: "100%"}}>
+                                        <Icon icon="fa-trash" />
+                                    </Button>
+                                </div>
                             </ListItem>
                         )}
                     />
                     <div style={{padding: "15px"}}>
-                        <Button onClick={this.addNewAccount.bind(this)} modifier="large">
+                        <Button color="primary" size="lg" block onClick={this.addNewAccount.bind(this)}>
                             Add Account
                         </Button>
                     </div>
