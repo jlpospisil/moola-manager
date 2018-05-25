@@ -15,7 +15,6 @@ export const hideLeftNav = () => {
 };
 
 export const expandFabs = () => {
-    console.log('expandFabs');
     return {
         type: UiActionTypes.TOGGLE_FABS,
         expanded: true
