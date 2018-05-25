@@ -36,6 +36,12 @@ class App extends Component {
             .reverse();
     }
 
+    renderLeftNav () {
+        return (
+            <UI.TopToolbar />
+        );
+    }
+
     renderFabs () {
         return <UI.FloatingActionButtons
             expanded={this.state.fabMenuIsOpen}
@@ -95,7 +101,7 @@ class App extends Component {
                     </Ons.Page>
                 </Ons.SplitterSide>
                 <Ons.SplitterContent>
-                    <Ons.Page renderToolbar={() => { return <UI.TopToolbar /> }} renderFixed={this.renderFabs}>
+                    <Ons.Page renderToolbar={this.renderLeftNav} renderFixed={this.renderFabs}>
                         <section style={{margin: '16px'}}>
                             <p>
                                 Swipe right to open the menu.
