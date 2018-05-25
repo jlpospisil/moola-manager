@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
-// import * as Ons from 'react-onsenui';
+import { Page } from 'react-onsenui';
 
 
 export default class Budgets extends Component {
 
     render () {
         return (
-            <div>Budgets component</div>
+            <Page>
+                <main>
+                    <h2>Budgets</h2>
+                </main>
+            </Page>
         );
     }
 }

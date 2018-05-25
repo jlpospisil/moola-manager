@@ -16,12 +16,12 @@ class App extends Component {
     render () {
         return (
             <BrowserRouter>
-                <Splitter onClick={this.props.actions.collapseFabs}>
-                    <UI.LeftNavigation />
+                <div className="App">
+                    <Splitter onClick={this.props.actions.collapseFabs}>
+                        <UI.LeftNavigation />
 
-                    <SplitterContent>
-                        <Page renderToolbar={() => <UI.TopToolbar />} renderFixed={() => <UI.FloatingActionButtons />}>
-                            <main style={{ padding: "15px" }}>
+                        <SplitterContent>
+                            <Page renderToolbar={() => <UI.TopToolbar />} renderFixed={() => <UI.FloatingActionButtons />}>
                                 <Switch>
                                     <Route exact path="/accounts" component={Accounts} />
                                     <Route exact path="/transactions" component={Transactions} />
@@ -31,10 +31,10 @@ class App extends Component {
                                     <Route exact path="/" />
                                     <Redirect to="/" />
                                 </Switch>
-                            </main>
-                        </Page>
-                    </SplitterContent>
-                </Splitter>
+                            </Page>
+                        </SplitterContent>
+                    </Splitter>
+                </div>
             </BrowserRouter>
         );
     }

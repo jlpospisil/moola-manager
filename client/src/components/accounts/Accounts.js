@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import * as Ons from 'react-onsenui';
+import { Page } from 'react-onsenui';
 import * as AccountActions from '../../actions/account-actions';
 
 class Accounts extends Component {
@@ -9,12 +9,18 @@ class Accounts extends Component {
     constructor(props) {
         super(props);
 
-        props.actions.listAccounts();
+        props.actions.listAccounts().then(() => {
+            console.log(this.props.accounts);
+        });
     }
 
     render () {
         return (
-            <div>Accounts component</div>
+            <Page>
+                <main>
+                    <h2>Accounts</h2>
+                </main>
+            </Page>
         );
     }
 }

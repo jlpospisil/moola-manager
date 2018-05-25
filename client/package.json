@@ -2,6 +2,7 @@
   "name": "@jlpospisil/moola-manager",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src",
     "watch-css": "npm run build-css && node-sass-chokidar src -o src --watch --recursive",

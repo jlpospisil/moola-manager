@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
-// import * as Ons from 'react-onsenui';
+import { Page } from 'react-onsenui';
 
 
 export default class Settings extends Component {
 
     render () {
         return (
-            <div>Settings component</div>
+            <Page>
+                <main>
+                    <h2>Settings</h2>
+                </main>
+            </Page>
         );
     }
 }

@@ -20,7 +20,7 @@ app.listen(process.env.PORT || 3001);
 const accountsRouter = require('./routes/accounts');
 
 // Add Routes
-app.use('/accounts', accountsRouter);
+app.use('/api/accounts', accountsRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

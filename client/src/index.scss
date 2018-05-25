@@ -1,2 +1,10 @@
 @import '~onsenui/css/onsenui.css';
 @import '~onsenui/css/onsen-css-components.css';
+
+.App {
+  .page {
+    main {
+      padding: 10px 15px;
+    }
+  }
+}

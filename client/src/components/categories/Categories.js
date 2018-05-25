@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
-// import * as Ons from 'react-onsenui';
+import { Page } from 'react-onsenui';
 
 
 export default class Categories extends Component {
 
     render () {
         return (
-            <div>Categories component</div>
+            <Page>
+                <main>
+                    <h2>Categories</h2>
+                </main>
+            </Page>
         );
     }
 }
