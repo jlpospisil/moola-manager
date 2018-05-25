@@ -1,6 +1,6 @@
 import * as UiActionTypes from '../actions/ui-action-types';
 
-const initialState = {
+let initialState = {
     menu_items: [
         {
             title: 'Accounts',
@@ -38,7 +38,26 @@ const initialState = {
     left_nav: {
         open: false
     },
+    fabs: {
+        expanded: false
+    }
 };
+
+initialState.fab_items = initialState.menu_items.filter(item => item.fab)
+    .sort((a, b) => {
+        return a.fab.index - b.fab.index;
+    })
+    .map((item, index) => {
+        item.label = item.fab.label;
+
+        if (index > 0) {
+            item.backgroundColor = "#cccccc";
+            item.color = "#333333";
+        }
+
+        return item;
+    })
+    .reverse();
 
 export default (state = {}, action) => {
     switch (action.type) {
@@ -48,6 +67,15 @@ export default (state = {}, action) => {
                 ...state,
                 left_nav: {
                     open: action.open
+                }
+            };
+
+        case UiActionTypes.TOGGLE_FABS:
+            return {
+                ...initialState,
+                ...state,
+                fabs: {
+                    expanded: action.expanded
                 }
             };
 

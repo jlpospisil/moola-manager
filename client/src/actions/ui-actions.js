@@ -3,7 +3,7 @@ import * as UiActionTypes from './ui-action-types';
 export const showLeftNav = () => {
     return {
         type: UiActionTypes.TOGGLE_NAV,
-            open: true
+        open: true
     };
 };
 
@@ -12,4 +12,19 @@ export const hideLeftNav = () => {
         type: UiActionTypes.TOGGLE_NAV,
         open: false
     };
+};
+
+export const expandFabs = () => {
+    console.log('expandFabs');
+    return {
+        type: UiActionTypes.TOGGLE_FABS,
+        expanded: true
+    }
+};
+
+export const collapseFabs = () => {
+    return {
+        type: UiActionTypes.TOGGLE_FABS,
+        expanded: false
+    }
 };

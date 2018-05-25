@@ -10,30 +10,8 @@ class App extends Component {
 
     constructor (props) {
         super(props);
-        this.state = {
-            fabMenuIsOpen: false
-        };
-        this.showFabMenu=this.showFabMenu.bind(this);
-        this.hideFabMenu=this.hideFabMenu.bind(this);
+
         this.renderFabs=this.renderFabs.bind(this);
-    }
-
-    fabItems () {
-        return this.props.menu_items.filter(item => item.fab)
-            .sort((a, b) => {
-                return a.fab.index - b.fab.index;
-            })
-            .map((item, index) => {
-                item.label = item.fab.label;
-
-                if (index > 0) {
-                    item.backgroundColor = "#cccccc";
-                    item.color = "#333333";
-                }
-
-                return item;
-            })
-            .reverse();
     }
 
     renderLeftNav () {
@@ -44,20 +22,12 @@ class App extends Component {
 
     renderFabs () {
         return <UI.FloatingActionButtons
-            expanded={this.state.fabMenuIsOpen}
-            onExpand={this.showFabMenu}
-            onCollapse={this.hideFabMenu}
-            fabItems={this.fabItems()}
+            expanded={this.props.fabs.expanded}
+            onExpand={this.props.actions.expandFabs}
+            onCollapse={this.props.actions.collapseFabs}
+            fabItems={this.props.fab_items}
             onFabClick={this.fabClicked}
         />;
-    }
-
-    showFabMenu () {
-        this.setState({ fabMenuIsOpen: true });
-    }
-
-    hideFabMenu () {
-        this.setState({ fabMenuIsOpen: false });
     }
 
     fabClicked (fab) {
@@ -66,7 +36,7 @@ class App extends Component {
 
     render () {
         return (
-            <Ons.Splitter onClick={this.hideFabMenu}>
+            <Ons.Splitter onClick={this.props.actions.collapseFabs}>
                 <Ons.SplitterSide
                     style={{
                         boxShadow: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)'
@@ -117,7 +87,9 @@ class App extends Component {
 const mapStateToProps = (state) => {
     return {
         menu_items: state.ui.menu_items,
-        left_nav: state.ui.left_nav
+        left_nav: state.ui.left_nav,
+        fabs: state.ui.fabs,
+        fab_items: state.ui.fab_items
     };
 };
 
