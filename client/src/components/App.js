@@ -8,21 +8,13 @@ import * as UiActions from '../actions/ui-actions';
 
 class App extends Component {
 
-    renderLeftNav () {
-        return <UI.TopToolbar />;
-    }
-
-    renderFabs () {
-        return <UI.FloatingActionButtons />;
-    }
-
     render () {
         return (
             <Ons.Splitter onClick={this.props.actions.collapseFabs}>
                 <UI.LeftNavigation />
 
                 <Ons.SplitterContent>
-                    <Ons.Page renderToolbar={this.renderLeftNav} renderFixed={this.renderFabs}>
+                    <Ons.Page renderToolbar={() => <UI.TopToolbar />} renderFixed={() => <UI.FloatingActionButtons />}>
                         <section style={{margin: '16px'}}>
                             <p>
                                 Swipe right to open the menu.
