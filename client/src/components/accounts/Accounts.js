@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as Ons from 'react-onsenui';
+// import * as Ons from 'react-onsenui';
 import * as AccountActions from '../../actions/account-actions';
 
 class Accounts extends Component {

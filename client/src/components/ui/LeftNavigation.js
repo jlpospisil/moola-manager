@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { SplitterSide, Page, Card, List, ListItem, Icon } from 'react-onsenui';
 import * as UiActions from '../../actions/ui-actions';
 
@@ -30,14 +31,23 @@ class TopToolbar extends Component {
                     <List
                         dataSource={this.props.menu_items}
                         renderRow={(item) => (
-                            <ListItem key={item.title} onClick={this.props.actihideLeftNav} tappable>
-                                <div className="left">
-                                    <Icon style={{color: '#888'}} icon={item.icon} fixedWidth />
-                                </div>
-                                <div className="center">
-                                    {item.title}
-                                </div>
-                            </ListItem>
+                            <Link
+                                key={item.title}
+                                to={`/${item.title.toLowerCase()}`}
+                                onClick={this.props.actions.hideLeftNav}
+                                style={{
+                                    textDecoration: "none"
+                                }}
+                            >
+                                <ListItem tappable>
+                                    <div className="left">
+                                        <Icon style={{color: '#888'}} icon={item.icon} fixedWidth />
+                                    </div>
+                                    <div className="center">
+                                        {item.title}
+                                    </div>
+                                </ListItem>
+                            </Link>
                         )}
                     />
                 </Page>

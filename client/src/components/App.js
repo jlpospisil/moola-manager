@@ -6,6 +6,10 @@ import { bindActionCreators } from 'redux'
 import * as UI from './ui';
 import * as UiActions from '../actions/ui-actions';
 import Accounts from './accounts/Accounts';
+import Transactions from './transactions/Transactions';
+import Budgets from './budgets/Budgets';
+import Categories from './categories/Categories';
+import Settings from './settings/Settings';
 
 class App extends Component {
 
@@ -20,9 +24,11 @@ class App extends Component {
                             <main style={{ padding: "15px" }}>
                                 <Switch>
                                     <Route exact path="/accounts" component={Accounts} />
-
+                                    <Route exact path="/transactions" component={Transactions} />
+                                    <Route exact path="/budgets" component={Budgets} />
+                                    <Route exact path="/categories" component={Categories} />
+                                    <Route exact path="/settings" component={Settings} />
                                     <Route exact path="/" />
-
                                     <Redirect to="/" />
                                 </Switch>
                             </main>
