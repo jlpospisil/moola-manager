@@ -37,39 +37,8 @@ class App extends Component {
     render () {
         return (
             <Ons.Splitter onClick={this.props.actions.collapseFabs}>
-                <Ons.SplitterSide
-                    style={{
-                        boxShadow: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)'
-                    }}
-                    side='left'
-                    width={300}
-                    collapse={true}
-                    swipeable={true}
-                    isOpen={this.props.left_nav.open}
-                    onClose={this.props.actions.hideLeftNav}
-                    onOpen={this.props.actions.showLeftNav}
-                >
-                    <Ons.Page>
-                        <Ons.Card style={{margin: 0, padding: '50px 10px', borderRadius: 0}}>
-                            <div className="left">
-                                TODO: Add background image here
-                            </div>
-                        </Ons.Card>
-                        <Ons.List
-                            dataSource={this.props.menu_items}
-                            renderRow={(item) => (
-                                <Ons.ListItem key={item.title} onClick={this.props.actions.hideLeftNav} tappable>
-                                    <div className="left">
-                                        <Ons.Icon style={{color: '#888'}} icon={item.icon} fixedWidth />
-                                    </div>
-                                    <div className="center">
-                                        {item.title}
-                                    </div>
-                                </Ons.ListItem>
-                            )}
-                        />
-                    </Ons.Page>
-                </Ons.SplitterSide>
+                <UI.LeftNavigation />
+
                 <Ons.SplitterContent>
                     <Ons.Page renderToolbar={this.renderLeftNav} renderFixed={this.renderFabs}>
                         <section style={{margin: '16px'}}>
