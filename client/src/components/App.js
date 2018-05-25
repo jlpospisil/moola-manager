@@ -16,12 +16,16 @@ class App extends Component {
     render () {
         return (
             <BrowserRouter>
-                <div className="App">
+                <Page className="App">
                     <Splitter onClick={this.props.actions.collapseFabs}>
                         <UI.LeftNavigation />
 
                         <SplitterContent>
-                            <Page renderToolbar={() => <UI.TopToolbar />} renderFixed={() => <UI.FloatingActionButtons />}>
+                            <Page
+                                renderToolbar={() => <UI.TopToolbar />}
+                                renderFixed={() => <UI.FloatingActionButtons />}
+                                renderModal={() => <UI.ModalForm />}
+                            >
                                 <Switch>
                                     <Route exact path="/accounts" component={Accounts} />
                                     <Route exact path="/transactions" component={Transactions} />
@@ -34,7 +38,7 @@ class App extends Component {
                             </Page>
                         </SplitterContent>
                     </Splitter>
-                </div>
+                </Page>
             </BrowserRouter>
         );
     }

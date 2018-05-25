@@ -27,3 +27,17 @@ export const collapseFabs = () => {
         expanded: false
     }
 };
+
+export const showModalForm = () => {
+    return {
+        type: UiActionTypes.TOGGLE_MODAL_FORM,
+        open: true
+    }
+};
+
+export const closeModalForm = () => {
+    return {
+        type: UiActionTypes.TOGGLE_MODAL_FORM,
+        open: false
+    }
+};

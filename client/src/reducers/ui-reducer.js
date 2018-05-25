@@ -40,6 +40,9 @@ let initialState = {
     },
     fabs: {
         expanded: false
+    },
+    modal_form: {
+        open: false
     }
 };
 
@@ -74,6 +77,14 @@ export default (state = initialState, action) => {
                 ...state,
                 fabs: {
                     expanded: action.expanded
+                }
+            };
+
+        case UiActionTypes.TOGGLE_MODAL_FORM:
+            return {
+                ...state,
+                modal_form: {
+                    open: action.open
                 }
             };
 

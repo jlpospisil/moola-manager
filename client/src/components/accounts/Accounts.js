@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Page, List, ListItem } from 'react-onsenui';
+import { Page, List, ListItem, Button } from 'react-onsenui';
 import * as AccountActions from '../../actions/account-actions';
+import * as UiActions from '../../actions/ui-actions';
 
 class Accounts extends Component {
 
     constructor(props) {
         super(props);
 
-        props.actions.getAccounts();
+        props.actions.account.getAccounts();
     }
 
     render () {
@@ -25,6 +26,11 @@ class Accounts extends Component {
                             </ListItem>
                         )}
                     />
+                    <div style={{padding: "15px"}}>
+                        <Button onClick={this.props.actions.ui.showModalForm} modifier="large">
+                            Add Account
+                        </Button>
+                    </div>
                 </main>
             </Page>
         );
@@ -39,7 +45,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        actions: bindActionCreators(AccountActions, dispatch)
+        actions: {
+            ui: bindActionCreators(UiActions, dispatch),
+            account: bindActionCreators(AccountActions, dispatch)
+        }
     };
 };
 
