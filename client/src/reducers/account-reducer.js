@@ -2,7 +2,9 @@ import * as AccountActionTypes from '../actions/account-action-types';
 
 const initialState = {
     accounts: [],
-    account: {}
+    account: {
+        name: null
+    }
 };
 
 export default (state = initialState, action) => {

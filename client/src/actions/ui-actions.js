@@ -41,3 +41,17 @@ export const closeModalForm = () => {
         open: false
     }
 };
+
+export const setModalForm = (form) => {
+    return {
+        type: UiActionTypes.SET_MODAL_FORM,
+        form
+    }
+};
+
+export const setModalFormCanSubmit = (can_submit) => {
+    return {
+        type: UiActionTypes.SET_MODAL_FORM_CAN_SUBMIT,
+        can_submit
+    }
+}

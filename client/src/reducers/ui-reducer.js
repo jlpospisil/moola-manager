@@ -42,6 +42,8 @@ let initialState = {
         expanded: false
     },
     modal_form: {
+        form: null,
+        can_submit: false,
         open: false
     }
 };
@@ -63,6 +65,8 @@ initialState.fab_items = initialState.menu_items.filter(item => item.fab)
     .reverse();
 
 export default (state = initialState, action) => {
+    const { modal_form } = state;
+
     switch (action.type) {
         case UiActionTypes.TOGGLE_NAV:
             return {
@@ -84,7 +88,26 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 modal_form: {
+                    ...modal_form,
                     open: action.open
+                }
+            };
+
+        case UiActionTypes.SET_MODAL_FORM:
+            return {
+                ...state,
+                modal_form: {
+                    ...modal_form,
+                    form: action.form
+                }
+            };
+
+        case UiActionTypes.SET_MODAL_FORM_CAN_SUBMIT:
+            return {
+                ...state,
+                modal_form: {
+                    ...modal_form,
+                    can_submit: action.can_submit
                 }
             };
 

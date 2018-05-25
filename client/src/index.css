@@ -1,4 +1,5 @@
 @import url(~onsenui/css/onsenui.css);
 @import url(~onsenui/css/onsen-css-components.css);
+@import url(~bootstrap/dist/css/bootstrap.min.css);
 .App .page main h2.title {
   margin: 15px; }

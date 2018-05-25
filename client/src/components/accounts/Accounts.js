@@ -13,6 +13,11 @@ class Accounts extends Component {
         props.actions.account.getAccounts();
     }
 
+    addNewAccount () {
+        this.props.actions.ui.setModalForm('account');
+        this.props.actions.ui.showModalForm();
+    }
+
     render () {
         return (
             <Page>
@@ -27,7 +32,7 @@ class Accounts extends Component {
                         )}
                     />
                     <div style={{padding: "15px"}}>
-                        <Button onClick={this.props.actions.ui.showModalForm} modifier="large">
+                        <Button onClick={this.addNewAccount.bind(this)} modifier="large">
                             Add Account
                         </Button>
                     </div>
