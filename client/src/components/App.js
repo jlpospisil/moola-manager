@@ -111,7 +111,6 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('here', state.ui);
     return {
         menu_items: state.ui.menu_items,
         left_nav: state.ui.left_nav

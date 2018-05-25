@@ -28,11 +28,11 @@ const initialState = {
     },
 };
 
-export default (state = initialState, action) => {
-    console.log({ state });
+export default (state = {}, action) => {
     switch (action.type) {
         case UiActionTypes.TOGGLE_NAV:
             return {
+                ...initialState,
                 ...state,
                 left_nav: {
                     open: action.open
@@ -40,6 +40,9 @@ export default (state = initialState, action) => {
             };
 
         default:
-            return state;
+            return {
+                ...initialState,
+                ...state
+            };
     }
 };

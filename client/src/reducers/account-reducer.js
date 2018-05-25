@@ -1,13 +1,18 @@
 import * as AccountActionTypes from '../actions/account-action-types';
 
-export default (state = { accounts: [], account: {} }, action) => {
+const initialState = {
+    accounts: [],
+    account: {}
+};
+
+export default (state = {}, action) => {
     switch (action.type) {
         case AccountActionTypes.LIST:
-            return { ...state, accounts: action.accounts };
+            return { ...initialState, ...state, accounts: action.accounts };
         case AccountActionTypes.GET:
-            return { ...state, account: action.account };
+            return { ...initialState, ...state, account: action.account };
 
         default:
-            return state;
+            return { ...initialState, state };
     }
 };
