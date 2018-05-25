@@ -1,26 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Splitter, SplitterContent, Page } from 'react-onsenui';
-// import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux'
 import * as UI from './ui';
 import * as UiActions from '../actions/ui-actions';
+import Accounts from './accounts/Accounts';
 
 class App extends Component {
 
     render () {
         return (
-            <Splitter onClick={this.props.actions.collapseFabs}>
-                <UI.LeftNavigation />
+            <BrowserRouter>
+                <Splitter onClick={this.props.actions.collapseFabs}>
+                    <UI.LeftNavigation />
 
-                <SplitterContent>
-                    <Page renderToolbar={() => <UI.TopToolbar />} renderFixed={() => <UI.FloatingActionButtons />}>
-                        <main style={{ padding: "15px" }}>
-                            Swipe right to open the menu.
-                        </main>
-                    </Page>
-                </SplitterContent>
-            </Splitter>
+                    <SplitterContent>
+                        <Page renderToolbar={() => <UI.TopToolbar />} renderFixed={() => <UI.FloatingActionButtons />}>
+                            <main style={{ padding: "15px" }}>
+                                <Switch>
+                                    <Route exact path="/accounts" component={Accounts} />
+
+                                    <Route exact path="/" />
+
+                                    <Redirect to="/" />
+                                </Switch>
+                            </main>
+                        </Page>
+                    </SplitterContent>
+                </Splitter>
+            </BrowserRouter>
         );
     }
 }
