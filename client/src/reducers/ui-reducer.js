@@ -59,11 +59,10 @@ initialState.fab_items = initialState.menu_items.filter(item => item.fab)
     })
     .reverse();
 
-export default (state = {}, action) => {
+export default (state = initialState, action) => {
     switch (action.type) {
         case UiActionTypes.TOGGLE_NAV:
             return {
-                ...initialState,
                 ...state,
                 left_nav: {
                     open: action.open
@@ -72,7 +71,6 @@ export default (state = {}, action) => {
 
         case UiActionTypes.TOGGLE_FABS:
             return {
-                ...initialState,
                 ...state,
                 fabs: {
                     expanded: action.expanded

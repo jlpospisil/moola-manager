@@ -5,14 +5,13 @@ const initialState = {
     account: {}
 };
 
-export default (state = {}, action) => {
+export default (state = initialState, action) => {
     switch (action.type) {
         case AccountActionTypes.LIST:
-            return { ...initialState, ...state, accounts: action.accounts };
+            return { ...state, accounts: action.accounts };
         case AccountActionTypes.GET:
-            return { ...initialState, ...state, account: action.account };
-
+            return { ...state, account: action.account };
         default:
-            return { ...initialState, state };
+            return state;
     }
 };
