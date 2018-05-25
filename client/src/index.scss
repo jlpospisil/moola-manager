@@ -4,7 +4,9 @@
 .App {
   .page {
     main {
-      padding: 10px 15px;
+      h2.title {
+        margin: 15px;
+      }
     }
   }
 }

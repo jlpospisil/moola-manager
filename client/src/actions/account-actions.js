@@ -24,7 +24,7 @@ export const get = (account) => {
     }
 };
 
-export const listAccounts = () => {
+export const getAccounts = () => {
     return (dispatch) => {
         return Axios.get(url())
             .then((response) => {

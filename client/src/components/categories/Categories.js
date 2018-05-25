@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
-import { Page } from 'react-onsenui';
+import { Page, List, ListItem } from 'react-onsenui';
 
 
 export default class Categories extends Component {
@@ -10,7 +10,15 @@ export default class Categories extends Component {
         return (
             <Page>
                 <main>
-                    <h2>Categories</h2>
+                    <h2 className="title">Categories</h2>
+                    <List
+                        dataSource={[]}
+                        renderRow={(category, index) => (
+                            <ListItem key={index}>
+                                {category.name}
+                            </ListItem>
+                        )}
+                    />
                 </main>
             </Page>
         );

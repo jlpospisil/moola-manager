@@ -1,4 +1,4 @@
 @import url(~onsenui/css/onsenui.css);
 @import url(~onsenui/css/onsen-css-components.css);
-.App .page main {
-  padding: 10px 15px; }
+.App .page main h2.title {
+  margin: 15px; }

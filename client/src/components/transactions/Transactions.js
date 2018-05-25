@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
-import { Page } from 'react-onsenui';
+import { Page, List, ListItem } from 'react-onsenui';
 
 
 export default class Transactions extends Component {
@@ -10,7 +10,15 @@ export default class Transactions extends Component {
         return (
             <Page>
                 <main>
-                    <h2>Transactions</h2>
+                    <h2 className="title">Transactions</h2>
+                    <List
+                        dataSource={[]}
+                        renderRow={(transaction, index) => (
+                            <ListItem key={index}>
+                                {transaction.name}
+                            </ListItem>
+                        )}
+                    />
                 </main>
             </Page>
         );

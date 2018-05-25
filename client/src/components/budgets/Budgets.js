@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
-import { Page } from 'react-onsenui';
+import { Page, List, ListItem } from 'react-onsenui';
 
 
 export default class Budgets extends Component {
@@ -10,7 +10,15 @@ export default class Budgets extends Component {
         return (
             <Page>
                 <main>
-                    <h2>Budgets</h2>
+                    <h2 className="title">Budgets</h2>
+                    <List
+                        dataSource={[]}
+                        renderRow={(budget, index) => (
+                            <ListItem key={index}>
+                                {budget.name}
+                            </ListItem>
+                        )}
+                    />
                 </main>
             </Page>
         );

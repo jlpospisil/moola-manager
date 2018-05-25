@@ -11,12 +11,12 @@ class FloatingActionButtons extends Component {
         this.state = {
             expandTimeout: null
         };
-        this.collapsedFabs=this.collapsedFabs.bind(this);
-        this.expandFabs=this.expandFabs.bind(this);
-        this.collapseFabs=this.collapseFabs.bind(this);
-        this.expandedFabs=this.expandedFabs.bind(this);
-        this.expandFabsOnHover=this.expandFabsOnHover.bind(this);
-        this.cancelExpandFabsOnHover=this.cancelExpandFabsOnHover.bind(this);
+        this.collapsedFabs = this.collapsedFabs.bind(this);
+        this.expandFabs = this.expandFabs.bind(this);
+        this.collapseFabs = this.collapseFabs.bind(this);
+        this.expandedFabs = this.expandedFabs.bind(this);
+        this.expandFabsOnHover = this.expandFabsOnHover.bind(this);
+        this.cancelExpandFabsOnHover = this.cancelExpandFabsOnHover.bind(this);
     }
 
     fabClicked (fab, event) {
