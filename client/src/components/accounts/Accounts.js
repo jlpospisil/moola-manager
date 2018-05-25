@@ -16,6 +16,9 @@ class Accounts extends Component {
     addNewAccount () {
         this.props.actions.ui.setModalForm('account');
         this.props.actions.ui.showModalForm();
+        this.props.actions.ui.updateModalFormFields([
+            { name: "name", required: true, value: "" }
+        ]);
     }
 
     render () {
@@ -27,7 +30,7 @@ class Accounts extends Component {
                         dataSource={this.props.accounts}
                         renderRow={(account, index) => (
                             <ListItem key={index}>
-                                {account.name}
+                                <div>{account.name}</div>
                             </ListItem>
                         )}
                     />

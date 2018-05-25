@@ -9,30 +9,25 @@ class NewAccountForm extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            fields: [
-                { name: "name", required: true, value: "" }
-            ]
-        };
+
         this.validateForm = this.validateForm.bind(this);
 
     }
 
     validateForm (event,index) {
-        let fields = this.state.fields;
+        let fields = this.props.form_fields;
         let field = fields[index];
         field.value = event.target.value;
-        this.setState({ fields });
+
+        this.props.actions.ui.updateModalFormFields(fields);
 
         const required_fields = fields.filter(field => field.required);
         const missing_fields = required_fields.filter(field => !field.value)
 
         if (missing_fields.length > 0 && this.props.can_submit) {
-            console.log('1');
             this.props.actions.ui.setModalFormCanSubmit(false);
         }
         else if (missing_fields.length === 0 && !this.props.can_submit) {
-            console.log('2');
             this.props.actions.ui.setModalFormCanSubmit(true);
         }
     }
@@ -41,7 +36,7 @@ class NewAccountForm extends Component {
         return (
             <div>
                 {
-                    this.state.fields.map((field, index) => (
+                    this.props.form_fields.map((field, index) => (
                         <FormGroup key={field.name}>
                             <Label for="accountName">Name</Label>
                             <Input id="accountName" value={field.value} onChange={(event) => { this.validateForm(event, index) }}  />
@@ -55,6 +50,7 @@ class NewAccountForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        form_fields: state.ui.modal_form.fields,
         can_submit: state.ui.modal_form.can_submit,
         account: state.accounts.account
     };

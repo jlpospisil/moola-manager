@@ -43,6 +43,7 @@ let initialState = {
     },
     modal_form: {
         form: null,
+        fields: [],
         can_submit: false,
         open: false
     }
@@ -108,6 +109,15 @@ export default (state = initialState, action) => {
                 modal_form: {
                     ...modal_form,
                     can_submit: action.can_submit
+                }
+            };
+
+        case UiActionTypes.UPDATE_MODAL_FORM_FIELDS:
+            return {
+                ...state,
+                modal_form: {
+                    ...modal_form,
+                    fields: [...action.fields]
                 }
             };
 

@@ -4,14 +4,14 @@ export const showLeftNav = () => {
     return {
         type: UiActionTypes.TOGGLE_NAV,
         open: true
-    };
+    }
 };
 
 export const hideLeftNav = () => {
     return {
         type: UiActionTypes.TOGGLE_NAV,
         open: false
-    };
+    }
 };
 
 export const expandFabs = () => {
@@ -54,4 +54,11 @@ export const setModalFormCanSubmit = (can_submit) => {
         type: UiActionTypes.SET_MODAL_FORM_CAN_SUBMIT,
         can_submit
     }
-}
+};
+
+export const updateModalFormFields = (fields) => {
+    return {
+        type: UiActionTypes.UPDATE_MODAL_FORM_FIELDS,
+        fields
+    }
+};

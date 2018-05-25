@@ -3,6 +3,7 @@ import Axios from 'axios';
 
 const url = (accountId) => {
     let url = '/api/accounts';
+
     if (accountId) {
         url += `/${accountId}`;
     }
@@ -44,6 +45,18 @@ export const getAccount = (accountId) => {
             })
             .catch((error) => {
                 console.error('Error retrieving account with id=' + accountId, error);
+            });
+    };
+};
+
+export const createAccount = (account) => {
+    return (dispatch) => {
+        return Axios.post(url(), {...account})
+            .then((response) => {
+                dispatch(get(response.data));
+            })
+            .catch((error) => {
+                console.error('Error saving new account', { account, error });
             });
     };
 };
