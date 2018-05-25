@@ -20,8 +20,6 @@ export default class FloatingActionButtons extends Component {
     fabClicked (fab, event) {
         event.stopPropagation();
 
-        console.log('here', fab);
-
         if (typeof this.props.onFabClick === "function") {
             this.props.onFabClick(fab);
         }
