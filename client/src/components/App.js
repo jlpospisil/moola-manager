@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as Ons from 'react-onsenui';
+import { Splitter, SplitterContent, Page } from 'react-onsenui';
 // import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux'
 import * as UI from './ui';
@@ -10,19 +10,17 @@ class App extends Component {
 
     render () {
         return (
-            <Ons.Splitter onClick={this.props.actions.collapseFabs}>
+            <Splitter onClick={this.props.actions.collapseFabs}>
                 <UI.LeftNavigation />
 
-                <Ons.SplitterContent>
-                    <Ons.Page renderToolbar={() => <UI.TopToolbar />} renderFixed={() => <UI.FloatingActionButtons />}>
-                        <section style={{margin: '16px'}}>
-                            <p>
-                                Swipe right to open the menu.
-                            </p>
-                        </section>
-                    </Ons.Page>
-                </Ons.SplitterContent>
-            </Ons.Splitter>
+                <SplitterContent>
+                    <Page renderToolbar={() => <UI.TopToolbar />} renderFixed={() => <UI.FloatingActionButtons />}>
+                        <main style={{ padding: "15px" }}>
+                            Swipe right to open the menu.
+                        </main>
+                    </Page>
+                </SplitterContent>
+            </Splitter>
         );
     }
 }
