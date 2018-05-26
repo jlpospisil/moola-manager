@@ -38,7 +38,7 @@ class NewAccountForm extends Component {
                 {
                     this.props.form_fields.map((field, index) => (
                         <FormGroup key={field.name}>
-                            <Label for="accountName">Name</Label>
+                            <Label for="accountName" style={{textTransform: "capitalize"}}>{field.label || field.name}</Label>
                             <Input id="accountName" value={field.value} onChange={(event) => { this.validateForm(event, index) }}  />
                         </FormGroup>
                     ))

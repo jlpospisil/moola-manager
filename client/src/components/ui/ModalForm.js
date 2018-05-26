@@ -6,7 +6,7 @@ import * as UiActions from '../../actions/ui-actions';
 import * as AccountActions from '../../actions/account-actions';
 import NewAccountForm from '../accounts/NewAccountForm';
 
-class TopToolbar extends Component {
+class ModalForm extends Component {
 
     saveForm () {
         const fields = this.props.modal_form.fields
@@ -91,4 +91,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopToolbar);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalForm);

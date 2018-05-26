@@ -18,7 +18,8 @@ class Accounts extends Component {
         this.props.actions.ui.setModalForm('account');
         this.props.actions.ui.showModalForm();
         this.props.actions.ui.updateModalFormFields([
-            { name: "name", required: true, value: "" }
+            { name: "name", required: true, value: "" },
+            { name: "balance", required: false, value: "" }
         ]);
     }
 
