@@ -36,7 +36,11 @@ class Accounts extends Component {
             <Page>
                 <main>
                     <List
-                        dataSource={this.props.accounts}
+                        dataSource={this.props.accounts.sort((a,b) => {
+                            if(a.name < b.name) return -1;
+                            if(a.name > b.name) return 1;
+                            return 0;
+                        })}
                         renderRow={(account, index) => (
                             <ListItem key={index}>
                                 <div className="center">{account.name}</div>
