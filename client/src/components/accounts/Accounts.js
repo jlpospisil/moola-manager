@@ -52,11 +52,6 @@ class Accounts extends Component {
                             </ListItem>
                         )}
                     />
-                    <div style={{padding: "15px"}}>
-                        <Button color="primary" size="lg" block onClick={this.addNewAccount.bind(this)}>
-                            Add Account
-                        </Button>
-                    </div>
                 </main>
             </Page>
         );

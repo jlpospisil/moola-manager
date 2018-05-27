@@ -22,9 +22,24 @@ class FloatingActionButtons extends Component {
     fabClicked (fab, event) {
         event.stopPropagation();
 
-        const adding = fab ? fab.title.toLowerCase() : this.props.fabs.add_item;
+        const adding = (fab ? fab.title.toLowerCase() : this.props.path).replace(/^\//, '');
 
         console.log({ fab, adding });
+
+        switch (adding) {
+            case 'account':
+            case 'accounts':
+                const account_fields = this.props.modal_form.item_fields.account.map(field => {
+                    field.value = "";
+                    return field;
+                });
+                this.props.actions.setModalForm('account');
+                this.props.actions.showModalForm();
+                this.props.actions.updateModalFormFields(account_fields);
+                break;
+
+            default:
+        }
     }
 
     expandFabs (event) {
@@ -126,8 +141,10 @@ class FloatingActionButtons extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        path: state.ui.path,
         fabs: state.ui.fabs,
-        fab_items: state.ui.fab_items
+        fab_items: state.ui.fab_items,
+        modal_form: state.ui.modal_form
     };
 };
 

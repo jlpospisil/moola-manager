@@ -1,3 +1,4 @@
+export const UPDATE_PATH = 'UPDATE_PATH';
 export const TOGGLE_NAV = 'TOGGLE_NAV';
 export const TOGGLE_FABS = 'TOGGLE_FABS';
 export const TOGGLE_FABS_EXPANDABLE = 'TOGGLE_FABS_EXPANDABLE';

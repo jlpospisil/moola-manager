@@ -1,6 +1,7 @@
 import * as UiActionTypes from '../actions/ui-action-types';
 
 let initialState = {
+    path: "/",
     menu_items: [
         {
             title: 'Accounts',
@@ -76,6 +77,12 @@ export default (state = initialState, action) => {
     const { modal_form, fabs } = state;
 
     switch (action.type) {
+        case UiActionTypes.UPDATE_PATH:
+            return {
+                ...state,
+                path: action.path
+            };
+
         case UiActionTypes.TOGGLE_NAV:
             return {
                 ...state,
