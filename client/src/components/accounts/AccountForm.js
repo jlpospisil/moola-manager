@@ -5,7 +5,7 @@ import { FormGroup, Label, Input } from 'reactstrap';
 import * as AccountActions from '../../actions/account-actions';
 import * as UiActions from '../../actions/ui-actions';
 
-class NewAccountForm extends Component {
+class AccountForm extends Component {
 
     constructor(props) {
         super(props);
@@ -37,7 +37,7 @@ class NewAccountForm extends Component {
             <div>
                 {
                     this.props.form_fields.map((field, index) => (
-                        <FormGroup key={field.name}>
+                        <FormGroup key={field.name} style={{ display: (field.name === "_id") ? "none" : "block" }}>
                             <Label for="accountName" style={{textTransform: "capitalize"}}>{field.label || field.name}</Label>
                             <Input id="accountName" value={field.value} onChange={(event) => { this.validateForm(event, index) }}  />
                         </FormGroup>
@@ -65,4 +65,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewAccountForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountForm);

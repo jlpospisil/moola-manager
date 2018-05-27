@@ -5,7 +5,7 @@ import { Modal, Card, Icon } from 'react-onsenui';
 import { Button } from 'reactstrap';
 import * as UiActions from '../../actions/ui-actions';
 import * as AccountActions from '../../actions/account-actions';
-import NewAccountForm from '../accounts/NewAccountForm';
+import AccountForm from '../accounts/AccountForm';
 
 class ModalForm extends Component {
 
@@ -20,8 +20,16 @@ class ModalForm extends Component {
 
         switch (this.props.modal_form.form) {
             case 'account':
-                action = this.props.actions.account.createAccount(fields)
-                    .then(this.props.actions.account.getAccounts);
+                console.log({ fields })
+                if (fields._id) {
+                    console.log('yes');
+                    action = this.props.actions.account.updateAccount(fields)
+                }
+                else {
+                    console.log('no');
+                    action = this.props.actions.account.createAccount(fields)
+                }
+                action = action.then(this.props.actions.account.getAccounts);
                 break;
             default:
                 console.error('Invalid form type', this.props.modal_form.form);
@@ -37,7 +45,7 @@ class ModalForm extends Component {
     renderForm () {
         switch (this.props.modal_form.form) {
             case 'account':
-                return <NewAccountForm />
+                return <AccountForm />
             default:
                 return <div>bummer</div>
         }

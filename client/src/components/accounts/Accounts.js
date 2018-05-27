@@ -14,10 +14,12 @@ class Accounts extends Component {
         props.actions.account.getAccounts();
     }
 
-    addNewAccount () {
-        const account_fields = this.props.modal_form.item_fields.account.map(field => {
-            field.value = "";
-            return field;
+    editAccount (account) {
+        const account_fields = Object.keys(account).map(field => {
+            return {
+                name: field,
+                value: account[field]
+            };
         });
         this.props.actions.ui.setModalForm('account');
         this.props.actions.ui.showModalForm();
@@ -48,7 +50,7 @@ class Accounts extends Component {
                                     <Button outline color="danger" className="mr-2" style={{borderRadius: "100%"}} onClick={() => { this.deleteAccount(account) }}>
                                         <Icon icon="fa-trash" />
                                     </Button>
-                                    <Button outline color="secondary" style={{borderRadius: "100%"}}>
+                                    <Button outline color="secondary" style={{borderRadius: "100%"}} onClick={() => { this.editAccount(account) }}>
                                         <Icon icon="fa-pencil" />
                                     </Button>
                                 </div>

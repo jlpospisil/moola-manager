@@ -35,6 +35,8 @@ router.put('/:id', (req, res) => {
     Model.findById(req.params.id, function (error, record) {
         if (error) console.error(error);
 
+        delete req.body._id;
+
         // update the record
         Object.assign(record, req.body);
 

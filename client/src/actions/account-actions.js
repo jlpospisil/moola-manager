@@ -61,6 +61,18 @@ export const createAccount = (account) => {
     };
 };
 
+export const updateAccount = (account) => {
+    return (dispatch) => {
+        return Axios.put(url(account._id), {...account})
+            .then((response) => {
+                dispatch(get(response.data));
+            })
+            .catch((error) => {
+                console.error('Error saving new account', { account, error });
+            });
+    };
+};
+
 export const deleteAccount = (accountId) => {
     return (dispatch) => {
         return Axios.delete(url(accountId))
