@@ -26,6 +26,8 @@ class FloatingActionButtons extends Component {
     }
 
     expandFabs (event) {
+        if (!this.props.fabs.expandable) return;
+
         if (event && typeof event.stopPropagation === "function") {
             event.stopPropagation();
         }
@@ -44,6 +46,7 @@ class FloatingActionButtons extends Component {
     }
 
     expandFabsOnHover () {
+        if (!this.props.fabs.expandable) return;
         const expandTimeout = setTimeout(this.expandFabs, 300);
         this.setState({ expandTimeout });
     }

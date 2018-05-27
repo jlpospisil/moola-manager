@@ -13,6 +13,15 @@ import Settings from './settings/Settings';
 
 class App extends Component {
 
+    constructor (props) {
+        super(props);
+        this.props.actions.toggleFabsExpandable(window.location.pathname === "/");
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.props.actions.toggleFabsExpandable(window.location.pathname === "/");
+    }
+
     render () {
         return (
             <BrowserRouter>

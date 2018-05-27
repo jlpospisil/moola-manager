@@ -39,6 +39,7 @@ let initialState = {
         open: false
     },
     fabs: {
+        expandable: false,
         expanded: false
     },
     modal_form: {
@@ -66,7 +67,7 @@ initialState.fab_items = initialState.menu_items.filter(item => item.fab)
     .reverse();
 
 export default (state = initialState, action) => {
-    const { modal_form } = state;
+    const { modal_form, fabs } = state;
 
     switch (action.type) {
         case UiActionTypes.TOGGLE_NAV:
@@ -77,10 +78,20 @@ export default (state = initialState, action) => {
                 }
             };
 
+        case UiActionTypes.TOGGLE_FABS_EXPANDABLE:
+            return {
+                ...state,
+                fabs: {
+                    ...fabs,
+                    expandable: action.expandable
+                }
+            };
+
         case UiActionTypes.TOGGLE_FABS:
             return {
                 ...state,
                 fabs: {
+                    ...fabs,
                     expanded: action.expanded
                 }
             };

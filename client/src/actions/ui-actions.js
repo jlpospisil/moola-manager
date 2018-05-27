@@ -14,6 +14,13 @@ export const hideLeftNav = () => {
     }
 };
 
+export const toggleFabsExpandable = (expandable) => {
+    return {
+        type: UiActionTypes.TOGGLE_FABS_EXPANDABLE,
+        expandable
+    }
+};
+
 export const expandFabs = () => {
     return {
         type: UiActionTypes.TOGGLE_FABS,
