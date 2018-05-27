@@ -26,7 +26,10 @@ class FloatingActionButtons extends Component {
     }
 
     expandFabs (event) {
-        if (!this.props.fabs.expandable) return;
+        if (!this.props.fabs.expandable) {
+            this.fabClicked(null, event);
+            return;
+        }
 
         if (event && typeof event.stopPropagation === "function") {
             event.stopPropagation();
