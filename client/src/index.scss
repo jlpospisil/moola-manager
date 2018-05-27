@@ -2,9 +2,15 @@
 @import '~onsenui/css/onsen-css-components.css';
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
+$background-color: #ffffff;
+
 .App {
+  .ons-splitter-side {
+    background-color: $background-color;
+  }
+
   .page__background {
-    background-color: transparent;
+    background-color: $background-color;
   }
 
   .page {
