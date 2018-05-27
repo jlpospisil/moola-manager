@@ -15,10 +15,17 @@ class App extends Component {
 
     constructor (props) {
         super(props);
-        this.props.actions.toggleFabsExpandable(window.location.pathname === "/");
+
+        this.updateFabs = this.updateFabs.bind(this);
+
+        this.updateFabs();
     }
 
     componentWillReceiveProps(nextProps) {
+        this.updateFabs();
+    }
+
+    updateFabs () {
         this.props.actions.toggleFabsExpandable(window.location.pathname === "/");
     }
 

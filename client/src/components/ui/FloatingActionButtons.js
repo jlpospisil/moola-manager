@@ -22,7 +22,9 @@ class FloatingActionButtons extends Component {
     fabClicked (fab, event) {
         event.stopPropagation();
 
-        console.log({ fab });
+        const adding = fab ? fab.title.toLowerCase() : this.props.fabs.add_item;
+
+        console.log({ fab, adding });
     }
 
     expandFabs (event) {
@@ -37,9 +39,7 @@ class FloatingActionButtons extends Component {
 
         this.cancelExpandFabsOnHover();
 
-        if (typeof this.props.actions.expandFabs === "function") {
-            this.props.actions.expandFabs();
-        }
+        this.props.actions.expandFabs();
     }
 
     collapseFabs () {
