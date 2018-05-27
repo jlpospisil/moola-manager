@@ -10,7 +10,6 @@ export default class Categories extends Component {
         return (
             <Page>
                 <main>
-                    <h2 className="title">Categories</h2>
                     <List
                         dataSource={[]}
                         renderRow={(category, index) => (

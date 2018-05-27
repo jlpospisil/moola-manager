@@ -23,7 +23,7 @@ class TopToolbar extends Component {
                 onOpen={this.props.actions.showLeftNav}
             >
                 <Page>
-                    <Card className="bg-primary" style={{margin: 0, padding: '50px 10px', borderRadius: 0}}>
+                    <Card className="bg-primary text-white" style={{margin: 0, padding: '50px 10px', borderRadius: 0, border: 'none', boxShadow: 'none'}}>
                         <div className="left">
                             TODO: Add header
                         </div>

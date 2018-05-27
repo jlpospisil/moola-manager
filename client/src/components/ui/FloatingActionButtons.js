@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import * as Ons from 'react-onsenui';
+import { Fab, Icon } from 'react-onsenui';
 import * as UiActions from '../../actions/ui-actions';
 
 class FloatingActionButtons extends Component {
@@ -77,19 +77,15 @@ class FloatingActionButtons extends Component {
 
     collapsedFabs () {
         return (
-            <Ons.Fab
+            <Fab
                 position="bottom right"
-                style={{
-                    backgroundColor: "#4282cc",
-                    color: "#ffffff",
-                    boxShadow: "0 2px 5px rgba(0,0,0,0.33)"
-                }}
+                className="bg-primary text-white"
                 onClick={this.expandFabs.bind(this)}
                 onMouseEnter={this.expandFabsOnHover}
                 onMouseLeave={this.cancelExpandFabsOnHover}
             >
-                <Ons.Icon icon="md-plus" />
-            </Ons.Fab>
+                <Icon icon="md-plus" />
+            </Fab>
         );
     }
 
@@ -110,15 +106,11 @@ class FloatingActionButtons extends Component {
                         }}>
                             {fab.label}
                         </span>
-                        <Ons.Fab onClick={this.fabClicked.bind(this, fab)}
-                                 style={{
-                                     backgroundColor: fab.backgroundColor ? fab.backgroundColor : "#4282cc",
-                                     color: fab.color ? fab.color : "#ffffff",
-                                     boxShadow: "0 2px 5px rgba(0,0,0,0.33)"
-                                 }}
+                        <Fab className={(index === this.props.fab_items.length - 1) ? 'bg-primary text-white' : 'bg-white text-primary'}
+                            onClick={this.fabClicked.bind(this, fab)}
                         >
-                            <Ons.Icon icon={fab.icon ? fab.icon : 'md-plus'} />
-                        </Ons.Fab>
+                            <Icon icon={fab.icon ? fab.icon : 'md-plus'} />
+                        </Fab>
                     </div>
                 );
             });

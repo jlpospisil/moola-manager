@@ -10,7 +10,6 @@ export default class Budgets extends Component {
         return (
             <Page>
                 <main>
-                    <h2 className="title">Budgets</h2>
                     <List
                         dataSource={[]}
                         renderRow={(budget, index) => (

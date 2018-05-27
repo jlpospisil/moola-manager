@@ -35,7 +35,6 @@ class Accounts extends Component {
         return (
             <Page>
                 <main>
-                    <h2 className="title">Accounts</h2>
                     <List
                         dataSource={this.props.accounts}
                         renderRow={(account, index) => (

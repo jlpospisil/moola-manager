@@ -10,7 +10,6 @@ export default class Settings extends Component {
         return (
             <Page>
                 <main>
-                    <h2 className="title">Settings</h2>
                 </main>
             </Page>
         );

@@ -1,6 +1,6 @@
 // Customize theme
 $background-color: #ffffff;
-$primary-color: #5cb85c;
+$primary-color: #607d8b;
 $theme-colors: (
   "primary": $primary-color
 );
@@ -18,6 +18,14 @@ $theme-colors: (
 .App {
   .ons-splitter-side {
     background-color: $background-color;
+  }
+
+  ons-splitter-mask {
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  ons-fab {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4)
   }
 
   .page__background {

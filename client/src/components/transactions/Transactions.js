@@ -10,7 +10,6 @@ export default class Transactions extends Component {
         return (
             <Page>
                 <main>
-                    <h2 className="title">Transactions</h2>
                     <List
                         dataSource={[]}
                         renderRow={(transaction, index) => (

@@ -9,13 +9,13 @@ class TopToolbar extends Component {
 
     render () {
         return (
-            <Toolbar>
+            <Toolbar className="bg-primary">
                 <div className="left">
                     <ToolbarButton onClick={this.props.actions.showLeftNav}>
-                        <Icon icon="ion-navicon, material:md-menu" />
+                        <Icon className="text-white" icon="fa-bars" />
                     </ToolbarButton>
                 </div>
-                <div className="center">Moola Manager</div>
+                <div className="center text-white" style={{textTransform: "capitalize"}}>{ this.props.path && this.props.path !== '/' ? this.props.path.replace(/^\//, '') : 'Moola Manager' }</div>
             </Toolbar>
         )
     }
@@ -23,6 +23,7 @@ class TopToolbar extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        path: state.ui.path,
         left_nav: state.ui.left_nav
     };
 };
