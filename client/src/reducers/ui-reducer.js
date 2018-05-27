@@ -46,7 +46,13 @@ let initialState = {
         form: null,
         fields: [],
         can_submit: false,
-        open: false
+        open: false,
+        item_fields: {
+            account: [
+                { name: "name", required: true, value: "" },
+                { name: "balance", required: false, value: "" }
+            ]
+        }
     }
 };
 

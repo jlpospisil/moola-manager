@@ -15,12 +15,13 @@ class Accounts extends Component {
     }
 
     addNewAccount () {
+        const account_fields = this.props.modal_form.item_fields.account.map(field => {
+            field.value = "";
+            return field;
+        });
         this.props.actions.ui.setModalForm('account');
         this.props.actions.ui.showModalForm();
-        this.props.actions.ui.updateModalFormFields([
-            { name: "name", required: true, value: "" },
-            { name: "balance", required: false, value: "" }
-        ]);
+        this.props.actions.ui.updateModalFormFields(account_fields);
     }
 
     deleteAccount (account) {
@@ -64,7 +65,8 @@ class Accounts extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        accounts: state.accounts.accounts
+        accounts: state.accounts.accounts,
+        modal_form: state.ui.modal_form
     };
 };
 
