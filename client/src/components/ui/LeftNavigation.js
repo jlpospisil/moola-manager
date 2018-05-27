@@ -39,7 +39,7 @@ class TopToolbar extends Component {
                                     textDecoration: "none"
                                 }}
                             >
-                                <ListItem tappable>
+                                <ListItem tappable modifier="nodivider">
                                     <div className="left">
                                         <Icon style={{color: '#888'}} icon={item.icon} fixedWidth />
                                     </div>

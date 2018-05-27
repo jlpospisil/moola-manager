@@ -3,6 +3,10 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
 .App {
+  .page__background {
+    background-color: transparent;
+  }
+
   .page {
     main {
       h2.title {

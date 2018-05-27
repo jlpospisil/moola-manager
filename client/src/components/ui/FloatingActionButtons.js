@@ -81,6 +81,7 @@ class FloatingActionButtons extends Component {
                 position="bottom right"
                 style={{
                     backgroundColor: "#4282cc",
+                    color: "#ffffff",
                     boxShadow: "0 2px 5px rgba(0,0,0,0.33)"
                 }}
                 onClick={this.expandFabs.bind(this)}
