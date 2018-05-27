@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
-import { Modal, Card, Button, Icon } from 'react-onsenui';
+import { Modal, Card, Icon } from 'react-onsenui';
+import { Button } from 'reactstrap';
 import * as UiActions from '../../actions/ui-actions';
 import * as AccountActions from '../../actions/account-actions';
 import NewAccountForm from '../accounts/NewAccountForm';
@@ -61,11 +62,11 @@ class ModalForm extends Component {
                         {this.renderForm()}
                     </div>
                     <div style={{textAlign: "right", marginTop: "15px"}}>
-                        <Button onClick={this.props.actions.ui.closeModalForm} style={{backgroundColor: "#ff0000", marginRight: "10px"}}>
+                        <Button color="danger" onClick={this.props.actions.ui.closeModalForm} style={{marginRight: "10px"}}>
                             <Icon icon='fa-ban' style={{marginRight: "10px"}} />
                             Cancel
                         </Button>
-                        <Button onClick={this.saveForm.bind(this)} disabled={!this.props.modal_form.can_submit}>
+                        <Button color="primary" onClick={this.saveForm.bind(this)} disabled={!this.props.modal_form.can_submit}>
                             <Icon icon='fa-save' style={{marginRight: "10px"}} />
                             Save
                         </Button>

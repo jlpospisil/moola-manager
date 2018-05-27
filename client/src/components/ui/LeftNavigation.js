@@ -23,12 +23,12 @@ class TopToolbar extends Component {
                 onOpen={this.props.actions.showLeftNav}
             >
                 <Page>
-                    <Card style={{margin: 0, padding: '50px 10px', borderRadius: 0}}>
+                    <Card className="bg-primary" style={{margin: 0, padding: '50px 10px', borderRadius: 0}}>
                         <div className="left">
-                            TODO: Add background image here
+                            TODO: Add header
                         </div>
                     </Card>
-                    <List
+                    <List style={{backgroundImage: "none"}}
                         dataSource={this.props.menu_items}
                         renderRow={(item) => (
                             <Link

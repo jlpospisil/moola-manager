@@ -1,8 +1,19 @@
+// Customize theme
+$background-color: #ffffff;
+$primary-color: #5cb85c;
+$theme-colors: (
+  "primary": $primary-color
+);
+
+// Bootstrap 4
+@import '../node_modules/bootstrap/scss/bootstrap';
+//@import '~bootstrap/scss/bootstrap.scss';
+//@import '~bootstrap/dist/css/bootstrap.min.css';
+
+// Onsen UI
 @import '~onsenui/css/onsenui.css';
 @import '~onsenui/css/onsen-css-components.css';
-@import '~bootstrap/dist/css/bootstrap.min.css';
 
-$background-color: #ffffff;
 
 .App {
   .ons-splitter-side {
