@@ -29,4 +29,4 @@ There are two parts to this project; the front end application and the backend A
 
 ### Start Application
 	cd client && npm run start
-	browse to http://localhost:3000 to view the application
+	browse to [http://localhost:3000](http://localhost:3000) to view the application
