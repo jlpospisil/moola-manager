@@ -1,11 +1,13 @@
 const express = require('express');
 let router = express.Router();
-const Model = require(`../database/models/transaction`);
+const TransactionModel = require(`../database/models/transaction`);
 
 // Route to get all records
-router.get('/', (req, res) => {
-    Model.find({}, '-__v', (error, records) => {
-        if (error) console.error(error);
+router.get('/', (req, res, next) => {
+    TransactionModel.find({}, '-__v', (error, records) => {
+        if (error) {
+            next(error);
+        }
 
         res.send(records);
 
@@ -13,28 +15,35 @@ router.get('/', (req, res) => {
 });
 
 // Route to get specific record
-router.get('/:id', (req, res) => {
-    Model.findById(req.params.id, '-__v', (error, record) => {
-        if (error) console.error(error);
+router.get('/:id', (req, res, next) => {
+    TransactionModel.findById(req.params.id, '-__v', (error, record) => {
+        if (error) {
+            next(error);
+        }
 
-        res.send(record)
+        if (record) {
+            res.send(record);
+        }
+        else {
+            res.status(403).send();
+        }
     });
 });
 
 // Route to add new record
 router.post('/', (req, res, next) => {
-    new Model(req.body).save((error) =>  {
-        if (error) res.send(error);
-
+    new TransactionModel(req.body).save((error) =>  {
+        if (error) {
+            next(error);
+        }
+        
         res.send({ success: true });
     });
 });
 
 // Update a specific record
-router.put('/:id', (req, res) => {
-    Model.findById(req.params.id, function (error, record) {
-        if (error) console.error(error);
-
+router.put('/:id', (req, res, next) => {
+    TransactionModel.findById(req.params.id, function (error, record) {
         delete req.body._id;
 
         // update the record
@@ -42,21 +51,25 @@ router.put('/:id', (req, res) => {
 
         // save the record
         record.save((error) => {
-            if (error) console.log(error);
-
+            if (error) {
+                next(error);
+            }
+            
             res.send({ success: true })
         });
     });
 });
 
 // Delete a record
-router.delete('/:id', (req, res) => {
-    Model.remove({
+router.delete('/:id', (req, res, next) => {
+    TransactionModel.remove({
         _id: req.params.id
 
     }, (error) => {
-        if (error) res.send(error);
-
+        if (error) {
+            next(error);
+        }
+        
         res.send({ success: true });
     });
 });

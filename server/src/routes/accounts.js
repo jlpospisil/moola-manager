@@ -1,40 +1,50 @@
 const express = require('express');
 let router = express.Router();
-const Model = require(`../database/models/account`);
+const AccountModel = require(`../database/models/account`);
 
-// Route to get all records
-router.get('/', (req, res) => {
-    Model.find({}, '-__v', (error, records) => {
-        if (error) console.error(error);
-
-        res.send(records);
+// Get all accounts
+router.get('/', (req, res, next) => {
+    AccountModel.find({}, '-__v -transactions', (error, records) => {
+        if (error) {
+            next(error);
+        }
+        else {
+            res.send(records);
+        }
 
     }).sort({ _id: -1 });
 });
 
-// Route to get specific record
-router.get('/:id', (req, res) => {
-    Model.findById(req.params.id, '-__v', (error, record) => {
-        if (error) console.error(error);
-
-        res.send(record)
+// Get a specific account
+router.get('/:id', (req, res, next) => {
+    AccountModel.findById(req.params.id, '-__v -transactions', (error, record) => {
+        if (error) {
+            next(error);
+        }
+        else if (record) {
+            res.send(record);
+        }
+        else {
+            res.status(403).send();
+        }
     });
 });
 
-// Route to add new record
+// Add a new account
 router.post('/', (req, res, next) => {
-    new Model(req.body).save((error) =>  {
-        if (error) res.send(error);
-
-        res.send({ success: true });
+    new AccountModel(req.body).save((error, account) =>  {
+        if (error) {
+            next(error);
+        }
+        else {
+            res.send({ success: true, account });
+        }
     });
 });
 
-// Update a specific record
-router.put('/:id', (req, res) => {
-    Model.findById(req.params.id, function (error, record) {
-        if (error) console.error(error);
-
+// Update a specific account
+router.put('/:id', (req, res, next) => {
+    AccountModel.findById(req.params.id, function (error, record) {
         delete req.body._id;
 
         // update the record
@@ -42,22 +52,28 @@ router.put('/:id', (req, res) => {
 
         // save the record
         record.save((error) => {
-            if (error) console.log(error);
-
-            res.send({ success: true })
+            if (error) {
+                next(error);
+            }
+            else {
+                res.send({ success: true });
+            }
         });
     });
 });
 
-// Delete a record
-router.delete('/:id', (req, res) => {
-    Model.remove({
+// Delete an account
+router.delete('/:id', (req, res, next) => {
+    AccountModel.remove({
         _id: req.params.id
 
     }, (error) => {
-        if (error) res.send(error);
-
-        res.send({ success: true });
+        if (error){
+            next(error);
+        }
+        else {
+            res.send({ success: true });
+        }
     });
 });
 
