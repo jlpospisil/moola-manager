@@ -64,6 +64,8 @@ router.put('/:id', (req, res, next) => {
 
 // Delete an account
 router.delete('/:id', (req, res, next) => {
+    // TODO: delete all associated transactions before deleting account
+
     AccountModel.remove({
         _id: req.params.id
 

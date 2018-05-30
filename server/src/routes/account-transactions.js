@@ -5,7 +5,7 @@ const TransactionModel = require(`../database/models/transaction`);
 
 // Get transactions for a specific account
 router.get('/:id/transactions', (req, res, next) => {
-    AccountModel.findById(req.params.id, 'transactions')
+    AccountModel.findById(req.params.id)
         .populate('transactions')
         .exec((error, account) => {
             if (error) {
