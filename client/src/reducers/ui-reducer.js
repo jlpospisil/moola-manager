@@ -51,7 +51,7 @@ let initialState = {
         item_fields: {
             account: [
                 { name: "name", required: true, value: "" },
-                // { name: "balance", required: false, value: "" }
+                { name: "balance", required: false, value: "" }
             ]
         }
     }
