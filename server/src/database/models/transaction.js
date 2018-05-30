@@ -7,6 +7,7 @@ const Schema = new mongooseSchema({
     note: { type: String, required: false },
     amount: { type: Number, set: setCurrency, get: getCurrency, required: true }
 }, {
+    id: false,  // don't add _id getter
     toObject : { getters: true, setters: true },
     toJSON : { getters: true, setters: true }
 });
