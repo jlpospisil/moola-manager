@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Page, List, ListItem, Icon } from 'react-onsenui';
 import { Row, Col, Button } from 'reactstrap';
 import * as AccountActions from '../../actions/account-actions';
+import * as TransactionActions from '../../actions/transaction-actions';
 import * as UiActions from '../../actions/ui-actions';
 
 class AccountTransactions extends Component {
@@ -11,17 +12,32 @@ class AccountTransactions extends Component {
     constructor(props) {
         super(props);
 
-        const {id} = props.match.params;
+        this.deleteTransaction = this.deleteTransaction.bind(this);
+        this.getAccountWithTransactions = this.getAccountWithTransactions.bind(this);
 
-        props.actions.account.getAccount(id).then(props.actions.account.getAccountTransactions(id));
+        this.getAccountWithTransactions();
+    }
+
+    getAccountWithTransactions () {
+        const {id} = this.props.match.params;
+        this.props.actions.account.getAccount(id).then(this.props.actions.account.getAccountTransactions(id));
     }
 
     deleteTransaction (transaction) {
-        alert('TODO: delete transaction');
+        this.props.actions.transaction.deleteTransaction(transaction._id)
+            .then(this.getAccountWithTransactions);
     }
 
     editTransaction (transaction) {
-        alert('TODO: edit transaction');
+        const fields = Object.keys(transaction).map(field => {
+            return {
+                name: field,
+                value: transaction[field]
+            };
+        });
+        this.props.actions.ui.setModalForm('transaction');
+        this.props.actions.ui.updateModalFormFields(fields);
+        this.props.actions.ui.showModalForm();
     }
 
     render () {
@@ -60,7 +76,8 @@ class AccountTransactions extends Component {
 const mapStateToProps = (state) => {
     return {
         transactions: Array.isArray(state.accounts.account.transactions) ? state.accounts.account.transactions : [],
-        modal_form: state.ui.modal_form
+        modal_form: state.ui.modal_form,
+        account: state.accounts.account
     };
 };
 
@@ -68,7 +85,8 @@ const mapDispatchToProps = dispatch => {
     return {
         actions: {
             ui: bindActionCreators(UiActions, dispatch),
-            account: bindActionCreators(AccountActions, dispatch)
+            account: bindActionCreators(AccountActions, dispatch),
+            transaction: bindActionCreators(TransactionActions, dispatch)
         }
     };
 };

@@ -5,7 +5,9 @@ import { Modal, Card, Icon } from 'react-onsenui';
 import { Button } from 'reactstrap';
 import * as UiActions from '../../actions/ui-actions';
 import * as AccountActions from '../../actions/account-actions';
+import * as TransactionActions from '../../actions/transaction-actions';
 import AccountForm from '../accounts/AccountForm';
+import TransactionForm from '../transactions/TransactionForm';
 
 class ModalForm extends Component {
 
@@ -21,13 +23,26 @@ class ModalForm extends Component {
         switch (this.props.modal_form.form) {
             case 'account':
                 if (fields._id) {
-                    action = this.props.actions.account.updateAccount(fields)
+                    action = this.props.actions.account.updateAccount(fields);
                 }
                 else {
-                    action = this.props.actions.account.createAccount(fields)
+                    action = this.props.actions.account.createAccount(fields);
                 }
                 action = action.then(this.props.actions.account.getAccounts);
                 break;
+
+            case 'transaction':
+                if (fields._id) {
+                    action = this.props.actions.transaction.updateTransaction(fields);
+                }
+                else {
+                    action = this.props.actions.transaction.createTransaction(fields);
+                }
+                const accountId = this.props.account._id;
+                action = action.then(this.props.actions.account.getAccount(accountId)).then(this.props.actions.account.getAccountTransactions(accountId));
+
+                break;
+
             default:
                 console.error('Invalid form type', this.props.modal_form.form);
         }
@@ -43,6 +58,8 @@ class ModalForm extends Component {
         switch (this.props.modal_form.form) {
             case 'account':
                 return <AccountForm />
+            case 'transaction':
+                return <TransactionForm />
             default:
                 return <div>bummer</div>
         }
@@ -84,7 +101,8 @@ class ModalForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        modal_form: state.ui.modal_form
+        modal_form: state.ui.modal_form,
+        account: state.accounts.account
     };
 };
 
@@ -92,7 +110,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         actions: {
             ui: bindActionCreators(UiActions, dispatch),
-            account: bindActionCreators(AccountActions, dispatch)
+            account: bindActionCreators(AccountActions, dispatch),
+            transaction: bindActionCreators(TransactionActions, dispatch)
         }
     };
 };

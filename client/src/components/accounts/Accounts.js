@@ -19,15 +19,15 @@ class Accounts extends Component {
         event.stopPropagation();
         event.preventDefault();
 
-        const account_fields = Object.keys(account).map(field => {
+        const fields = Object.keys(account).map(field => {
             return {
                 name: field,
                 value: account[field]
             };
         });
         this.props.actions.ui.setModalForm('account');
+        this.props.actions.ui.updateModalFormFields(fields);
         this.props.actions.ui.showModalForm();
-        this.props.actions.ui.updateModalFormFields(account_fields);
     }
 
     deleteAccount (event, account) {

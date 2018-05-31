@@ -23,23 +23,36 @@ class FloatingActionButtons extends Component {
     fabClicked (fab, event) {
         event.stopPropagation();
 
-        const adding = (fab ? fab.title.toLowerCase() : this.props.location.pathname).replace(/^\//, '');
+        const path = this.props.location.pathname.replace(/^\//, '');
+        let fields = [];
 
-        switch (adding) {
-            case 'account':
-            case 'accounts':
-                const account_fields = this.props.modal_form.item_fields.account.map(field => {
-                    field.value = "";
-                    return field;
-                });
-                this.props.actions.setModalForm('account');
-                this.props.actions.showModalForm();
-                this.props.actions.updateModalFormFields(account_fields);
-                break;
-
-            default:
-                console.log({ fab, adding });
+        // Viewing accounts list
+        if (path === 'accounts') {
+            fields = this.props.modal_form.item_fields.account.map(field => { return {...field, value: "" } });
+            this.props.actions.setModalForm('account');
         }
+
+        // Viewing specific account transactions
+        else if (path.match(/accounts\/[^/]+/)) {
+            fields = this.props.modal_form.item_fields.transaction.map(field => {
+                switch (field.name) {
+                    case '_account':
+                        return {...field, value: this.props.account._id};
+                    default:
+                        return {...field, value: "" };
+                }
+            });
+            this.props.actions.setModalForm('transaction');
+        }
+
+        // Unknown action
+        else {
+            console.log({ fab, path });
+        }
+
+        // Set the fields and show the modal form
+        this.props.actions.updateModalFormFields(fields);
+        this.props.actions.showModalForm();
     }
 
     expandFabs (event) {
@@ -137,7 +150,8 @@ const mapStateToProps = (state) => {
         path: state.ui.path,
         fabs: state.ui.fabs,
         fab_items: state.ui.fab_items,
-        modal_form: state.ui.modal_form
+        modal_form: state.ui.modal_form,
+        account: state.accounts.account
     };
 };
 

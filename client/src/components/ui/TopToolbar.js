@@ -22,7 +22,7 @@ class TopToolbar extends Component {
         }
 
         // Viewing specific account
-        if (path.match(/accounts\/[^\/]+/)) {
+        if (path.match(/accounts\/[^/]+/)) {
             return this.props.account.name;
         }
 

@@ -49,8 +49,13 @@ let initialState = {
         open: false,
         item_fields: {
             account: [
-                { name: "name", required: true, value: "" },
-                { name: "balance", required: false, value: "" }
+                { name: "name", required: true, value: "here" },
+                // { name: "balance", required: false, value: "" }
+            ],
+            transaction: [
+                { name: "_account", required: true, label: "Account", value: "" },
+                // { name: "_vendor", required: false, label: "Vendor", value: "" },
+                { name: "amount", required: true, value: "" }
             ]
         }
     }

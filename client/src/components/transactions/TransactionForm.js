@@ -5,13 +5,16 @@ import { FormGroup, Label, Input } from 'reactstrap';
 import * as AccountActions from '../../actions/account-actions';
 import * as UiActions from '../../actions/ui-actions';
 
-class AccountForm extends Component {
+class TransactionForm extends Component {
 
     constructor(props) {
         super(props);
 
         this.validateForm = this.validateForm.bind(this);
 
+        if (props.accounts.length === 0) {
+            props.actions.account.getAccounts();
+        }
     }
 
     validateForm (event,field) {
@@ -35,10 +38,24 @@ class AccountForm extends Component {
         return (
             <div>
                 {
-                    this.props.form_fields.map((field, index) => (
+                    this.props.form_fields.filter(field => field.name === "_account").map((field, index) => (
                         <FormGroup key={field.name} style={{ display: (field.name === "_id") ? "none" : "block" }}>
-                            <Label for={`account-form-${field.name}`} style={{textTransform: "capitalize"}}>{field.label || field.name}</Label>
-                            <Input id={`account-form-${field.name}`} value={field.value} onChange={(event) => { this.validateForm(event, field) }}  />
+                            <Label for={`transaction-form-${field.name}`} style={{textTransform: "capitalize"}}>{field.label || field.name}</Label>
+                            <Input id={`transaction-form-${field.name}`} type="select" value={field.value} onChange={(event) => { this.validateForm(event, field) }}>
+                                {
+                                    this.props.accounts.map(account => (
+                                        <option key={account._id} value={account._id}>{account.name}</option>
+                                    ))
+                                }
+                            </Input>
+                        </FormGroup>
+                    ))
+                }
+                {
+                    this.props.form_fields.filter(field => !['_account', '_vendor'].includes(field.name)).map((field, index) => (
+                        <FormGroup key={field.name} style={{ display: (field.name === "_id") ? "none" : "block" }}>
+                            <Label for={`transaction-form-${field.name}`} style={{textTransform: "capitalize"}}>{field.label || field.name}</Label>
+                            <Input id={`transaction-form-${field.name}`} value={field.value} onChange={(event) => { this.validateForm(event, field) }}  />
                         </FormGroup>
                     ))
                 }
@@ -51,7 +68,7 @@ const mapStateToProps = (state) => {
     return {
         form_fields: state.ui.modal_form.fields,
         can_submit: state.ui.modal_form.can_submit,
-        account: state.accounts.account
+        accounts: state.accounts.accounts
     };
 };
 
@@ -64,4 +81,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountForm);
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionForm);
