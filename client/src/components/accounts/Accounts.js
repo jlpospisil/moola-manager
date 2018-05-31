@@ -15,7 +15,10 @@ class Accounts extends Component {
         props.actions.account.getAccounts();
     }
 
-    editAccount (account) {
+    editAccount (event, account) {
+        event.stopPropagation();
+        event.preventDefault();
+
         const account_fields = Object.keys(account).map(field => {
             return {
                 name: field,
@@ -27,7 +30,10 @@ class Accounts extends Component {
         this.props.actions.ui.updateModalFormFields(account_fields);
     }
 
-    deleteAccount (account) {
+    deleteAccount (event, account) {
+        event.stopPropagation();
+        event.preventDefault();
+
         if (account._id) {
             this.props.actions.account.deleteAccount(account._id)
                 .then(this.props.actions.account.getAccounts);
@@ -57,10 +63,10 @@ class Accounts extends Component {
                                 <ListItem>
                                     <div className="center">{account.name}</div>
                                     <div className="right" style={{padding: "12px"}}>
-                                        <Button outline color="danger" className="mr-2" style={{borderRadius: "100%"}} onClick={() => { this.deleteAccount(account) }}>
+                                        <Button outline color="danger" className="mr-2" style={{borderRadius: "100%"}} onClick={(event) => { this.deleteAccount(event, account) }} >
                                             <Icon icon="fa-trash" />
                                         </Button>
-                                        <Button outline color="secondary" style={{borderRadius: "100%"}} onClick={() => { this.editAccount(account) }}>
+                                        <Button outline color="secondary" style={{borderRadius: "100%"}} onClick={(event) => { this.editAccount(event, account) }}>
                                             <Icon icon="fa-pencil" />
                                         </Button>
                                     </div>
