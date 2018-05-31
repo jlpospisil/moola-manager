@@ -1,2 +1,3 @@
 export const LIST = 'LIST_ACCOUNTS';
 export const GET = 'GET_ACCOUNT';
+export const LIST_ACCOUNT_TRANSACTIONS = 'LIST_ACCOUNT_TRANSACTIONS';

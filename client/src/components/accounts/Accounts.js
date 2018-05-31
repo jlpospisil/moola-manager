@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 import { Page, List, ListItem, Icon } from 'react-onsenui';
 import { Button } from 'reactstrap';
 import * as AccountActions from '../../actions/account-actions';
@@ -44,17 +45,27 @@ class Accounts extends Component {
                             return 0;
                         })}
                         renderRow={(account, index) => (
-                            <ListItem key={index}>
-                                <div className="center">{account.name}</div>
-                                <div className="right" style={{padding: "12px"}}>
-                                    <Button outline color="danger" className="mr-2" style={{borderRadius: "100%"}} onClick={() => { this.deleteAccount(account) }}>
-                                        <Icon icon="fa-trash" />
-                                    </Button>
-                                    <Button outline color="secondary" style={{borderRadius: "100%"}} onClick={() => { this.editAccount(account) }}>
-                                        <Icon icon="fa-pencil" />
-                                    </Button>
-                                </div>
-                            </ListItem>
+                            <Link
+                                key={index}
+                                to={`/accounts/${account._id}`}
+                                params={{ id: account._id }}
+                                onClick={() => {}}
+                                style={{
+                                    textDecoration: "none"
+                                }}
+                            >
+                                <ListItem>
+                                    <div className="center">{account.name}</div>
+                                    <div className="right" style={{padding: "12px"}}>
+                                        <Button outline color="danger" className="mr-2" style={{borderRadius: "100%"}} onClick={() => { this.deleteAccount(account) }}>
+                                            <Icon icon="fa-trash" />
+                                        </Button>
+                                        <Button outline color="secondary" style={{borderRadius: "100%"}} onClick={() => { this.editAccount(account) }}>
+                                            <Icon icon="fa-pencil" />
+                                        </Button>
+                                    </div>
+                                </ListItem>
+                            </Link>
                         )}
                     />
                 </main>

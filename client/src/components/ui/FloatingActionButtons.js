@@ -24,8 +24,6 @@ class FloatingActionButtons extends Component {
 
         const adding = (fab ? fab.title.toLowerCase() : this.props.path).replace(/^\//, '');
 
-        console.log({ fab, adding });
-
         switch (adding) {
             case 'account':
             case 'accounts':
@@ -39,6 +37,7 @@ class FloatingActionButtons extends Component {
                 break;
 
             default:
+                console.log({ fab, adding });
         }
     }
 

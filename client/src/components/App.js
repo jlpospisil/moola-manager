@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux'
 import * as UI from './ui';
 import * as UiActions from '../actions/ui-actions';
 import Accounts from './accounts/Accounts';
+import AccountTransactions from './accounts/AccountTransactions';
 import Transactions from './transactions/Transactions';
 import Budgets from './budgets/Budgets';
 import Categories from './categories/Categories';
@@ -45,6 +46,7 @@ class App extends Component {
                             >
                                 <Switch>
                                     <Route exact path="/accounts" component={Accounts} />
+                                    <Route exact path="/accounts/:id" component={AccountTransactions} />
                                     <Route exact path="/transactions" component={Transactions} />
                                     <Route exact path="/budgets" component={Budgets} />
                                     <Route exact path="/categories" component={Categories} />

@@ -1,11 +1,15 @@
 import * as AccountActionTypes from './account-action-types';
 import Axios from 'axios';
 
-const url = (accountId) => {
+const url = (accountId, endpoint) => {
     let url = '/api/accounts';
 
     if (accountId) {
         url += `/${accountId}`;
+    }
+
+    if (endpoint) {
+        url += `/${endpoint}`;
     }
 
     return url;
@@ -22,6 +26,13 @@ export const get = (account) => {
     return {
         type: AccountActionTypes.GET,
         account
+    }
+};
+
+export const listTransactions = (transactions) => {
+    return {
+        type: AccountActionTypes.LIST_ACCOUNT_TRANSACTIONS,
+        transactions
     }
 };
 
@@ -80,7 +91,19 @@ export const deleteAccount = (accountId) => {
                 dispatch(get(response.data));
             })
             .catch((error) => {
-                console.error('Error deleting account with id=' + accountId, error);
+                console.error(`Error deleting account with id=${accountId}`, error);
             });
     };
+};
+
+export const getAccountTransactions = (accountId) => {
+    return (dispatch) => {
+        return Axios.get(url(accountId, 'transactions'))
+            .then((response) => {
+                dispatch(listTransactions(response.data))
+            })
+            .catch((error) => {
+                console.error(`Error retrieving account transactions for account with id=${accountId}`, error);
+            });
+    }
 };

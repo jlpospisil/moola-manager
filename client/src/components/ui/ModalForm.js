@@ -20,13 +20,10 @@ class ModalForm extends Component {
 
         switch (this.props.modal_form.form) {
             case 'account':
-                console.log({ fields })
                 if (fields._id) {
-                    console.log('yes');
                     action = this.props.actions.account.updateAccount(fields)
                 }
                 else {
-                    console.log('no');
                     action = this.props.actions.account.createAccount(fields)
                 }
                 action = action.then(this.props.actions.account.getAccounts);
