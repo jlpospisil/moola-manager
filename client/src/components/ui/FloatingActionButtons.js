@@ -48,6 +48,7 @@ class FloatingActionButtons extends Component {
 
         // Unknown action
         else {
+            this.props.actions.setModalForm(null);
             console.log({ fab, path });
         }
 
