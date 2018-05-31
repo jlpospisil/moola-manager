@@ -24,16 +24,17 @@ class FloatingActionButtons extends Component {
         event.stopPropagation();
 
         const path = this.props.location.pathname.replace(/^\//, '');
+        const fab_label = fab && fab.label ? fab.label : "";
         let fields = [];
 
         // Viewing accounts list
-        if (path === 'accounts') {
+        if (path === 'accounts' || fab_label === "Add Account") {
             fields = this.props.modal_form.item_fields.account.map(field => { return {...field, value: "" } });
             this.props.actions.setModalForm('account');
         }
 
         // Viewing specific account transactions
-        else if (path.match(/accounts\/[^/]+/)) {
+        else if (path.match(/accounts\/[^/]+/) || fab_label === "Add Transaction") {
             fields = this.props.modal_form.item_fields.transaction.map(field => {
                 switch (field.name) {
                     case '_account':
@@ -120,7 +121,7 @@ class FloatingActionButtons extends Component {
                             {fab.label}
                         </span>
                         <Fab className={(index === this.props.fab_items.length - 1) ? 'bg-primary text-white' : 'bg-white text-primary'}
-                            onClick={this.fabClicked.bind(this, fab)}
+                            onClick={this.fabClicked.bind(this, fab.fab)}
                         >
                             <Icon icon={fab.icon ? fab.icon : 'md-plus'} />
                         </Fab>

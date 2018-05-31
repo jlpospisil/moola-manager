@@ -54,7 +54,7 @@ class AccountTransactions extends Component {
                             <ListItem key={index}>
                                 <Row className="center">
                                     <Col xs="8" sm="9" md="10">Vendor Name</Col>
-                                    <Col xs="4" sm="3" md="2">${transaction.amount}</Col>
+                                    <Col xs="4" sm="3" md="2" className="text-right pr-5">${transaction.amount}</Col>
                                 </Row>
                                 <div className="right" style={{padding: "12px"}}>
                                     <Button outline color="danger" className="mr-2" style={{borderRadius: "100%"}} onClick={() => { this.deleteTransaction(transaction) }}>

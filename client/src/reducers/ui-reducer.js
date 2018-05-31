@@ -14,7 +14,7 @@ let initialState = {
             title: 'Transactions',
             fab: {
                 index: 1,
-                label: 'Add Transaction'
+                label: 'Add Transaction',
             },
             icon: 'md-receipt'
         },

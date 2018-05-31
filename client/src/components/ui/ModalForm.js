@@ -39,7 +39,9 @@ class ModalForm extends Component {
                     action = this.props.actions.transaction.createTransaction(fields);
                 }
                 const accountId = this.props.account._id;
-                action = action.then(this.props.actions.account.getAccount(accountId)).then(this.props.actions.account.getAccountTransactions(accountId));
+                if (accountId) {
+                    action = action.then(this.props.actions.account.getAccount(accountId)).then(this.props.actions.account.getAccountTransactions(accountId));
+                }
 
                 break;
 
