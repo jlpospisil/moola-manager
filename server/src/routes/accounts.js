@@ -1,6 +1,7 @@
 const express = require('express');
 let router = express.Router();
 const AccountModel = require(`../database/models/account`);
+const TransactionModel = require(`../database/models/transaction`);
 
 // Get all accounts
 router.get('/', (req, res, next) => {
@@ -75,6 +76,46 @@ router.delete('/:id', (req, res, next) => {
         }
         else {
             res.send({ success: true });
+        }
+    });
+});
+
+// Get transactions for a specific account
+router.get('/:id/transactions', (req, res, next) => {
+    TransactionModel.find({ _account: req.params.id }, '-__v', (error, transactions) => {
+        if (error) {
+            next(error);
+        }
+        else if (transactions) {
+            res.send(transactions);
+        }
+        else {
+            res.status(403).send();
+        }
+    });
+});
+
+// Add a new transaction to a specific account
+router.post('/:id/transactions', (req, res, next) => {
+    // Get account
+    AccountModel.findById(req.params.id, 'transactions', (error, account) => {
+        if (error) {
+            next(error);
+        }
+        else if (account) {
+            // Create transaction
+            const details = Object.assign(req.body, { _account: req.params.id });
+            new TransactionModel(details).save((error, transaction) =>  {
+                if (error) {
+                    next(error);
+                }
+                else {
+                    res.send({ success: true, transaction });
+                }
+            });
+        }
+        else {
+            res.status(403).send();
         }
     });
 });

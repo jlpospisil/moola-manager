@@ -3,7 +3,8 @@ const mongooseSchema = mongoose.Schema;
 
 const Schema = new mongooseSchema({
     date: { type : Date, default: Date.now },
-    vendor: { type: mongoose.Schema.Types.ObjectId, ref: 'vendors' },
+    _account: { type: mongoose.Schema.Types.ObjectId, ref: 'accounts' },
+    _vendor: { type: mongoose.Schema.Types.ObjectId, ref: 'vendors' },
     note: { type: String, required: false },
     amount: { type: Number, set: setCurrency, get: getCurrency, required: true }
 }, {

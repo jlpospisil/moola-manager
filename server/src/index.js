@@ -19,11 +19,9 @@ app.listen(process.env.PORT || 3001);
 // Get Routers
 const accountsRouter = require('./routes/accounts');
 const TransactionsRouter = require('./routes/transactions');
-const AccountTransactionRouter = require('./routes/account-transactions');
 
 // Add Routes
 app.use('/api/accounts', accountsRouter);
-app.use('/api/accounts', AccountTransactionRouter);
 app.use('/api/transactions', TransactionsRouter);
 
 // catch 404 and forward to error handler

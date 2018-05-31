@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 const mongooseSchema = mongoose.Schema;
 
 const Schema = new mongooseSchema({
-    name: { type: String, required: true },
-    transactions: [{type: mongoose.Schema.Types.ObjectId, ref: 'transactions'}]
+    name: { type: String, required: true }
 }, {
     id: false,  // don't add _id getter
     toObject : { getters: true, setters: true },
