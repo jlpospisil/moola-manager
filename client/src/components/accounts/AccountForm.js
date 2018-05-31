@@ -11,12 +11,14 @@ class AccountForm extends Component {
         super(props);
 
         this.validateForm = this.validateForm.bind(this);
-
     }
 
     validateForm (event,field) {
+        if (event && field) {
+            field.value = event.target.value;
+        }
+
         let fields = this.props.form_fields;
-        field.value = event.target.value;
 
         this.props.actions.ui.updateModalFormFields(fields);
 

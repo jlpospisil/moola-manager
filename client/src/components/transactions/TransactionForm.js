@@ -18,8 +18,11 @@ class TransactionForm extends Component {
     }
 
     validateForm (event,field) {
+        if (event && field) {
+            field.value = event.target.value;
+        }
+
         let fields = this.props.form_fields;
-        field.value = event.target.value;
 
         this.props.actions.ui.updateModalFormFields(fields);
 
@@ -42,6 +45,7 @@ class TransactionForm extends Component {
                         <FormGroup key={field.name} style={{ display: (field.name === "_id") ? "none" : "block" }}>
                             <Label for={`transaction-form-${field.name}`} style={{textTransform: "capitalize"}}>{field.label || field.name}</Label>
                             <Input id={`transaction-form-${field.name}`} type="select" value={field.value} onChange={(event) => { this.validateForm(event, field) }}>
+                                <option value=""></option>
                                 {
                                     this.props.accounts.map(account => (
                                         <option key={account._id} value={account._id}>{account.name}</option>
