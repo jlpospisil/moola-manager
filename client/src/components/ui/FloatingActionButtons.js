@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 import { Fab, Icon } from 'react-onsenui';
 import * as UiActions from '../../actions/ui-actions';
 
@@ -22,7 +23,7 @@ class FloatingActionButtons extends Component {
     fabClicked (fab, event) {
         event.stopPropagation();
 
-        const adding = (fab ? fab.title.toLowerCase() : this.props.path).replace(/^\//, '');
+        const adding = (fab ? fab.title.toLowerCase() : this.props.location.pathname).replace(/^\//, '');
 
         switch (adding) {
             case 'account':
@@ -146,4 +147,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FloatingActionButtons);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FloatingActionButtons));

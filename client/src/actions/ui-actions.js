@@ -1,12 +1,5 @@
 import * as UiActionTypes from './ui-action-types';
 
-export const updateCurrentPath = (path) => {
-    return {
-        type: UiActionTypes.UPDATE_PATH,
-        path
-    }
-};
-
 export const showLeftNav = () => {
     return {
         type: UiActionTypes.TOGGLE_NAV,

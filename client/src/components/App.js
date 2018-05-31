@@ -28,7 +28,6 @@ class App extends Component {
 
     updateFabs () {
         this.props.actions.toggleFabsExpandable(window.location.pathname === "/");
-        this.props.actions.updateCurrentPath(window.location.pathname);
     }
 
     render () {

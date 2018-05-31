@@ -13,7 +13,7 @@ class AccountTransactions extends Component {
 
         const {id} = props.match.params;
 
-        props.actions.account.getAccountTransactions(id);
+        props.actions.account.getAccount(id).then(props.actions.account.getAccountTransactions(id));
     }
 
     deleteTransaction (transaction) {
@@ -59,7 +59,7 @@ class AccountTransactions extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        transactions: state.accounts.account.transactions,
+        transactions: Array.isArray(state.accounts.account.transactions) ? state.accounts.account.transactions : [],
         modal_form: state.ui.modal_form
     };
 };

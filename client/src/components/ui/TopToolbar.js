@@ -1,11 +1,36 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Toolbar, ToolbarButton, Icon } from 'react-onsenui';
 import * as UiActions from '../../actions/ui-actions';
 
 
 class TopToolbar extends Component {
+    constructor (props) {
+        super(props);
+
+        this.pageTitle = this.pageTitle.bind(this);
+
+        console.log({ props });
+    }
+
+    pageTitle () {
+        const path = this.props.location.pathname.replace(/^\//, '');
+
+        // Viewing root
+        if (path === '') {
+            return 'Moola Manager';
+        }
+
+        // Viewing specific account
+        if (path.match(/accounts\/[^\/]+/)) {
+            return this.props.account.name;
+        }
+
+        // All other routes
+        return path.replace(/^\//, '');
+    }
 
     render () {
         return (
@@ -15,7 +40,7 @@ class TopToolbar extends Component {
                         <Icon className="text-white" icon="fa-bars" />
                     </ToolbarButton>
                 </div>
-                <div className="center text-white" style={{textTransform: "capitalize"}}>{ this.props.path && this.props.path !== '/' ? this.props.path.replace(/^\//, '') : 'Moola Manager' }</div>
+                <div className="center text-white" style={{textTransform: "capitalize"}}>{ this.pageTitle() }</div>
             </Toolbar>
         )
     }
@@ -23,7 +48,7 @@ class TopToolbar extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        path: state.ui.path,
+        account: state.accounts.account,
         left_nav: state.ui.left_nav
     };
 };
@@ -34,4 +59,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopToolbar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TopToolbar));
