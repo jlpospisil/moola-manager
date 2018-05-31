@@ -11,8 +11,6 @@ class TopToolbar extends Component {
         super(props);
 
         this.pageTitle = this.pageTitle.bind(this);
-
-        console.log({ props });
     }
 
     pageTitle () {
