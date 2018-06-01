@@ -60,7 +60,7 @@ class Accounts extends Component {
                                     textDecoration: "none"
                                 }}
                             >
-                                <ListItem>
+                                <ListItem tappable>
                                     <div className="center">{account.name}</div>
                                     <div className="right" style={{padding: "12px"}}>
                                         <Button outline color="danger" className="mr-2" style={{borderRadius: "100%"}} onClick={(event) => { this.deleteAccount(event, account) }} >
