@@ -9,11 +9,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case TransactionActionTypes.LIST:
-            return { ...state, transactions: action.transactions };
-
-        case TransactionActionTypes.GET:
+        case TransactionActionTypes.GET_TRANSACTION:
             return { ...state, transaction: action.transaction };
+
+        case TransactionActionTypes.GET_TRANSACTIONS:
+            return { ...state, transactions: action.transactions };
 
         default:
             return state;

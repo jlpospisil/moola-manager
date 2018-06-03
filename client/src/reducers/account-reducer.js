@@ -10,13 +10,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case AccountActionTypes.LIST:
-            return { ...state, accounts: action.accounts };
-
-        case AccountActionTypes.GET:
+        case AccountActionTypes.GET_ACCOUNT:
             return { ...state, account: action.account };
 
-        case AccountActionTypes.LIST_ACCOUNT_TRANSACTIONS:
+        case AccountActionTypes.GET_ACCOUNTS:
+            return { ...state, accounts: action.accounts };
+
+        case AccountActionTypes.GET_ACCOUNT_TRANSACTIONS:
             return {
                 ...state,
                 account: {
