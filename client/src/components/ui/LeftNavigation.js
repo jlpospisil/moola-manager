@@ -57,7 +57,6 @@ class TopToolbar extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.ui.left_nav);
     return {
         icons: state.ui.icons,
         left_nav: state.ui.left_nav

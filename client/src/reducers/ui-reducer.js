@@ -47,7 +47,6 @@ let initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
         case UiActionTypes.TOGGLE_NAV:
-            console.log({ state });
             return {
                 ...state,
                 left_nav: {
