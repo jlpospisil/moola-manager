@@ -55,6 +55,15 @@ export default (state = initialState, action) => {
                 }
             };
 
+        case UiActionTypes.TOGGLE_FABS_VISIBILITY:
+            return {
+                ...state,
+                fabs: {
+                    ...state.fabs,
+                    visible: action.visible
+                }
+            };
+
         case UiActionTypes.TOGGLE_FABS_EXPANDABLE:
             return {
                 ...state,

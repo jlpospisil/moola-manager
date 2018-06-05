@@ -14,6 +14,13 @@ export const hideLeftNav = () => {
     }
 };
 
+export const toggleFabsVisibility = (visible) => {
+    return {
+        type: UiActionTypes.TOGGLE_FABS_VISIBILITY,
+        visible
+    }
+};
+
 export const toggleFabsExpandable = (expandable) => {
     return {
         type: UiActionTypes.TOGGLE_FABS_EXPANDABLE,
