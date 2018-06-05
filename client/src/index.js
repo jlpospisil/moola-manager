@@ -7,15 +7,7 @@ import rootReducer from './reducers'
 import App from './components/App';
 import './index.css';
 
-const initialState = {
-    ui: {
-        left_nav: {
-            open: false
-        }
-    }
-};
-
-const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
     <Provider store={store}>

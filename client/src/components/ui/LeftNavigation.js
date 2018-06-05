@@ -29,11 +29,11 @@ class TopToolbar extends Component {
                         </div>
                     </Card>
                     <List style={{backgroundImage: "none"}}
-                        dataSource={this.props.menu_items}
+                        dataSource={this.props.left_nav.items}
                         renderRow={(item) => (
                             <Link
-                                key={item.title}
-                                to={`/${item.title.toLowerCase()}`}
+                                key={item.item}
+                                to={item.path}
                                 onClick={this.props.actions.hideLeftNav}
                                 style={{
                                     textDecoration: "none"
@@ -41,10 +41,10 @@ class TopToolbar extends Component {
                             >
                                 <ListItem tappable modifier="nodivider">
                                     <div className="left">
-                                        <Icon style={{color: '#888'}} icon={item.icon} fixedWidth />
+                                        <Icon style={{color: '#888'}} icon={this.props.icons[item.item]} fixedWidth />
                                     </div>
                                     <div className="center">
-                                        {item.title}
+                                        {item.label}
                                     </div>
                                 </ListItem>
                             </Link>
@@ -57,9 +57,10 @@ class TopToolbar extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state.ui.left_nav);
     return {
-        menu_items: state.ui.menu_items,
-        left_nav: state.ui.left_nav,
+        icons: state.ui.icons,
+        left_nav: state.ui.left_nav
     };
 };
 

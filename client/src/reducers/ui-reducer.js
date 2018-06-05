@@ -1,46 +1,29 @@
 import * as UiActionTypes from '../actions/ui-action-types';
 
 let initialState = {
-    menu_items: [
-        {
-            title: 'Accounts',
-            fab: {
-                index: 3,
-                label: 'Add Account'
-            },
-            icon: 'md-card'
-        },
-        {
-            title: 'Transactions',
-            fab: {
-                index: 1,
-                label: 'Add Transaction',
-            },
-            icon: 'md-receipt'
-        },
-        {
-            title: 'Budgets',
-            icon: 'md-chart'
-        },
-        {
-            title: 'Categories',
-            fab: {
-                index: 2,
-                label: 'Add Category'
-            },
-            icon: 'md-folder'
-        },
-        {
-            title: 'Settings',
-            icon: 'md-settings'
-        }
-    ],
+    icons: {
+        account: 'md-card',
+        budget: 'md-chart',
+        category: 'md-folder',
+        transaction: 'md-receipt'
+    },
     left_nav: {
-        open: false
+        open: false,
+        items: [
+            { item: 'account', label: 'Accounts', path: '/accounts' },
+            { item: 'budget', label: 'Budgets', path: '/budgets' },
+            { item: 'category', label: 'Categories', path: '/categories' }
+        ]
     },
     fabs: {
         expandable: false,
-        expanded: false
+        expanded: false,
+        items: [
+            { item: 'transaction', label: 'Add Transaction' },
+            { item: 'account', label: 'Add Account' },
+            { item: 'category', label: 'Add Category' }
+        ],
+        visible: true
     },
     modal_form: {
         form: null,
@@ -61,30 +44,14 @@ let initialState = {
     }
 };
 
-initialState.fab_items = initialState.menu_items.filter(item => item.fab)
-    .sort((a, b) => {
-        return a.fab.index - b.fab.index;
-    })
-    .map((item, index) => {
-        item.label = item.fab.label;
-
-        if (index > 0) {
-            item.backgroundColor = "#cccccc";
-            item.color = "#333333";
-        }
-
-        return item;
-    })
-    .reverse();
-
 export default (state = initialState, action) => {
-    const { modal_form, fabs } = state;
-
     switch (action.type) {
         case UiActionTypes.TOGGLE_NAV:
+            console.log({ state });
             return {
                 ...state,
                 left_nav: {
+                    ...state.left_nav,
                     open: action.open
                 }
             };
@@ -93,7 +60,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 fabs: {
-                    ...fabs,
+                    ...state.fabs,
                     expandable: action.expandable
                 }
             };
@@ -102,7 +69,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 fabs: {
-                    ...fabs,
+                    ...state.fabs,
                     expanded: action.expanded
                 }
             };
@@ -111,7 +78,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 modal_form: {
-                    ...modal_form,
+                    ...state.modal_form,
                     open: action.open
                 }
             };
@@ -120,7 +87,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 modal_form: {
-                    ...modal_form,
+                    ...state.modal_form,
                     form: action.form
                 }
             };
@@ -129,7 +96,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 modal_form: {
-                    ...modal_form,
+                    ...state.modal_form,
                     can_submit: action.can_submit
                 }
             };
@@ -138,15 +105,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 modal_form: {
-                    ...modal_form,
+                    ...state.modal_form,
                     fields: [...action.fields]
                 }
             };
 
         default:
-            return {
-                ...initialState,
-                ...state
-            };
+            return state;
     }
 };
