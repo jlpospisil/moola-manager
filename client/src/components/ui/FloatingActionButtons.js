@@ -24,17 +24,17 @@ class FloatingActionButtons extends Component {
         event.stopPropagation();
 
         const path = this.props.location.pathname.replace(/^\//, '');
-        const fab_label = fab && fab.label ? fab.label : "";
+        const fab_item = fab && fab.item ? fab.item : "";
         let fields = [];
 
         // Viewing accounts list
-        if (path === 'accounts' || fab_label === "Add Account") {
+        if (path === 'accounts' || fab_item === 'account') {
             fields = this.props.modal_form.item_fields.account.map(field => { return {...field, value: "" } });
             this.props.actions.setModalForm('account');
         }
 
         // Viewing specific account transactions
-        else if (path.match(/accounts\/[^/]+/) || fab_label === "Add Transaction") {
+        else if (path.match(/accounts\/[^/]+/) || fab_item === 'transaction') {
             fields = this.props.modal_form.item_fields.transaction.map(field => {
                 switch (field.name) {
                     case '_account':
@@ -107,8 +107,8 @@ class FloatingActionButtons extends Component {
     expandedFabs () {
         let fabs = [];
 
-        if (Array.isArray(this.props.fab_items)) {
-            fabs = this.props.fab_items.map((fab, index) => {
+        if (Array.isArray(this.props.fabs.items)) {
+            fabs = this.props.fabs.items.map((fab, index) => {
                 return (
                     <div key={index} style={{
                         textAlign: "right",
@@ -121,8 +121,8 @@ class FloatingActionButtons extends Component {
                         }}>
                             {fab.label}
                         </span>
-                        <Fab className={(index === this.props.fab_items.length - 1) ? 'bg-primary text-white' : 'bg-white text-primary'}
-                            onClick={this.fabClicked.bind(this, fab.fab)}
+                        <Fab className={(index === this.props.fabs.items.length - 1) ? 'bg-primary text-white' : 'bg-white text-primary'}
+                            onClick={this.fabClicked.bind(this, fab)}
                         >
                             <Icon icon={fab.icon ? fab.icon : 'md-plus'} />
                         </Fab>
@@ -139,19 +139,21 @@ class FloatingActionButtons extends Component {
     }
 
     render () {
+        if (!this.props.fabs.visible) {
+            return null;
+        }
         if (this.props.fabs.expanded) {
             return this.expandedFabs();
         }
-
-        return this.collapsedFabs();
+        else {
+            return this.collapsedFabs();
+        }
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        path: state.ui.path,
         fabs: state.ui.fabs,
-        fab_items: state.ui.fab_items,
         modal_form: state.ui.modal_form,
         account: state.accounts.account
     };
