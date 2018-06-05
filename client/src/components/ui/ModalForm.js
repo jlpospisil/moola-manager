@@ -70,15 +70,20 @@ class ModalForm extends Component {
     render () {
         return (
             <Modal
+                animation="fade"
+                animationOptions={{ duration: 0.1 }}
                 isOpen={this.props.modal_form.open}
                 onDeviceBackButton={this.props.actions.ui.closeModalForm}
+                onClick={this.props.actions.ui.closeModalForm}
             >
                 <Card style={{
-                    minHeight: "250px",
-                    display: "flex",
-                    flexFlow: "column",
-                    alignItems: "stretch"
-                }}>
+                        minHeight: "250px",
+                        display: "flex",
+                        flexFlow: "column",
+                        alignItems: "stretch"
+                    }}
+                      onClick={(event) => { event.stopPropagation() }}
+                >
                     <div className="title" style={{color: "#000000", textTransform: "capitalize"}}>
                         {this.props.modal_form.form}
                     </div>

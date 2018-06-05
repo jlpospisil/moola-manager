@@ -92,7 +92,7 @@ router.get('/:id/transactions', (req, res, next) => {
         else {
             res.status(403).send();
         }
-    });
+    }).sort({ _id: -1 });
 });
 
 // Add a new transaction to a specific account
