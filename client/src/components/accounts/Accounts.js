@@ -63,6 +63,9 @@ class Accounts extends Component {
                                 <ListItem tappable>
                                     <div className="center">{account.name}</div>
                                     <div className="right" style={{padding: "12px"}}>
+                                        <div className={'mr-3 text-right' + (account.balance < 0 ? ' text-danger' : '')}>
+                                            ${Math.abs(account.balance)}
+                                        </div>
                                         <Button outline color="danger" className="mr-2" style={{borderRadius: "100%"}} onClick={(event) => { this.deleteAccount(event, account) }} >
                                             <Icon icon="fa-trash" />
                                         </Button>

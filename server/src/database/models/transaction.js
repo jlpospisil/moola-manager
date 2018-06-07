@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 const mongooseSchema = mongoose.Schema;
 
 const Schema = new mongooseSchema({
-    date: { type : Date, default: Date.now },
-    _account: { type: mongoose.Schema.Types.ObjectId, ref: 'accounts' },
+    type: { type: String, enum: ['Expense', 'Income'], required: true, default: 'Expense'},
+    // date: { type : Date, default: Date.now },
+    // _account: { type: mongoose.Schema.Types.ObjectId, ref: 'accounts' },
     _vendor: { type: mongoose.Schema.Types.ObjectId, ref: 'vendors' },
     note: { type: String, required: false },
     amount: { type: Number, set: setCurrency, get: getCurrency, required: true }

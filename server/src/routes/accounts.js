@@ -5,11 +5,12 @@ const TransactionModel = require(`../database/models/transaction`);
 
 // Get all accounts
 router.get('/', (req, res, next) => {
-    AccountModel.find({}, '-__v -transactions', (error, records) => {
+    AccountModel.find({}, '-__v', (error, records) => {
         if (error) {
             next(error);
         }
         else {
+            console.log(typeof records);
             res.send(records);
         }
 
@@ -18,7 +19,7 @@ router.get('/', (req, res, next) => {
 
 // Get a specific account
 router.get('/:id', (req, res, next) => {
-    AccountModel.findById(req.params.id, '-__v -transactions', (error, record) => {
+    AccountModel.findOne({ _id: req.params.id }, '-__v', (error, record) => {
         if (error) {
             next(error);
         }
@@ -82,17 +83,17 @@ router.delete('/:id', (req, res, next) => {
 
 // Get transactions for a specific account
 router.get('/:id/transactions', (req, res, next) => {
-    TransactionModel.find({ _account: req.params.id }, '-__v', (error, transactions) => {
+    AccountModel.findOne({ _id: req.params.id }, '-__v', (error, account) => {
         if (error) {
             next(error);
         }
-        else if (transactions) {
-            res.send(transactions);
+        else if (account) {
+            res.send(account.transactions || []);
         }
         else {
             res.status(403).send();
         }
-    }).sort({ _id: -1 });
+    });
 });
 
 // Add a new transaction to a specific account
@@ -104,12 +105,14 @@ router.post('/:id/transactions', (req, res, next) => {
         }
         else if (account) {
             // Create transaction
-            const details = Object.assign(req.body, { _account: req.params.id });
-            new TransactionModel(details).save((error, transaction) =>  {
+            new TransactionModel(req.body).save((error, transaction) =>  {
                 if (error) {
                     next(error);
                 }
                 else {
+                    // Add transaction to account
+                    account.transactions.push(transaction._id);
+                    account.save();
                     res.send({ success: true, transaction });
                 }
             });

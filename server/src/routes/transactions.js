@@ -1,6 +1,7 @@
 const express = require('express');
 let router = express.Router();
 const TransactionModel = require(`../database/models/transaction`);
+const AccountModel = require(`../database/models/account`);
 
 // Get all transactions
 router.get('/', (req, res, next) => {
@@ -32,14 +33,33 @@ router.get('/:id', (req, res, next) => {
 
 // Add a new transaction
 router.post('/', (req, res, next) => {
-    new TransactionModel(req.body).save((error, transaction) =>  {
-        if (error) {
-            next(error);
-        }
-        else {
-            res.send({ success: true, transaction });
-        }
-    });
+    if (req.body._account) {
+        AccountModel.findById(req.body._account, 'transactions', (error, account) => {
+            if (error) {
+                next(error);
+            }
+            else if (account) {
+
+            }
+            else {
+
+            }
+        });
+    }
+    else {
+        new TransactionModel(req.body).save((error, transaction) =>  {
+            if (error) {
+                next(error);
+            }
+            else {
+                if (account_document) {
+                    account_document.transactions.push(transaction._id);
+                }
+
+                res.send({ success: true, transaction });
+            }
+        });
+    }
 });
 
 // Update a specific transaction
