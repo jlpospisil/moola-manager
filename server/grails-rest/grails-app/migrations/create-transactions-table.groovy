@@ -22,7 +22,7 @@ databaseChangeLog = {
 
             }
 
-            column(name: "amt", type: "decimal(7,2)") {
+            column(name: "amount", type: "decimal(7,2)") {
 
             }
         }
