@@ -13,10 +13,6 @@ databaseChangeLog = {
             column(name: "budget_amt", type: "decimal(7,2)") {
 
             }
-
-            column(name: "deleted_ts", type: "timestamp") {
-
-            }
         }
     }
 }
