@@ -9,4 +9,16 @@ class AccountController extends RestfulController {
     AccountController() {
         super(Account)
     }
+
+    def index () {
+        render Account.list()
+    }
+
+    def show () {
+        render Account.get(params.id)
+    }
+
+    def listTransactions () {
+        render []
+    }
 }

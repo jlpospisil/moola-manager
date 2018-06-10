@@ -61,10 +61,6 @@ grails:
         defaultScope: singleton
     converters:
         encoding: UTF-8
-    plugin:
-        databasemigration:
-            updateOnStart: true
-            updateOnStartFileNames: changelog.groovy
 
 ---
 hibernate:

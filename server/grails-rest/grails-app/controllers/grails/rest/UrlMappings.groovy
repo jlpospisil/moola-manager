@@ -10,6 +10,10 @@ class UrlMappings {
         put "/$controller/$id(.$format)?"(action:"update")
         patch "/$controller/$id(.$format)?"(action:"patch")
 
+        group "/account", {
+            get "/$id/transactions"(controller: "account", action: "listTransactions")
+        }
+
         "/"(controller: 'application', action:'index')
         "500"(view: '/error')
         "404"(view: '/notFound')
