@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { BottomNavigation } from 'react-native-material-ui';
 import * as UiActions from '../../actions/ui-actions';
 

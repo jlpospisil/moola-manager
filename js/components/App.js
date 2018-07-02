@@ -5,6 +5,7 @@ import { Provider, connect } from 'react-redux';
 import rootReducer from '../reducers'
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
+import AppToolbar from './ui/AppToolbar';
 import AppBottomNavigation from './ui/AppBottomNavigation';
 
 const client = axios.create({
@@ -19,6 +20,8 @@ export default class App extends React.Component {
     return (
     <Provider store={store}>
         <View style={styles.container}>
+            <AppToolbar />
+
             <View style={styles.container}>
                 <Text>Open up App.js to start working on your app!</Text>
                 <Text>Changes you make will automatically reload.</Text>
