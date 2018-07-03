@@ -38,6 +38,7 @@ export default class App extends React.Component {
   }
 };
 
+// TODO: move this to the ui-reducer
 const uiTheme = {
     palette: {
         primaryColor: '#607d8b',
