@@ -21,8 +21,8 @@ let initialState = {
     },
     navigation: {
         bottom: [
-            { key: 'category', label: 'Categories', path: '/category' },
-            { key: 'account', label: 'Accounts', path: '/account' },
+            { key: 'category', label: 'Categories', path: '/categories' },
+            { key: 'account', label: 'Accounts', path: '/accounts' },
             { key: 'calendar', label: 'Calendar', path: '/calendar' }
         ]
     }

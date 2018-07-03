@@ -1,26 +1,28 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
+import { NativeRouter, Route } from 'react-router-native';
+import { StyleSheet, View } from 'react-native';
 import { ThemeContext, getTheme } from 'react-native-material-ui';
 import AppToolbar from './ui/AppToolbar';
 import AppBottomNavigation from './ui/AppBottomNavigation';
+import Accounts from './accounts/Accounts';
 
 class App extends React.Component {
   render() {
     return (
-        <View style={styles.container}>
-            <ThemeContext.Provider value={getTheme(this.props.theme)}>
-                <AppToolbar />
+        <NativeRouter>
+            <View style={styles.container}>
+                <ThemeContext.Provider value={getTheme(this.props.theme)}>
+                    <AppToolbar />
 
-                <View style={styles.container}>
-                    <Text>Open up App.js to start working on your app!</Text>
-                    <Text>Changes you make will automatically reload.</Text>
-                    <Text>Shake your phone to open the developer menu.</Text>
-                </View>
+                    <View style={styles.container}>
+                        <Route exact={true} path="/accounts" component={Accounts} />
+                    </View>
 
-                <AppBottomNavigation />
-            </ThemeContext.Provider>
-        </View>
+                    <AppBottomNavigation />
+                </ThemeContext.Provider>
+            </View>
+        </NativeRouter>
     );
   }
 };
