@@ -13,7 +13,7 @@ let initialState = {
             },
         },
     },
-    active: 'account',
+    active: 'calendar',
     icons: {
         account: 'credit-card',
         category: 'folder',

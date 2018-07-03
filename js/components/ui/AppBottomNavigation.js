@@ -2,9 +2,9 @@ import React from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { View } from 'react-native';
-// import { Link } from 'react-router-native';
 import { BottomNavigation } from 'react-native-material-ui';
 import * as UiActions from '../../actions/ui-actions';
+import AppBottomNavigationItem from './AppBottomNavigationItem';
 
 class AppBottomNavigation extends React.Component {
     // TODO: get Link element working
@@ -16,10 +16,11 @@ class AppBottomNavigation extends React.Component {
                     {
                         this.props.items.map(item => (
                             //<Link to={item.path} key={item.key}>
-                                <BottomNavigation.Action
+                                <AppBottomNavigationItem
                                     key={item.key}
                                     icon={this.props.icons[item.key]}
                                     label={item.label}
+                                    link={item.path}
                                     onPress={() => this.props.actions.ui.changeActiveItem(item.key)}
                                 />
                             //</Link>
