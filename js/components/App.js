@@ -7,6 +7,7 @@ import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 import AppToolbar from './ui/AppToolbar';
 import AppBottomNavigation from './ui/AppBottomNavigation';
+import { ThemeContext, getTheme } from 'react-native-material-ui';
 
 const client = axios.create({
     baseURL: 'https://api.github.com',
@@ -20,19 +21,34 @@ export default class App extends React.Component {
     return (
     <Provider store={store}>
         <View style={styles.container}>
-            <AppToolbar />
+            <ThemeContext.Provider value={getTheme(uiTheme)}>
+                <AppToolbar />
 
-            <View style={styles.container}>
-                <Text>Open up App.js to start working on your app!</Text>
-                <Text>Changes you make will automatically reload.</Text>
-                <Text>Shake your phone to open the developer menu.</Text>
-            </View>
+                <View style={styles.container}>
+                    <Text>Open up App.js to start working on your app!</Text>
+                    <Text>Changes you make will automatically reload.</Text>
+                    <Text>Shake your phone to open the developer menu.</Text>
+                </View>
 
-            <AppBottomNavigation />
+                <AppBottomNavigation />
+            </ThemeContext.Provider>
         </View>
     </Provider>
     );
   }
+};
+
+const uiTheme = {
+    palette: {
+        primaryColor: '#607d8b',
+        // accentColor: ''
+    },
+    toolbar: {
+        container: {
+            paddingTop: 25,
+            height: 75
+        },
+    },
 };
 
 const styles = StyleSheet.create({

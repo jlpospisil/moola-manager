@@ -1,7 +1,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
-// import { View } from 'react-native';
 import { Toolbar } from 'react-native-material-ui';
 import * as UiActions from '../../actions/ui-actions';
 

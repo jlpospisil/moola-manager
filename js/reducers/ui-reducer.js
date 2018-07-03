@@ -1,6 +1,16 @@
 import * as UiActionTypes from '../actions/ui-action-types';
 
 let initialState = {
+    theme: {
+        palette: {
+            primaryColor: 'green',
+        },
+        toolbar: {
+            container: {
+                height: 50,
+            },
+        },
+    },
     active: 'transaction',
     icons: {
         account: 'credit-card',
