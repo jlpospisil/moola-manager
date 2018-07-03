@@ -1,24 +1,27 @@
-'use strict';
+import expo from 'expo';
+import React from 'react';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider, connect } from 'react-redux';
+import axios from 'axios';
+import axiosMiddleware from 'redux-axios-middleware';
+import rootReducer from './reducers'
+import App from './components/App';
 
-var _expo = require('expo');
+const client = axios.create({
+    baseURL: 'https://api.github.com',
+    responseType: 'json'
+});
 
-var _expo2 = _interopRequireDefault(_expo);
+const store = createStore(rootReducer, applyMiddleware(axiosMiddleware(client)));
 
-var _App = require('./components/App');
-
-var _App2 = _interopRequireDefault(_App);
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactNative = require('react-native');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-if (process.env.NODE_ENV === 'development') {
-  _expo2.default.KeepAwake.activate();
+class AppRoot extends React.Component {
+    render() {
+        return (
+            <Provider store={store}>
+              <App />
+            </Provider>
+        );
+    }
 }
 
-_expo2.default.registerRootComponent(_App2.default);
-//# sourceMappingURL=crna-entry.js.map
+expo.registerRootComponent(AppRoot);

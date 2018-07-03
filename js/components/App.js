@@ -1,27 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider, connect } from 'react-redux';
-import rootReducer from '../reducers'
-import axios from 'axios';
-import axiosMiddleware from 'redux-axios-middleware';
+import { connect } from 'react-redux';
+import { ThemeContext, getTheme } from 'react-native-material-ui';
 import AppToolbar from './ui/AppToolbar';
 import AppBottomNavigation from './ui/AppBottomNavigation';
-import { ThemeContext, getTheme } from 'react-native-material-ui';
 
-const client = axios.create({
-    baseURL: 'https://api.github.com',
-    responseType: 'json'
-});
-
-const store = createStore(rootReducer, applyMiddleware(axiosMiddleware(client)));
-
-export default class App extends React.Component {
+class App extends React.Component {
   render() {
     return (
-    <Provider store={store}>
         <View style={styles.container}>
-            <ThemeContext.Provider value={getTheme(uiTheme)}>
+            <ThemeContext.Provider value={getTheme(this.props.theme)}>
                 <AppToolbar />
 
                 <View style={styles.container}>
@@ -33,23 +21,8 @@ export default class App extends React.Component {
                 <AppBottomNavigation />
             </ThemeContext.Provider>
         </View>
-    </Provider>
     );
   }
-};
-
-// TODO: move this to the ui-reducer
-const uiTheme = {
-    palette: {
-        primaryColor: '#607d8b',
-        // accentColor: ''
-    },
-    toolbar: {
-        container: {
-            paddingTop: 25,
-            height: 75
-        },
-    },
 };
 
 const styles = StyleSheet.create({
@@ -59,3 +32,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   }
 });
+
+const mapStateToProps = (state) => {
+    return {
+        theme: state.ui.theme,
+    };
+};
+
+export default connect(mapStateToProps)(App);

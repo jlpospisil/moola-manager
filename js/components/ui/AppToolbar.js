@@ -15,6 +15,12 @@ class AppToolbar extends React.Component {
                     autoFocus: true,
                     placeholder: 'Search',
                 }}
+                // rightElement={{
+                //     menu: {
+                //         icon: "more-vert",
+                //         labels: ["item 1", "item 2"],
+                //     }
+                // }}
             />
         )
     }

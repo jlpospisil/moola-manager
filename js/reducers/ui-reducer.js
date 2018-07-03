@@ -13,19 +13,17 @@ let initialState = {
             },
         },
     },
-    active: 'transaction',
+    active: 'account',
     icons: {
         account: 'credit-card',
-        budget: 'multiline-chart',
         category: 'folder',
-        transaction: 'receipt'
+        calendar: 'event'
     },
     navigation: {
         bottom: [
-            { key: 'budget', label: 'Budgets', path: '/budget' },
             { key: 'category', label: 'Categories', path: '/category' },
             { key: 'account', label: 'Accounts', path: '/account' },
-            { key: 'transaction', label: 'Transactions', path: '/transaction' }
+            { key: 'calendar', label: 'Calendar', path: '/calendar' }
         ]
     }
 };
