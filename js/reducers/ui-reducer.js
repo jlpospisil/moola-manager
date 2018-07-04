@@ -14,16 +14,11 @@ let initialState = {
         },
     },
     active: 'calendar',
-    icons: {
-        account: 'credit-card',
-        category: 'folder',
-        calendar: 'event'
-    },
     navigation: {
         bottom: [
-            { key: 'category', label: 'Categories', path: '/categories' },
-            { key: 'account', label: 'Accounts', path: '/accounts' },
-            { key: 'calendar', label: 'Calendar', path: '/calendar' }
+            { key: 'categories', label: 'Categories', icon: 'folder', path: '/categories' },
+            { key: 'accounts', label: 'Accounts', icon: 'credit-card', path: '/accounts' },
+            { key: 'calendar', label: 'Calendar', icon: 'event', path: '/calendar' }
         ]
     }
 };

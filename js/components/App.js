@@ -1,53 +1,48 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { NativeRouter, Route } from 'react-router-native';
 import { StyleSheet, View, Text } from 'react-native';
 import { ThemeContext, getTheme } from 'react-native-material-ui';
 import AppToolbar from './ui/AppToolbar';
 import AppBottomNavigation from './ui/AppBottomNavigation';
 import Accounts from './accounts/Accounts';
-import { Link } from 'react-router-native';
+import Categories from './categories/Categories';
+import Calendar from './transactions/Calendar';
 
 class App extends React.Component {
-    // TODO: why don't "Click Here 2" or bottom nav links work?
-    // This is happening because the elements from react-native-material-ui are PureComponents
-    // If the ThemeContext.Provider is only used around the AppToolbar and the AppBottomNavigation instead of the whole app, "Click Here 2" works
-    // The Links within the AppBottomNavigation still don't work because the components used within are PureComponents
 
     render() {
+        const { active } = this.props;
+
         return (
-            <NativeRouter>
+            <ThemeContext.Provider value={getTheme(this.props.theme)}>
                 <View style={styles.container}>
-                    <ThemeContext.Provider value={getTheme(this.props.theme)}>
-                        <AppToolbar />
+                    <AppToolbar />
 
-                        <View style={styles.container}>
-                            <Link to="/accounts" style={{paddingBottom: 15}}><Text>Click Here 1</Text></Link>
+                    <View style={styles.container}>
+                        {active === "accounts" && <Accounts />}
+                        {active === "categories" && <Categories />}
+                        {active === "calendar" && <Calendar />}
+                    </View>
 
-                            <Route exact={false} path="/accounts" component={Accounts} />
-                        </View>
-
-                        <Link to="/accounts" style={{paddingBottom: 15}}><Text>Click Here 2</Text></Link>
-
-                        <AppBottomNavigation />
-                    </ThemeContext.Provider>
+                    <AppBottomNavigation />
                 </View>
-            </NativeRouter>
+            </ThemeContext.Provider>
+
         );
     }
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    flex: 1
   }
 });
 
 const mapStateToProps = (state) => {
     return {
         theme: state.ui.theme,
+        items: state.ui.navigation,
+        active: state.ui.active
     };
 };
 

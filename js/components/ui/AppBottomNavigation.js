@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { View } from 'react-native';
 import { BottomNavigation } from 'react-native-material-ui';
 import * as UiActions from '../../actions/ui-actions';
-import AppBottomNavigationItem from './AppBottomNavigationItem';
 
 class AppBottomNavigation extends React.Component {
     // TODO: get Link element working
@@ -15,15 +14,12 @@ class AppBottomNavigation extends React.Component {
                 <BottomNavigation active={this.props.active} hidden={false}>
                     {
                         this.props.items.map(item => (
-                            //<Link to={item.path} key={item.key}>
-                                <AppBottomNavigationItem
-                                    key={item.key}
-                                    icon={this.props.icons[item.key]}
-                                    label={item.label}
-                                    link={item.path}
-                                    onPress={() => this.props.actions.ui.changeActiveItem(item.key)}
-                                />
-                            //</Link>
+                            <BottomNavigation.Action
+                                key={item.key}
+                                icon={item.icon}
+                                label={item.label}
+                                onPress={() => this.props.actions.ui.changeActiveItem(item.key)}
+                            />
                         ))
                     }
                 </BottomNavigation>
@@ -35,8 +31,7 @@ class AppBottomNavigation extends React.Component {
 const mapStateToProps = (state) => {
     return {
         active: state.ui.active,
-        items: state.ui.navigation.bottom,
-        icons: state.ui.icons
+        items: state.ui.navigation.bottom
     };
 };
 
