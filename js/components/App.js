@@ -10,6 +10,9 @@ import { Link } from 'react-router-native';
 
 class App extends React.Component {
     // TODO: why don't "Click Here 2" or bottom nav links work?
+    // This is happening because the elements from react-native-material-ui are PureComponents
+    // If the ThemeContext.Provider is only used around the AppToolbar and the AppBottomNavigation instead of the whole app, "Click Here 2" works
+    // The Links within the AppBottomNavigation still don't work because the components used within are PureComponents
 
     render() {
         return (
