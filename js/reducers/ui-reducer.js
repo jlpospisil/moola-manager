@@ -14,11 +14,16 @@ let initialState = {
         },
     },
     active: 'calendar',
+    fabs: [
+        { name: 'category', label: 'Add Category', icon: 'folder' },
+        { name: 'account', label: 'Add Account', icon: 'credit-card' },
+        { name: 'transaction', label: 'Add Transaction', icon: 'receipt' }
+    ],
     navigation: {
         bottom: [
-            { key: 'categories', label: 'Categories', icon: 'folder', path: '/categories' },
-            { key: 'accounts', label: 'Accounts', icon: 'credit-card', path: '/accounts' },
-            { key: 'calendar', label: 'Calendar', icon: 'event', path: '/calendar' }
+            { key: 'categories', label: 'Categories', icon: 'folder' },
+            { key: 'accounts', label: 'Accounts', icon: 'credit-card' },
+            { key: 'calendar', label: 'Calendar', icon: 'event' }
         ]
     }
 };
@@ -29,6 +34,14 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 active: action.item
+            };
+
+        case UiActionTypes.FAB_CLICKED:
+            console.log(action.fab);
+
+            return {
+                ...state,
+                active: "add_item"
             };
 
         default:

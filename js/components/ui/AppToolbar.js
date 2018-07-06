@@ -7,10 +7,14 @@ import * as UiActions from '../../actions/ui-actions';
 class AppToolbar extends React.Component {
 
     render() {
+        const { active, items } = this.props;
+        const active_item = items.find(item => item.key === active);
+        const header = active_item && active_item.label ? active_item.label : null;
+
         return (
             <Toolbar
                 // leftElement="menu"
-                centerElement={this.props.items.find(item => item.key === this.props.active).label}
+                centerElement={header}
                 searchable={{
                     autoFocus: true,
                     placeholder: 'Search',

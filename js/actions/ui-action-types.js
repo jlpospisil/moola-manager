@@ -1,1 +1,2 @@
 export const CHANGE_ACTIVE_ITEM = 'CHANGE_ACTIVE_ITEM';
+export const FAB_CLICKED = 'FAB_CLICKED';

@@ -6,3 +6,10 @@ export const changeActiveItem = (item) => {
         item
     }
 };
+
+export const fabClicked = (fab) => {
+    return {
+        type: UiActionTypes.FAB_CLICKED,
+        fab
+    }
+};

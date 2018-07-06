@@ -1,17 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { StyleSheet, View, Text } from 'react-native';
-import { ThemeContext, getTheme } from 'react-native-material-ui';
+import { ThemeContext, getTheme, ActionButton  } from 'react-native-material-ui';
 import AppToolbar from './ui/AppToolbar';
 import AppBottomNavigation from './ui/AppBottomNavigation';
 import Accounts from './accounts/Accounts';
 import Categories from './categories/Categories';
 import Calendar from './transactions/Calendar';
+import * as UiActions from '../actions/ui-actions';
 
 class App extends React.Component {
 
     render() {
-        const { active } = this.props;
+        const { actions, active, fabs } = this.props;
 
         return (
             <ThemeContext.Provider value={getTheme(this.props.theme)}>
@@ -22,6 +24,17 @@ class App extends React.Component {
                         {active === "accounts" && <Accounts />}
                         {active === "categories" && <Categories />}
                         {active === "calendar" && <Calendar />}
+
+                        <ActionButton
+                            actions={fabs}
+                            //icon="share"
+                            transition="speedDial"
+                            onPress={fab => {
+                                if (fab !== "main-button") {
+                                    actions.ui.fabClicked(fab);
+                                }
+                            }}
+                        />
                     </View>
 
                     <AppBottomNavigation />
@@ -33,17 +46,26 @@ class App extends React.Component {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
+    container: {
+        flex: 1
+    }
 });
 
 const mapStateToProps = (state) => {
     return {
         theme: state.ui.theme,
         items: state.ui.navigation,
-        active: state.ui.active
+        active: state.ui.active,
+        fabs: state.ui.fabs
     };
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: {
+            ui: bindActionCreators(UiActions, dispatch)
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
