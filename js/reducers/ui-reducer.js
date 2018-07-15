@@ -2,16 +2,7 @@ import * as UiActionTypes from '../actions/ui-action-types';
 
 let initialState = {
     theme: {
-        palette: {
-            primaryColor: '#607d8b',
-            // accentColor: ''
-        },
-        toolbar: {
-            container: {
-                paddingTop: 25,
-                height: 75
-            },
-        },
+        primaryColor: '#607d8b',
     },
     active: 'calendar',
     fabs: [

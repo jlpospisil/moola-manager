@@ -24,4 +24,5 @@ class AppRoot extends React.Component {
     }
 }
 
+expo.KeepAwake.activate();
 expo.registerRootComponent(AppRoot);
