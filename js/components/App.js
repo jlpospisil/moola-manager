@@ -8,12 +8,16 @@ import * as UiActions from '../actions/ui-actions';
 class App extends React.Component {
 
     render() {
+        const { theme } = this.props;
+
         return (
+            <View style={styles.container}>
+                <View style={{ backgroundColor: theme.primaryColor, paddingTop: 25 }}></View>
+
                 <View style={styles.container}>
-                    <View style={styles.container}>
-                        <BottomNav />
-                    </View>
+                    <BottomNav />
                 </View>
+            </View>
         );
     }
 };
