@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Text, FlatList } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { ListItem, Avatar } from 'react-native-elements';
 
 class Accounts extends React.Component {
   render() {
@@ -19,6 +19,7 @@ class Accounts extends React.Component {
                         subtitle={`${item.name} subtitle`}
                         hideChevron={true}
                         rightTitle={`$${item.balance}`}
+                        avatar={<Avatar rounded title={item.name.substr(0,1)} source={null} />}
                     />
                 )}
             />
