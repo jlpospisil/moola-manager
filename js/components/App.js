@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { StyleSheet, View, Text } from 'react-native';
+import Header from './ui/Header';
 import BottomNav from './ui/BottomNav';
-import * as UiActions from '../actions/ui-actions';
 
 class App extends React.Component {
 
@@ -12,7 +11,7 @@ class App extends React.Component {
 
         return (
             <View style={styles.container}>
-                <View style={{ backgroundColor: theme.primaryColor, paddingTop: 25 }}></View>
+                <Header />
 
                 <View style={styles.container}>
                     <BottomNav />
@@ -30,19 +29,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        theme: state.ui.theme,
-        items: state.ui.navigation,
-        active: state.ui.active,
-        fabs: state.ui.fabs
+        theme: state.ui.theme
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        actions: {
-            ui: bindActionCreators(UiActions, dispatch)
-        }
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
