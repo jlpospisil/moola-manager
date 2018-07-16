@@ -6,7 +6,11 @@ export const theme = {
 };
 
 let initialState = {
-    theme
+    theme,
+    fabs: [
+        { key: "account", title: "New Account", icon: "credit-card" },
+        { key: "transaction", title: "New Transaction", icon: "receipt" }
+    ]
 };
 
 export default (state = initialState, action) => {

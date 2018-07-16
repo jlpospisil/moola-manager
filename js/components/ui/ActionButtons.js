@@ -5,7 +5,7 @@ import { Icon } from 'react-native-elements';
 
 class ActionButtons extends React.Component {
     render() {
-        const { theme } = this.props;
+        const { theme, fabs } = this.props;
 
         return (
             <ActionButton
@@ -15,13 +15,19 @@ class ActionButtons extends React.Component {
                 buttonColor={theme.secondaryColor}
                 renderIcon={() => <Icon name="add" color="#fff" />}
             >
-                <ActionButton.Item title="New Account" buttonColor="#fff" onPress={() => {}}>
-                    <Icon name="credit-card" color={theme.primaryColor} />
-                </ActionButton.Item>
-
-                <ActionButton.Item title="New Transaction" buttonColor="#fff" onPress={() => {}}>
-                    <Icon name="receipt" color={theme.primaryColor} />
-                </ActionButton.Item>
+                {
+                    fabs.map(fab =>
+                        <ActionButton.Item
+                            key={fab.key.toString()}
+                            title={fab.title}
+                            buttonColor="#fff"
+                            textStyle={{color: theme.primaryColor}}
+                            onPress={() => alert(`Create new ${fab.key}`)}
+                        >
+                            <Icon name={fab.icon} color={theme.primaryColor} />
+                        </ActionButton.Item>
+                    )
+                }
             </ActionButton>
         );
     }
@@ -29,7 +35,8 @@ class ActionButtons extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        theme: state.ui.theme
+        theme: state.ui.theme,
+        fabs: state.ui.fabs
     };
 };
 
