@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {Text, FlatList} from 'react-native';
+// import {bindActionCreators} from 'redux';
+import {FlatList} from 'react-native';
 import {ListItem, Avatar} from 'react-native-elements';
 
 class Accounts extends React.Component {
