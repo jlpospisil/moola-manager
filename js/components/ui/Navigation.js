@@ -39,7 +39,6 @@ const routes = {
 
 const navigatorConfig = {
     initialRouteName: 'Home',
-    headerMode: "float",
     // labeled: false,
     shifting: false,
     activeTintColor: theme.primaryColor,
