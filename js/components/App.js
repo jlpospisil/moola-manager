@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Text } from 'react-native';
 import Header from './ui/Header';
-import BottomNav from './ui/BottomNav';
+import Navigation from './ui/Navigation';
 
 class App extends React.Component {
 
@@ -12,10 +12,7 @@ class App extends React.Component {
         return (
             <View style={styles.container}>
                 <Header />
-
-                <View style={styles.container}>
-                    <BottomNav />
-                </View>
+                <Navigation />
             </View>
         );
     }

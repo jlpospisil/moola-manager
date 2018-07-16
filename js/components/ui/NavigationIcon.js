@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Icon } from 'react-native-elements';
 
-const BottomNavIcon = name => ({ focused, tintColor }) => (
+const NavigationIcon = name => ({ focused, tintColor }) => (
     <Icon
         name={name}
         color={tintColor}
-        size={focused ? 26 : 24}
+        size={focused ? 25 : 24}
     />
 );
 
-export default BottomNavIcon;
+export default NavigationIcon;

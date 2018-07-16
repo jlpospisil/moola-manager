@@ -3,7 +3,7 @@ import Accounts from "../accounts/Accounts";
 import Calendar from "../transactions/Calendar";
 import Categories from "../categories/Categories";
 import Home from "./Home";
-import BottomNavIcon from "./BottomNavIcon";
+import NavigationIcon from "./NavigationIcon";
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs";
 
 const routes = {
@@ -11,34 +11,35 @@ const routes = {
         screen: Home,
         navigationOptions: {
             title: 'Home',
-            tabBarIcon: BottomNavIcon("home")
+            tabBarIcon: NavigationIcon("home")
         }
     },
     Categories: {
         screen: Categories,
         navigationOptions: {
             title: 'Categories',
-            tabBarIcon: BottomNavIcon("folder")
+            tabBarIcon: NavigationIcon("folder")
         }
     },
     Accounts: {
         screen: Accounts,
         navigationOptions: {
             title: 'Accounts',
-            tabBarIcon: BottomNavIcon("credit-card")
+            tabBarIcon: NavigationIcon("credit-card")
         }
     },
     Calendar: {
         screen: Calendar,
         navigationOptions: {
             title: 'Calendar',
-            tabBarIcon: BottomNavIcon("event")
+            tabBarIcon: NavigationIcon("event")
         }
     }
 };
 
 const navigatorConfig = {
     initialRouteName: 'Home',
+    headerMode: "float",
     // labeled: false,
     shifting: false,
     activeTintColor: theme.primaryColor,
@@ -48,6 +49,6 @@ const navigatorConfig = {
     }
 };
 
-const BottomNav = createMaterialBottomTabNavigator(routes, navigatorConfig);
+const Navigation = createMaterialBottomTabNavigator(routes, navigatorConfig);
 
-export default BottomNav;
+export default Navigation;
