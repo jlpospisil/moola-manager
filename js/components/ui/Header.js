@@ -8,6 +8,7 @@ class Header extends React.Component {
 
     return (
         <NativeHeader
+            leftComponent={{ icon: 'menu', color: '#fff' }}
             centerComponent={{ text: "Moola Manager", style: { color: '#fff' } }}
             rightComponent={{ icon: 'more-vert', color: '#fff' }}
             backgroundColor={theme.primaryColor}

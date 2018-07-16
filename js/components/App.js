@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, View, Text } from 'react-native';
 import Header from './ui/Header';
 import Navigation from './ui/Navigation';
+import ActionButtons from './ui/ActionButtons';
 
 class App extends React.Component {
 
@@ -13,6 +14,7 @@ class App extends React.Component {
             <View style={styles.container}>
                 <Header />
                 <Navigation />
+                <ActionButtons />
             </View>
         );
     }

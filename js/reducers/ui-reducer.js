@@ -1,7 +1,8 @@
 import * as UiActionTypes from '../actions/ui-action-types';
 
 export const theme = {
-    primaryColor: "#607d8b"
+    primaryColor: "#607d8b",
+    secondaryColor: "#ff6d00"
 };
 
 let initialState = {
