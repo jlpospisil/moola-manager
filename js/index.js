@@ -1,24 +1,23 @@
 import expo from 'expo';
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider, connect } from 'react-redux';
-import axios from 'axios';
-import axiosMiddleware from 'redux-axios-middleware';
+import {createStore, applyMiddleware, compose} from 'redux';
+// import {AsyncStorage} from 'react-native';
+// import {persistStore} from 'redux-persist';
+import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
 import rootReducer from './reducers'
 import App from './components/App';
 
-const client = axios.create({
-    baseURL: 'https://api.github.com',
-    responseType: 'json'
-});
-
-const store = createStore(rootReducer, applyMiddleware(axiosMiddleware(client)));
+const store = createStore(
+    rootReducer,
+    applyMiddleware(thunk)
+);
 
 class AppRoot extends React.Component {
     render() {
         return (
             <Provider store={store}>
-              <App />
+                <App/>
             </Provider>
         );
     }

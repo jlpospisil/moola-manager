@@ -1,1 +1,0 @@
-export const FAB_CLICKED = 'FAB_CLICKED';

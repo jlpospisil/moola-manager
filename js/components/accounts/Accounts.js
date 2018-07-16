@@ -1,10 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
-// import {bindActionCreators} from 'redux';
+import {bindActionCreators} from 'redux';
 import {FlatList} from 'react-native';
 import {ListItem, Avatar} from 'react-native-elements';
+import * as AccountActions from '../../actions/account-actions';
 
 class Accounts extends React.Component {
+    componentDidMount () {
+        // this.props.actions.loadAccounts();
+    }
+
     render() {
         const {accounts} = this.props;
 
@@ -34,9 +39,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // actions: {
-        //     ui: bindActionCreators(UiActions, dispatch)
-        // }
+        actions: bindActionCreators(AccountActions, dispatch)
     };
 };
 
