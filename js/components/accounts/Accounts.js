@@ -7,7 +7,13 @@ import * as AccountActions from '../../actions/account-actions';
 
 class Accounts extends React.Component {
     componentDidMount () {
-        // this.props.actions.loadAccounts();
+        this.props.actions.loadAccounts()
+            .then(success => {
+
+            })
+            .catch(error => {
+
+            });
     }
 
     render() {
