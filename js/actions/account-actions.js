@@ -1,6 +1,6 @@
 const base_url = "/account";
 
-export function loadAccounts() {
+export const loadAccounts = () => {
     return {
         types: ["AXIOS", "LOAD_ACCOUNTS"],
         payload: {
@@ -9,4 +9,4 @@ export function loadAccounts() {
             }
         }
     }
-}
+};

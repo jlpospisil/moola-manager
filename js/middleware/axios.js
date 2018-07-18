@@ -3,7 +3,7 @@ import axiosMiddleware from 'redux-axios-middleware';
 import * as localStorage from '../lib/app-local-storage';
 
 const client = axios.create({
-    baseURL:'http://192.168.0.25:8080/api',
+    baseURL:'http://192.168.200.24:8080/api',
     responseType: 'json'
 });
 

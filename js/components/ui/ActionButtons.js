@@ -22,7 +22,12 @@ class ActionButtons extends React.Component {
                             title={fab.title}
                             buttonColor="#fff"
                             textStyle={{color: theme.primaryColor}}
-                            onPress={() => alert(`Create new ${fab.key}`)}
+                            onPress={() => {
+                                alert('TODO: add new transaction');
+                            }}
+                            onLongPress={() => {
+                                alert('TODO: display other fabs here');
+                            }}
                         >
                             <Icon name={fab.icon} color={theme.primaryColor} />
                         </ActionButton.Item>
