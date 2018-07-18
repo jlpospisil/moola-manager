@@ -5,7 +5,7 @@ import * as localStorage from '../lib/app-local-storage';
 let authToken = null;
 
 let remoteServer = {
-    baseURL: null, // TODO: get this from local storage.  await wasn't working.
+    baseURL: null,
     responseType: 'json'
 };
 
