@@ -17,3 +17,12 @@ export const setItem = async (key, value) => {
         console.log("Error setting value" + error);
     }
 };
+
+export const clear = () => {
+    try {
+        AsyncStorage.clear();
+
+    } catch (error) {
+
+    }
+};

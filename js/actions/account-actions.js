@@ -1,4 +1,4 @@
-const base_url = "/account";
+const base_url = "/api/account";
 
 export const loadAccounts = () => {
     return {
