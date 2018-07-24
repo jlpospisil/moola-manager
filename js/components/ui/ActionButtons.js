@@ -14,6 +14,12 @@ class ActionButtons extends React.Component {
                 offsetX={15}
                 buttonColor={theme.secondaryColor}
                 renderIcon={() => <Icon name="add" color="#fff" />}
+                onPress={() => {
+                    console.log('TODO: add new transaction');
+                }}
+                onLongPress={() => {
+                    console.log('TODO: display other fabs here');
+                }}
             >
                 {
                     fabs.map(fab =>
@@ -23,10 +29,7 @@ class ActionButtons extends React.Component {
                             buttonColor="#fff"
                             textStyle={{color: theme.primaryColor}}
                             onPress={() => {
-                                alert('TODO: add new transaction');
-                            }}
-                            onLongPress={() => {
-                                alert('TODO: display other fabs here');
+                                alert(`TODO: add new ${fab.title}`);
                             }}
                         >
                             <Icon name={fab.icon} color={theme.primaryColor} />

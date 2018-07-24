@@ -1,13 +1,11 @@
 {
-  "expo": {
-    "sdkVersion": "27.0.0",
-    "name": "Moola Manager",
-    "description": "Application for managing financial accounts and transactions",
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "package": "com.casadepos.moolamanager"
-    }
+  "name": "MoolaManager",
+  "displayName": "Moola Manager",
+  "description": "Application for managing financial accounts and transactions",
+  "ios": {
+    "supportsTablet": true
+  },
+  "android": {
+    "package": "com.moolamanager"
   }
 }
