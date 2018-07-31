@@ -3,13 +3,32 @@ import axiosMiddleware from 'redux-axios-middleware';
 import * as localStorage from '../lib/app-local-storage';
 
 let authToken = null;
-
 let remoteServer = {
     baseURL: null,
     responseType: 'json'
 };
-
 const client = axios.create(remoteServer);
+const LOGIN_URL = "/login";
+
+const handleLogin = async () => {
+    const remoteServer = await localStorage.getItem("remote-server");
+    const username = await localStorage.getItem("remote-username");
+    const password = await localStorage.getItem("remote-password");
+
+    if (remoteServer && username && password) {
+        await client.post(LOGIN_URL, { username, password })
+            .then(async response => {
+                const token = response.data.token;
+
+                if (token) {
+                    await localStorage.setItem("auth-token", token);
+                }
+            })
+            .catch(error => {
+                console.log({ error });
+            });
+    }
+};
 
 const options = {
     returnRejectedPromiseOnError: true,
@@ -20,8 +39,13 @@ const options = {
                     remoteServer.baseURL = await localStorage.getItem("remote-server");
                 }
 
-                if (!authToken) {
+                if (!authToken && config.url !== LOGIN_URL) {
                     authToken = await localStorage.getItem("auth-token");
+
+                    if (!authToken) {
+                        await handleLogin();
+                        authToken = await localStorage.getItem("auth-token");
+                    }
                 }
 
                 config.baseURL = remoteServer.baseURL;
@@ -37,28 +61,13 @@ const options = {
         response: [
             {
                 error: async ({getState, dispatch, getSourceAction}, error) => {
+                    console.log({ error });
+
                     // If 403, refresh/renew token and retry,
                     if (error.toString().includes("Request failed with status code 403")) {
-                        const username = await localStorage.getItem("remote-username");
-                        const password = await localStorage.getItem("remote-password");
+                        await handleLogin();
 
-                        // TODO: prevent infinite loop on invalid credentials
-                        if (username && password) {
-                            client.post("/login", { username, password })
-                                .then(async response => {
-                                    const token = response.data.token;
-
-                                    if (token) {
-                                        await localStorage.setItem("auth-token", token);
-
-                                        // TODO: retry request here
-                                    }
-                                })
-                                .catch(error => {
-                                    console.log({ error });
-                                });
-
-                        }
+                        // TODO: retry request once, but don't cause infinite loop for invalid credentials
                     }
 
                     return error;
