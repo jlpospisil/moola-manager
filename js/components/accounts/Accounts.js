@@ -29,6 +29,7 @@ class Accounts extends React.Component {
                             avatar={<Avatar rounded title={item.name.substr(0, 1)} source={null}/>}
                         />
                     )}
+                    style={styles.fullWidth}
                 />
 
                 <ActionButtons />
