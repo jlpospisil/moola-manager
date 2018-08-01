@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { View, Text } from 'react-native';
 import * as localStorage from '../../lib/app-local-storage';
-import styles from '../../styles';
+import styles from '../../lib/styles';
 import ActionButtons from '../ui/ActionButtons';
 
 class Home extends React.Component {

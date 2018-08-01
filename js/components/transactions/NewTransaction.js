@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as TransactionActions from '../../redux/actions/transaction-actions';
 import { View, Text } from 'react-native';
-import styles from '../../styles';
+import styles from '../../lib/styles';
 
 class NewTransaction extends React.Component {
     componentDidMount () {

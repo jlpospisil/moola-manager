@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { View, FlatList } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
-import styles from '../../styles';
+import styles from '../../lib/styles';
 import ActionButtons from '../ui/ActionButtons';
 import * as AccountActions from '../../redux/actions/account-actions';
 

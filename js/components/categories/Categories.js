@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { View, Text } from 'react-native';
-import styles from '../../styles';
+import styles from '../../lib/styles';
 import ActionButtons from '../ui/ActionButtons';
 
 class Categories extends React.Component {
