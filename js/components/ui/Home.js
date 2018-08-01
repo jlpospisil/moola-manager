@@ -52,7 +52,7 @@ class Home extends React.Component {
         return (
             <View style={styles.container}>
                 <Text>
-                    TODO: move this to settings and create home screen
+                    TODO: move this functionality to a login screen
                 </Text>
 
                 <View style={{ padding: 25, marginTop: 25 }}>
