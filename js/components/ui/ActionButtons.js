@@ -1,18 +1,41 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import ActionButton from 'react-native-action-button';
 import { Icon } from 'react-native-elements';
+import { withNavigation } from 'react-navigation';
 
 class ActionButtons extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            expanded: false,
+            fabs: [
+                {
+                    key: "account",
+                    title: "New Account",
+                    icon: "credit-card" ,
+                    onPress: () => alert('Add new account')
+                },
+                {
+                    key: "transaction",
+                    title: "New Transaction",
+                    icon: "receipt",
+                    onPress: () => this.props.navigation.navigate('NewTransaction')
+                }
+            ]
+        };
+    }
+
     render() {
-        const { theme, fabs } = this.props;
+        const { fabs } = this.state;
+        const primaryColor = '#607d8b';
 
         return (
             <ActionButton
                 fixNativeFeedbackRadius={true}
-                offsetY={70}
+                offsetY={25}
                 offsetX={15}
-                buttonColor={theme.secondaryColor}
+                buttonColor='#ff6d00'
                 renderIcon={() => <Icon name="add" color="#fff" />}
                 onPress={() => {
                     console.log('TODO: add new transaction');
@@ -27,12 +50,10 @@ class ActionButtons extends React.Component {
                             key={fab.key.toString()}
                             title={fab.title}
                             buttonColor="#fff"
-                            textStyle={{color: theme.primaryColor}}
-                            onPress={() => {
-                                alert(`TODO: add new ${fab.title}`);
-                            }}
+                            textStyle={{color: primaryColor}}
+                            onPress={fab.onPress}
                         >
-                            <Icon name={fab.icon} color={theme.primaryColor} />
+                            <Icon name={fab.icon} color={primaryColor} />
                         </ActionButton.Item>
                     )
                 }
@@ -41,11 +62,4 @@ class ActionButtons extends React.Component {
     }
 };
 
-const mapStateToProps = (state) => {
-    return {
-        theme: state.ui.theme,
-        fabs: state.ui.fabs
-    };
-};
-
-export default connect(mapStateToProps)(ActionButtons);
+export default withNavigation(ActionButtons);

@@ -2,14 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { View, Text } from 'react-native';
+import styles from '../../styles';
+import ActionButtons from '../ui/ActionButtons';
 
 class Categories extends React.Component {
   render() {
     return (
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <View style={styles.container}>
             <Text>
                 Categories: Coming Soon
             </Text>
+
+            <ActionButtons />
         </View>
     );
   }

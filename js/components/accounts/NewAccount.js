@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as AccountActions from '../../actions/account-actions';
+import * as AccountActions from '../../redux/actions/account-actions';
 
 class NewAccount extends React.Component {
     componentDidMount () {

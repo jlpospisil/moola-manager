@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { View, Text } from 'react-native';
 import * as localStorage from '../../lib/app-local-storage';
+import styles from '../../styles';
+import ActionButtons from '../ui/ActionButtons';
 
 class Home extends React.Component {
     constructor(props) {
@@ -48,7 +50,7 @@ class Home extends React.Component {
         const { server, username, password } = this.state;
 
         return (
-            <View style={{ flex: 1 }}>
+            <View style={styles.container}>
                 <Text>
                     TODO: move this to settings and create home screen
                 </Text>
@@ -63,6 +65,8 @@ class Home extends React.Component {
                     <FormLabel>Password</FormLabel>
                     <FormInput value={password} onChangeText={this.setRemotePw} />
                 </View>
+
+                <ActionButtons />
             </View>
         );
     }
