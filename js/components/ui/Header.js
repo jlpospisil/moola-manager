@@ -7,20 +7,20 @@ class Header extends React.Component {
     const { theme } = this.props;
 
     return (
-        <NativeHeader
-            leftComponent={{ icon: 'menu', color: '#fff' }}
-            centerComponent={{ text: "Moola Manager", style: { color: '#fff' } }}
-            rightComponent={{ icon: 'more-vert', color: '#fff' }}
-            backgroundColor={theme.primaryColor}
-        />
+      <NativeHeader
+        leftComponent={{ icon: 'menu', color: '#fff' }}
+        centerComponent={{ text: 'Moola Manager', style: { color: '#fff' } }}
+        rightComponent={{ icon: 'more-vert', color: '#fff' }}
+        backgroundColor={theme.primaryColor}
+      />
     );
   }
-};
+}
 
 const mapStateToProps = (state) => {
-    return {
-        theme: state.ui.theme
-    };
+  return {
+    theme: state.ui.theme
+  };
 };
 
 export default connect(mapStateToProps)(Header);
