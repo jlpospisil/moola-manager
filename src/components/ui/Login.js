@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {
   Alert, View, Image, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView
 } from 'react-native';
+import * as localStorage from '../../lib/app-local-storage';
+import { handleLogin } from '../../middleware/axios';
 
 export default class App extends Component {
   constructor(props) {
@@ -13,15 +15,38 @@ export default class App extends Component {
       password: null,
     };
 
-    this.onButtonPress = this.onButtonPress.bind(this);
+    this.loginAttempt = this.loginAttempt.bind(this);
   }
 
-  onButtonPress() {
+  async componentDidMount() {
+    this.setState({
+      remoteServer: await localStorage.getItem('remote-server'),
+      username: await localStorage.getItem('remote-username'),
+      password: await localStorage.getItem('remote-password')
+    });
+  }
+
+  async checkCredentials() {
+    await handleLogin();
+
+    const token = await localStorage.getItem('auth-token');
+
+  }
+
+  async loginAttempt() {
     const { remoteServer, username, password } = this.state;
-    Alert.alert('Credentials', `${remoteServer} ~ ${username} ~ ${password}`);
+
+    if (remoteServer && username && password) {
+      await localStorage.setItem('remote-server', remoteServer);
+      await localStorage.setItem('remote-username', username);
+      await localStorage.setItem('remote-password', password);
+      await this.checkCredentials();
+    }
   }
 
   render() {
+    const { remoteServer, username, password } = this.state;
+
     // Note: Android and iOS both interact with this prop differently. Android may behave better when given no behavior prop at all, whereas iOS is the opposite.
     // Options: height|position|padding     Usage: behavior='padding'
     // Resource: https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
@@ -37,6 +62,7 @@ export default class App extends Component {
           </View>
 
           <TextInput
+            value={remoteServer}
             style={styles.input}
             autoCapitalize='none'
             autoFocus
@@ -51,6 +77,7 @@ export default class App extends Component {
           />
 
           <TextInput
+            value={username}
             style={styles.input}
             autoCapitalize='none'
             ref={input => this.usernameInput = input}
@@ -65,6 +92,7 @@ export default class App extends Component {
           />
 
           <TextInput
+            value={password}
             style={styles.input}
             returnKeyType='go'
             ref={input => this.passwordInput = input}
@@ -75,7 +103,7 @@ export default class App extends Component {
             onChangeText={password => this.setState({ password })}
           />
 
-          <TouchableOpacity style={styles.buttonContainer} onPress={this.onButtonPress}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={this.loginAttempt}>
             <Text style={styles.buttonText}>
                             LOGIN
             </Text>
@@ -117,7 +145,8 @@ const styles = StyleSheet.create({
   buttonContainer:{
     alignSelf: 'stretch',
     backgroundColor: '#607d8b',
-    paddingVertical: 15
+    paddingVertical: 15,
+    marginTop: 15
   },
   buttonText:{
     textAlign: 'center',
