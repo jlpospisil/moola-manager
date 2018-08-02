@@ -1,11 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
-import Navigation from './ui/Navigation';
+import AppContent from './ui/AppContent';
 
 const App = () => (
   <Provider store={store}>
-    <Navigation />
+    <AppContent />
   </Provider>
 );
 

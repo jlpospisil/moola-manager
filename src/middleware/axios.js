@@ -7,6 +7,8 @@ const remoteServer = { baseURL: null, responseType: 'json' };
 const client = axios.create(remoteServer);
 const LOGIN_URL = '/login';
 
+localStorage.removeItem('auth-token');
+
 /**
  * Intercept request to inject the remoteServer from local storage
  */
@@ -52,8 +54,11 @@ client.interceptors.response.use(async (response) => {
 
   return response;
 }, async (error) => {
+  let { url } = error.config;
+  url = url.replace(remoteServer.baseURL, '');
+
   // If 403, refresh/renew token and retry
-  if (error.response.status === 403) {
+  if (error.response.status === 403 && url !== LOGIN_URL) {
     // Attempt to retrieve a new token
     await handleLogin();
 
@@ -65,7 +70,7 @@ client.interceptors.response.use(async (response) => {
     }
   }
 
-  return Promise.reject(error);
+  return error;
 });
 
 /**
@@ -79,7 +84,6 @@ export const handleLogin = async () => {
   const remoteLoginServer = await localStorage.getItem('remote-server');
   const username = await localStorage.getItem('remote-username');
   const password = await localStorage.getItem('remote-password');
-
   if (remoteLoginServer && username && password) {
     await client.post(LOGIN_URL, { username, password });
   }

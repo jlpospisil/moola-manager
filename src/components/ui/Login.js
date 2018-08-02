@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   Alert, View, Image, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView
 } from 'react-native';
 import * as localStorage from '../../lib/app-local-storage';
 import { handleLogin } from '../../middleware/axios';
+import * as UiActions from '../../redux/actions/ui-actions';
 
-export default class App extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -26,22 +29,23 @@ export default class App extends Component {
     });
   }
 
-  async checkCredentials() {
-    await handleLogin();
-
-    const token = await localStorage.getItem('auth-token');
-
-  }
-
   async loginAttempt() {
     const { remoteServer, username, password } = this.state;
+
+    this.props.UiActions.updateCheckingAuth(true);
+    this.props.UiActions.updateSignedIn(false);
 
     if (remoteServer && username && password) {
       await localStorage.setItem('remote-server', remoteServer);
       await localStorage.setItem('remote-username', username);
       await localStorage.setItem('remote-password', password);
-      await this.checkCredentials();
+      await handleLogin();
     }
+
+    const token = await localStorage.getItem('auth-token');
+
+    this.props.UiActions.updateSignedIn(token !== null);
+    this.props.UiActions.updateCheckingAuth(false);
   }
 
   render() {
@@ -57,7 +61,7 @@ export default class App extends Component {
             {/* eslint-disable-next-line global-require */}
             <Image source={require('../../assets/cow.png')} style={{ width: 100, height: 112.5 }} />
             <Text style={styles.logo}>
-                            Moola Manager
+                Moola Manager
             </Text>
           </View>
 
@@ -105,7 +109,7 @@ export default class App extends Component {
 
           <TouchableOpacity style={styles.buttonContainer} onPress={this.loginAttempt}>
             <Text style={styles.buttonText}>
-                            LOGIN
+                LOGIN
             </Text>
           </TouchableOpacity>
         </View>
@@ -113,6 +117,14 @@ export default class App extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    UiActions: bindActionCreators(UiActions, dispatch),
+  };
+};
+
+export default connect(mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
   mainContainer: {
