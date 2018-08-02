@@ -13,6 +13,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
+      checkingCredentials: false,
       remoteServer: null,
       username: null,
       password: null,
@@ -30,9 +31,11 @@ class Login extends Component {
   }
 
   async loginAttempt() {
-    const { remoteServer, username, password } = this.state;
+    const {
+      remoteServer, username, password, checkingCredentials
+    } = this.state;
 
-    this.props.UiActions.updateCheckingAuth(true);
+    this.setState({ checkingCredentials: true });
     this.props.UiActions.updateSignedIn(false);
 
     if (remoteServer && username && password) {
@@ -44,8 +47,8 @@ class Login extends Component {
 
     const token = await localStorage.getItem('auth-token');
 
+    this.setState({ checkingCredentials: false });
     this.props.UiActions.updateSignedIn(token !== null);
-    this.props.UiActions.updateCheckingAuth(false);
   }
 
   render() {
@@ -118,13 +121,17 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return { };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     UiActions: bindActionCreators(UiActions, dispatch),
   };
 };
 
-export default connect(mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
   mainContainer: {

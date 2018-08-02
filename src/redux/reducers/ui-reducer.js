@@ -6,7 +6,6 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.log({ action });
   switch (action.type) {
   case actions.UPDATE_CHECKING_AUTH: {
     const { checking_auth_status } = action;

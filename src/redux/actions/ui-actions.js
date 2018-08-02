@@ -6,7 +6,6 @@ export const actions = {
 };
 
 export const updateCheckingAuth = (checking_auth_status) => {
-  console.log('updateCheckingAuth', { checking_auth_status });
   return {
     type: actions.UPDATE_CHECKING_AUTH,
     checking_auth_status
@@ -14,7 +13,6 @@ export const updateCheckingAuth = (checking_auth_status) => {
 };
 
 export const updateSignedIn = (signed_in) => {
-  console.log('updateSignedIn', { signed_in });
   return {
     type: actions.UPDATE_SIGNED_IN,
     signed_in
