@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { FormLabel, FormInput } from 'react-native-elements';
 import { View, Text } from 'react-native';
 import * as localStorage from '../../lib/app-local-storage';
@@ -11,29 +10,16 @@ class Home extends React.Component {
     super(props);
 
     this.state = {
-      server: null,
-      username: null,
-      password: null
+      username: null
     };
 
-    this.setRemoteServer = this.setRemoteServer.bind(this);
     this.setRemoteUser = this.setRemoteUser.bind(this);
-    this.setRemotePw = this.setRemotePw.bind(this);
-
-    // localStorage.clear();   // clear local storage
   }
 
   async componentDidMount() {
     this.setState({
-      server: await localStorage.getItem('remote-server'),
-      username: await localStorage.getItem('remote-username'),
-      password: await localStorage.getItem('remote-password')
+      username: await localStorage.getItem('remote-username')
     });
-  }
-
-  setRemoteServer(val) {
-    this.setState({ server: val });
-    localStorage.setItem('remote-server', val);
   }
 
   setRemoteUser(val) {
@@ -41,35 +27,21 @@ class Home extends React.Component {
     localStorage.setItem('remote-username', val);
   }
 
-  setRemotePw(val) {
-    this.setState({ password: val });
-    localStorage.setItem('remote-password', val);
-  }
-
   render() {
-    const { server, username, password } = this.state;
+    const { username } = this.state;
 
     return (
       <View style={styles.container}>
         <Text>
-                    TODO: move this functionality to a login screen
+            TODO: actually implement a home screen
         </Text>
 
         <View style={{ padding: 25, marginTop: 25 }}>
           <FormLabel>
-Remote Server
-          </FormLabel>
-          <FormInput value={server} onChangeText={this.setRemoteServer} />
-
-          <FormLabel>
-Username
+                        Username
           </FormLabel>
           <FormInput value={username} onChangeText={this.setRemoteUser} />
 
-          <FormLabel>
-Password
-          </FormLabel>
-          <FormInput value={password} onChangeText={this.setRemotePw} />
         </View>
 
         <ActionButtons />
@@ -78,19 +50,4 @@ Password
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    // active: state.ui.active,
-    // items: state.ui.navigation.bottom
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // actions: {
-    //     ui: bindActionCreators(UiActions, dispatch)
-    // }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
