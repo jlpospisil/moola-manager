@@ -1,5 +1,3 @@
-import { handleLogin } from '../../middleware/axios';
-
 export const actions = {
   UPDATE_SIGNED_IN: 'UPDATE_SIGNED_IN',
   UPDATE_CHECKING_AUTH: 'UPDATE_CHECKING_AUTH'

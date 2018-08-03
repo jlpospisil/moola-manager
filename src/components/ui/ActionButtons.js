@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { Alert } from 'react-native';
 import ActionButton from 'react-native-action-button';
 import { Icon } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
@@ -7,19 +9,21 @@ class ActionButtons extends React.Component {
   constructor(props) {
     super(props);
 
+    const { navigation } = this.props;
+
     this.state = {
       fabs: [
         {
           key: 'account',
           title: 'New Account',
           icon: 'credit-card' ,
-          onPress: () => alert('Add new account')
+          onPress: () => Alert.alert('Add Account', 'Add new account')
         },
         {
           key: 'transaction',
           title: 'New Transaction',
           icon: 'receipt',
-          onPress: () => this.props.navigation.navigate('NewTransaction')
+          onPress: () => navigation.navigate('NewTransaction')
         }
       ]
     };
@@ -60,5 +64,9 @@ class ActionButtons extends React.Component {
     );
   }
 }
+
+ActionButtons.propTypes = {
+  navigation: PropTypes.object.isRequired
+};
 
 export default withNavigation(ActionButtons);

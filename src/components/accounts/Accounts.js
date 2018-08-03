@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { View, FlatList, RefreshControl } from 'react-native';
@@ -19,13 +20,13 @@ class Accounts extends React.Component {
   }
 
   loadAccounts() {
-    console.log('here');
-    this.props.actions.updateLoading(true);
-    this.props.actions.loadAccounts();
+    const { actions } = this.props;
+    actions.updateLoading(true);
+    actions.loadAccounts();
   }
 
   render() {
-    const { accounts } = this.props;
+    const { accounts, loading } = this.props;
 
     return (
       <View style={styles.container}>
@@ -44,7 +45,7 @@ class Accounts extends React.Component {
           )}
           refreshControl={(
             <RefreshControl
-              refreshing={this.props.loading}
+              refreshing={loading}
               onRefresh={this.loadAccounts}
             />
           )}
@@ -55,6 +56,12 @@ class Accounts extends React.Component {
     );
   }
 }
+
+Accounts.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  accounts: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+};
 
 const mapStateToProps = (state) => {
   return {

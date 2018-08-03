@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-  Alert, View, Image, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView
-} from 'react-native';
+/* eslint-disable-next-line object-curly-newline */
+import { View, Image, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import * as localStorage from '../../lib/app-local-storage';
 import { handleLogin } from '../../middleware/axios';
 import * as UiActions from '../../redux/actions/ui-actions';
@@ -13,7 +12,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      checkingCredentials: false,
+      // checkingCredentials: false,
       remoteServer: null,
       username: null,
       password: null,
@@ -31,12 +30,12 @@ class Login extends Component {
   }
 
   async loginAttempt() {
-    const {
-      remoteServer, username, password, checkingCredentials
-    } = this.state;
+    /* eslint-disable-next-line object-curly-newline */
+    const { remoteServer, username, password } = this.state;
+    const { uiActions } = this.props;
 
-    this.setState({ checkingCredentials: true });
-    this.props.UiActions.updateSignedIn(false);
+    // this.setState({ checkingCredentials: true });
+    uiActions.updateSignedIn(false);
 
     if (remoteServer && username && password) {
       await localStorage.setItem('remote-server', remoteServer);
@@ -47,8 +46,8 @@ class Login extends Component {
 
     const token = await localStorage.getItem('auth-token');
 
-    this.setState({ checkingCredentials: false });
-    this.props.UiActions.updateSignedIn(token !== null);
+    // this.setState({ checkingCredentials: false });
+    uiActions.updateSignedIn(token !== null);
   }
 
   render() {
@@ -80,14 +79,14 @@ class Login extends Component {
             placeholder='Remote Server'
             placeholderTextColor='rgba(0,0,0,0.3)'
             underlineColorAndroid='rgba(0,0,0,0)'
-            onChangeText={remoteServer => this.setState({ remoteServer })}
+            onChangeText={val => this.setState({ remoteServer: val })}
           />
 
           <TextInput
             value={username}
             style={styles.input}
             autoCapitalize='none'
-            ref={input => this.usernameInput = input}
+            ref={(input) => { this.usernameInput = input; }}
             onSubmitEditing={() => this.passwordInput.focus()}
             autoCorrect={false}
             keyboardType='email-address'
@@ -95,19 +94,19 @@ class Login extends Component {
             placeholder='Username'
             placeholderTextColor='rgba(0,0,0,0.3)'
             underlineColorAndroid='rgba(0,0,0,0)'
-            onChangeText={username => this.setState({ username })}
+            onChangeText={val => this.setState({ username: val })}
           />
 
           <TextInput
             value={password}
             style={styles.input}
             returnKeyType='go'
-            ref={input => this.passwordInput = input}
+            ref={(input) => { this.passwordInput = input; }}
             placeholder='Password'
             placeholderTextColor='rgba(0,0,0,0.3)'
             underlineColorAndroid='rgba(0,0,0,0)'
             secureTextEntry
-            onChangeText={password => this.setState({ password })}
+            onChangeText={val => this.setState({ password: val })}
           />
 
           <TouchableOpacity style={styles.buttonContainer} onPress={this.loginAttempt}>
@@ -127,7 +126,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    UiActions: bindActionCreators(UiActions, dispatch),
+    uiActions: bindActionCreators(UiActions, dispatch),
   };
 };
 

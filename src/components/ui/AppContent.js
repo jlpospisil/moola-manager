@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { View, Text } from 'react-native';
@@ -11,11 +12,12 @@ import Navigation from './Navigation';
 
 class AppContent extends React.Component {
   async componentDidMount() {
-    this.props.UiActions.updateCheckingAuth(true);
+    const { uiActions } = this.props;
+    uiActions.updateCheckingAuth(true);
     await handleLogin();
     const token = await localStorage.getItem('auth-token');
-    this.props.UiActions.updateSignedIn(token !== null);
-    this.props.UiActions.updateCheckingAuth(false);
+    uiActions.updateSignedIn(token !== null);
+    uiActions.updateCheckingAuth(false);
   }
 
   render() {
@@ -39,6 +41,11 @@ class AppContent extends React.Component {
   }
 }
 
+AppContent.propTypes = {
+  checking_auth_status: PropTypes.bool.isRequired,
+  signed_in: PropTypes.bool.isRequired
+};
+
 const mapStateToProps = (state) => {
   return {
     checking_auth_status: state.ui.checking_auth_status,
@@ -48,7 +55,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    UiActions: bindActionCreators(UiActions, dispatch),
+    uiActions: bindActionCreators(UiActions, dispatch),
   };
 };
 
