@@ -7,8 +7,6 @@ const remoteServer = { baseURL: null, responseType: 'json' };
 const client = axios.create(remoteServer);
 const LOGIN_URL = '/login';
 
-localStorage.removeItem('auth-token');
-
 /**
  * Intercept request to inject the remoteServer from local storage
  */
