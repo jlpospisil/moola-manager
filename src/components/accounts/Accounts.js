@@ -57,13 +57,13 @@ class Accounts extends React.Component {
               onPress={() => Alert.alert('Delete', 'Delete here')}
               style={[styles.listItemButton, { backgroundColor: 'rgba(0,0,0,0.03)' }]}
             >
-              <Icon name='delete-forever' color='rgba(200,0,0,0.75)' size={24} />
+              <Icon name='delete-forever' color='rgba(200,0,0,0.75)' size={28} />
             </TouchableOpacity>,
             <TouchableOpacity
               onPress={() => Alert.alert('Edit', 'Edit here')}
               style={[styles.listItemButton, { backgroundColor: 'rgba(0,0,0,0.05)' }]}
             >
-              <Icon name='edit' color='rgba(97,97,97,0.75)' size={24} />
+              <Icon name='edit' color='rgba(97,97,97,0.75)' size={28} />
             </TouchableOpacity>
           ]}
           onRightButtonsOpenRelease={onOpen}
