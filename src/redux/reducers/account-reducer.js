@@ -14,12 +14,27 @@ export default (state = initialState, action) => {
       loading
     };
   }
-  case 'LOAD_ACCOUNTS': {
+  case actions.LOAD_ACCOUNTS: {
     const response = action.payload;
     const accounts = response.status === 200 && Array.isArray(response.data) ? response.data : [];
     return {
       ...state,
       loading: false,
+      accounts
+    };
+  }
+  case actions.DELETE_ACCOUNT: {
+    const response = action.payload;
+    let { accounts } = state;
+    if (response.status === 200) {
+      const { id } = action.meta.previousAction;
+      const index = accounts.findIndex(account => account.id === id);
+      accounts = JSON.parse(JSON.stringify(accounts));  // wasn't working with reference, so make deep copy
+      accounts.splice(index, 1);
+    }
+
+    return {
+      ...state,
       accounts
     };
   }

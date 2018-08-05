@@ -29,33 +29,15 @@ class Accounts extends React.Component {
   }
 
   render() {
-    const { accounts, loading } = this.props;
+    const { accounts, loading, actions } = this.props;
 
     // TODO: split swipeable list item into a separate component
-    const AccountListItem = ({ name, description, balance }) => {
-      const row = (
-        <ListItem
-          title={name}
-          subtitle={description}
-          hideChevron
-          rightTitle={`$${balance}`}
-          avatar={<Avatar rounded title={name.substr(0, 1)} source={null} />}
-        />
-      );
-
-      return SwipeableRow({
-        row,
-        onOpen: () => { console.log('onOpen'); },
-        onClose: () => { console.log('onClose'); }
-      });
-    };
-
-    const SwipeableRow = ({ row, onOpen, onClose }) => {
+    const AccountListItem = ({ id, name, description, balance }) => {
       return (
         <Swipeable
           rightButtons={[
             <TouchableOpacity
-              onPress={() => Alert.alert('Delete', 'Delete here')}
+              onPress={() => actions.deleteAccount(id)}
               style={[styles.listItemButton, { backgroundColor: 'rgba(217,0,0,0.8)' }]}
             >
               <Icon name='delete-forever' color='#ffffff' size={28} />
@@ -73,10 +55,16 @@ class Accounts extends React.Component {
               <Icon name='edit' color='#ffffff' size={28} />
             </TouchableOpacity>
           ]}
-          onRightButtonsOpenRelease={onOpen}
-          onRightButtonsCloseRelease={onClose}
+          onRightButtonsOpenRelease={() => { console.log('onOpen'); }}
+          onRightButtonsCloseRelease={() => { console.log('onClose'); }}
         >
-          {row}
+          <ListItem
+            title={name}
+            subtitle={description}
+            hideChevron
+            rightTitle={`$${balance}`}
+            avatar={<Avatar rounded title={name.substr(0, 1)} source={null} />}
+          />
         </Swipeable>
       );
     };
