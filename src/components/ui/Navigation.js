@@ -26,7 +26,7 @@ const createStack = (item) => {
     navigationOptions: {
       headerTintColor: '#ffffff',
       headerStyle: {
-        backgroundColor: '#607d8b'
+        backgroundColor: '#43a047'
       }
     }
   });
@@ -95,7 +95,7 @@ const navigatorConfig = {
   initialRouteName: 'Home',
   // labeled: false,
   shifting: false,
-  activeTintColor: '#607d8b',
+  activeTintColor: '#43a047',
   // inactiveTintColor: 'red',
   barStyle: {
     backgroundColor: '#ffffff'

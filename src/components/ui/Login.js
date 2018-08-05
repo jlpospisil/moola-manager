@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ECEFF1'
+    backgroundColor: '#eceff1'
   },
   innerContainer: {
     flex: 1,
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     padding: 20
   },
   logo: {
-    color: '#4CAF50',
+    color: '#43a047',
     fontWeight: '900',
     fontSize: 20
   },
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer:{
     alignSelf: 'stretch',
-    backgroundColor: '#607d8b',
+    backgroundColor: '#43a047',
     paddingVertical: 15,
     marginTop: 15
   },

@@ -31,14 +31,14 @@ class ActionButtons extends React.Component {
 
   render() {
     const { fabs } = this.state;
-    const primaryColor = '#607d8b';
+    const additionalButtonColor = 'rgba(97,97,97,0.75)';
 
     return (
       <ActionButton
         fixNativeFeedbackRadius
         offsetY={25}
         offsetX={15}
-        buttonColor='#ff6d00'
+        buttonColor='#fb8c00'
         renderIcon={() => <Icon name='add' color='#fff' />}
         onPress={() => {
           console.log('TODO: add new transaction');
@@ -53,10 +53,10 @@ class ActionButtons extends React.Component {
               key={fab.key.toString()}
               title={fab.title}
               buttonColor='#fff'
-              textStyle={{ color: primaryColor }}
+              textStyle={{ color: additionalButtonColor }}
               onPress={fab.onPress}
             >
-              <Icon name={fab.icon} color={primaryColor} />
+              <Icon name={fab.icon} color={additionalButtonColor} />
             </ActionButton.Item>
           ))
         }

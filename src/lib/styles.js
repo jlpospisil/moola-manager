@@ -10,6 +10,15 @@ const styles = {
   },
   fullWidth: {
     alignSelf: 'stretch'
+  },
+  listItemButton: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomColor: '#bbb',
+    borderBottomWidth: 1,
+    width: 75
   }
 };
 
