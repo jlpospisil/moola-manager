@@ -31,6 +31,7 @@ class Accounts extends React.Component {
   render() {
     const { accounts, loading } = this.props;
 
+    // TODO: split swipeable list item into a separate component
     const AccountListItem = ({ name, description, balance }) => {
       const row = (
         <ListItem
@@ -55,15 +56,21 @@ class Accounts extends React.Component {
           rightButtons={[
             <TouchableOpacity
               onPress={() => Alert.alert('Delete', 'Delete here')}
-              style={[styles.listItemButton, { backgroundColor: 'rgba(0,0,0,0.03)' }]}
+              style={[styles.listItemButton, { backgroundColor: 'rgba(217,0,0,0.8)' }]}
             >
-              <Icon name='delete-forever' color='rgba(200,0,0,0.75)' size={28} />
+              <Icon name='delete-forever' color='#ffffff' size={28} />
+            </TouchableOpacity>,
+            <TouchableOpacity
+              onPress={() => Alert.alert('Share', 'Share here')}
+              style={[styles.listItemButton, { backgroundColor: 'rgba(3,155,229,0.8)' }]}
+            >
+              <Icon name='share' color='#ffffff' size={28} />
             </TouchableOpacity>,
             <TouchableOpacity
               onPress={() => Alert.alert('Edit', 'Edit here')}
-              style={[styles.listItemButton, { backgroundColor: 'rgba(0,0,0,0.05)' }]}
+              style={[styles.listItemButton, { backgroundColor: 'rgba(67,160,71,0.5)' }]}
             >
-              <Icon name='edit' color='rgba(97,97,97,0.75)' size={28} />
+              <Icon name='edit' color='#ffffff' size={28} />
             </TouchableOpacity>
           ]}
           onRightButtonsOpenRelease={onOpen}
