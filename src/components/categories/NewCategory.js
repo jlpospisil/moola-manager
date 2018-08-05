@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 import { View, Text } from 'react-native';
-import * as TransactionActions from '../../redux/actions/transaction-actions';
 import styles from '../../lib/styles';
 
-class NewTransaction extends React.Component {
+class NewCategory extends React.Component {
   componentDidMount() {
 
   }
@@ -14,7 +13,7 @@ class NewTransaction extends React.Component {
     return (
       <View style={styles.container}>
         <Text>
-            Create New Transaction
+            Create New Category
         </Text>
       </View>
     );
@@ -29,8 +28,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(TransactionActions, dispatch)
+    // actions: bindActionCreators(AccountActions, dispatch)
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewTransaction);
+export default connect(mapStateToProps, mapDispatchToProps)(NewCategory);

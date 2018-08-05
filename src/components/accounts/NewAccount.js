@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { View, Text } from 'react-native';
 import * as AccountActions from '../../redux/actions/account-actions';
+import styles from '../../lib/styles';
 
 class NewAccount extends React.Component {
   componentDidMount() {
@@ -11,9 +12,9 @@ class NewAccount extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>
-            Create New Account
+                Create New Account
         </Text>
       </View>
     );

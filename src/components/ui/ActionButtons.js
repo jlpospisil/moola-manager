@@ -17,13 +17,13 @@ class ActionButtons extends React.Component {
           key: 'account',
           title: 'New Account',
           icon: 'credit-card' ,
-          onPress: () => Alert.alert('Add Account', 'Add new account')
+          onPress: () => navigation.navigate('NewAccount')
         },
         {
           key: 'category',
           title: 'New Category',
           icon: 'folder' ,
-          onPress: () => Alert.alert('Add Category', 'Add new category')
+          onPress: () => navigation.navigate('NewCategory')
         },
         {
           key: 'transaction',

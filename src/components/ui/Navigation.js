@@ -1,9 +1,11 @@
 import { createStackNavigator } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Accounts from '../accounts/Accounts';
+import NewAccount from '../accounts/NewAccount';
 import NewTransaction from '../transactions/NewTransaction';
 import Calendar from '../transactions/Calendar';
 import Categories from '../categories/Categories';
+import NewCategory from '../categories/NewCategory';
 import Home from './Home';
 import NavigationIcon from './NavigationIcon';
 
@@ -11,7 +13,7 @@ const commonComponents = {
   NewTransaction: {
     screen: NewTransaction,
     navigationOptions: ({ navigation }) => ({
-      headerTitle: 'Create Transaction'
+      headerTitle: 'New Transaction'
     })
   }
 };
@@ -54,6 +56,12 @@ const routes = {
         navigationOptions: ({ navigation }) => ({
           headerTitle: 'Categories'
         })
+      },
+      NewCategory: {
+        screen: NewCategory,
+        navigationOptions: ({ navigation }) => ({
+          headerTitle: 'New Category'
+        })
       }
     }),
     navigationOptions: {
@@ -67,6 +75,12 @@ const routes = {
         screen: Accounts,
         navigationOptions: ({ navigation }) => ({
           headerTitle: 'Accounts'
+        })
+      },
+      NewAccount: {
+        screen: NewAccount,
+        navigationOptions: ({ navigation }) => ({
+          headerTitle: 'New Account'
         })
       }
     }),
