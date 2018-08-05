@@ -12,12 +12,18 @@ class ActionButtons extends React.Component {
     const { navigation } = this.props;
 
     this.state = {
-      fabs: [
+      availableFabs: [
         {
           key: 'account',
           title: 'New Account',
           icon: 'credit-card' ,
           onPress: () => Alert.alert('Add Account', 'Add new account')
+        },
+        {
+          key: 'category',
+          title: 'New Category',
+          icon: 'folder' ,
+          onPress: () => Alert.alert('Add Category', 'Add new category')
         },
         {
           key: 'transaction',
@@ -30,25 +36,27 @@ class ActionButtons extends React.Component {
   }
 
   render() {
-    const { fabs } = this.state;
+    const { availableFabs } = this.state;
+    const { navigation, fabs } = this.props;
     const additionalButtonColor = 'rgba(97,97,97,0.75)';
+    const visibleFabs = availableFabs.filter(fab => fabs.includes(fab.key) || (fabs.length > 0 && fab.key === 'transaction'));
 
     return (
       <ActionButton
         fixNativeFeedbackRadius
         offsetY={25}
         offsetX={15}
+        degrees={visibleFabs.length === 0 ? 0 : 135}
         buttonColor='#fb8c00'
         renderIcon={() => <Icon name='add' color='#fff' />}
         onPress={() => {
-          console.log('TODO: add new transaction');
-        }}
-        onLongPress={() => {
-          console.log('TODO: display other fabs here');
+          if (visibleFabs.length === 0) {
+            navigation.navigate('NewTransaction');
+          }
         }}
       >
         {
-          fabs.map(fab => (
+          visibleFabs.map(fab => (
             <ActionButton.Item
               key={fab.key.toString()}
               title={fab.title}
@@ -66,7 +74,12 @@ class ActionButtons extends React.Component {
 }
 
 ActionButtons.propTypes = {
-  navigation: PropTypes.object.isRequired
+  navigation: PropTypes.object.isRequired,
+  fabs: PropTypes.array
+};
+
+ActionButtons.defaultProps = {
+  fabs: []
 };
 
 export default withNavigation(ActionButtons);

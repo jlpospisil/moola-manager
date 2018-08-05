@@ -13,7 +13,7 @@ class Categories extends React.Component {
                 Categories: Coming Soon
         </Text>
 
-        <ActionButtons />
+        <ActionButtons fabs={['category']} />
       </View>
     );
   }

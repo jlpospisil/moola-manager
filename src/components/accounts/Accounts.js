@@ -96,7 +96,7 @@ class Accounts extends React.Component {
           )}
         />
 
-        <ActionButtons />
+        <ActionButtons fabs={['account']} />
       </View>
     );
   }
