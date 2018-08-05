@@ -25,18 +25,17 @@ export default (state = initialState, action) => {
   }
   case actions.DELETE_ACCOUNT: {
     const response = action.payload;
-    let { accounts } = state;
+    const { accounts } = state;
+
     if (response.status === 200) {
       const { id } = action.meta.previousAction;
-      const index = accounts.findIndex(account => account.id === id);
-      accounts = JSON.parse(JSON.stringify(accounts));  // wasn't working with reference, so make deep copy
-      accounts.splice(index, 1);
+      return {
+        ...state,
+        accounts: accounts.filter(account => account.id !== id)
+      };
     }
 
-    return {
-      ...state,
-      accounts
-    };
+    return state;
   }
   default: {
     return state;

@@ -73,7 +73,7 @@ class Accounts extends React.Component {
       <View style={styles.container}>
         <FlatList
           data={accounts}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={item => item.id.toString()}
           style={styles.fullWidth}
           renderItem={({ item }) => AccountListItem(item)}
           refreshControl={(
