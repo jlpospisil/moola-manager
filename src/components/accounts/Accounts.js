@@ -68,7 +68,7 @@ class Accounts extends React.Component {
             </TouchableOpacity>,
             <TouchableOpacity
               onPress={() => Alert.alert('Edit', 'Edit here')}
-              style={[styles.listItemButton, { backgroundColor: 'rgba(67,160,71,0.5)' }]}
+              style={[styles.listItemButton, { backgroundColor: 'rgba(33,33,33,0.4)' }]}
             >
               <Icon name='edit' color='#ffffff' size={28} />
             </TouchableOpacity>
