@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 /* eslint-disable-next-line object-curly-newline */
 import { View, Image, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView } from 'react-native';
-import styles, { primaryColor } from '../../lib/styles';
+import styles from '../../lib/styles';
 import * as localStorage from '../../lib/app-local-storage';
 import { handleLogin } from '../../middleware/axios';
 import * as UiActions from '../../redux/actions/ui-actions';
@@ -80,7 +80,6 @@ class Login extends Component {
               returnKeyType='next'
               placeholder='Remote Server'
               placeholderTextColor='rgba(0,0,0,0.3)'
-              underlineColorAndroid={primaryColor}
               onChangeText={val => this.setState({ remoteServer: val })}
             />
 
@@ -95,7 +94,6 @@ class Login extends Component {
               returnKeyType='next'
               placeholder='Username'
               placeholderTextColor='rgba(0,0,0,0.3)'
-              underlineColorAndroid={primaryColor}
               onChangeText={val => this.setState({ username: val })}
             />
 
@@ -104,9 +102,9 @@ class Login extends Component {
               style={styles.input}
               returnKeyType='go'
               ref={(input) => { this.passwordInput = input; }}
+              autoCapitalize='none'
               placeholder='Password'
               placeholderTextColor='rgba(0,0,0,0.3)'
-              underlineColorAndroid={primaryColor}
               secureTextEntry
               onChangeText={val => this.setState({ password: val })}
             />

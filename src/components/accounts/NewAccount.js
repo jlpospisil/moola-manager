@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { View, Text } from 'react-native';
+import {
+  View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView
+} from 'react-native';
+import { FormLabel, FormInput } from 'react-native-elements';
 import * as AccountActions from '../../redux/actions/account-actions';
 import styles from '../../lib/styles';
 
@@ -11,12 +14,45 @@ class NewAccount extends React.Component {
   }
 
   render() {
+    // Note: Android and iOS both interact with this prop differently. Android may behave better when given no behavior prop at all, whereas iOS is the opposite.
+    // Options: height|position|padding     Usage: behavior='padding'
+    // Resource: https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
     return (
-      <View style={styles.container}>
-        <Text>
-                Create New Account
-        </Text>
-      </View>
+      <KeyboardAvoidingView style={[styles.container, styles.padding20]}>
+        <View style={[styles.container, { alignItems: 'flex-start' }]}>
+          <FormLabel>
+            Account Name
+          </FormLabel>
+          <FormInput
+            autoFocus
+            returnKeyType='next'
+            style={styles.input}
+          />
+
+          <FormLabel>
+            Description
+          </FormLabel>
+          <FormInput
+            returnKeyType='next'
+            style={styles.input}
+          />
+
+          <FormLabel>
+            Starting Balance
+          </FormLabel>
+          <FormInput
+            keyboardType='numeric'
+            returnKeyType='go'
+            style={styles.input}
+          />
+        </View>
+
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => console.log('pressed')}>
+          <Text style={styles.buttonText}>
+            SAVE
+          </Text>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
     );
   }
 }
