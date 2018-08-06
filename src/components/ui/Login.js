@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 /* eslint-disable-next-line object-curly-newline */
 import { View, Image, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView } from 'react-native';
-import styles from '../../lib/styles';
+import styles, { primaryColor } from '../../lib/styles';
 import * as localStorage from '../../lib/app-local-storage';
 import { handleLogin } from '../../middleware/axios';
 import * as UiActions from '../../redux/actions/ui-actions';
@@ -68,53 +68,57 @@ class Login extends Component {
             </Text>
           </View>
 
-          <TextInput
-            value={remoteServer}
-            style={styles.input}
-            autoCapitalize='none'
-            autoFocus
-            onSubmitEditing={() => this.usernameInput.focus()}
-            autoCorrect={false}
-            keyboardType='email-address'
-            returnKeyType='next'
-            placeholder='Remote Server'
-            placeholderTextColor='rgba(0,0,0,0.3)'
-            underlineColorAndroid='rgba(0,0,0,0)'
-            onChangeText={val => this.setState({ remoteServer: val })}
-          />
+          <View style={[styles.container, styles.padding20]}>
+            <TextInput
+              value={remoteServer}
+              style={styles.input}
+              autoCapitalize='none'
+              autoFocus
+              onSubmitEditing={() => this.usernameInput.focus()}
+              autoCorrect={false}
+              keyboardType='email-address'
+              returnKeyType='next'
+              placeholder='Remote Server'
+              placeholderTextColor='rgba(0,0,0,0.3)'
+              underlineColorAndroid={primaryColor}
+              onChangeText={val => this.setState({ remoteServer: val })}
+            />
 
-          <TextInput
-            value={username}
-            style={styles.input}
-            autoCapitalize='none'
-            ref={(input) => { this.usernameInput = input; }}
-            onSubmitEditing={() => this.passwordInput.focus()}
-            autoCorrect={false}
-            keyboardType='email-address'
-            returnKeyType='next'
-            placeholder='Username'
-            placeholderTextColor='rgba(0,0,0,0.3)'
-            underlineColorAndroid='rgba(0,0,0,0)'
-            onChangeText={val => this.setState({ username: val })}
-          />
+            <TextInput
+              value={username}
+              style={styles.input}
+              autoCapitalize='none'
+              ref={(input) => { this.usernameInput = input; }}
+              onSubmitEditing={() => this.passwordInput.focus()}
+              autoCorrect={false}
+              keyboardType='email-address'
+              returnKeyType='next'
+              placeholder='Username'
+              placeholderTextColor='rgba(0,0,0,0.3)'
+              underlineColorAndroid={primaryColor}
+              onChangeText={val => this.setState({ username: val })}
+            />
 
-          <TextInput
-            value={password}
-            style={styles.input}
-            returnKeyType='go'
-            ref={(input) => { this.passwordInput = input; }}
-            placeholder='Password'
-            placeholderTextColor='rgba(0,0,0,0.3)'
-            underlineColorAndroid='rgba(0,0,0,0)'
-            secureTextEntry
-            onChangeText={val => this.setState({ password: val })}
-          />
+            <TextInput
+              value={password}
+              style={styles.input}
+              returnKeyType='go'
+              ref={(input) => { this.passwordInput = input; }}
+              placeholder='Password'
+              placeholderTextColor='rgba(0,0,0,0.3)'
+              underlineColorAndroid={primaryColor}
+              secureTextEntry
+              onChangeText={val => this.setState({ password: val })}
+            />
+          </View>
 
-          <TouchableOpacity style={styles.buttonContainer} onPress={this.loginAttempt}>
-            <Text style={styles.buttonText}>
-                LOGIN
-            </Text>
-          </TouchableOpacity>
+          <View style={{ alignSelf: 'stretch', paddingHorizontal: 20 }}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={this.loginAttempt}>
+              <Text style={styles.buttonText}>
+                  LOGIN
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </KeyboardAvoidingView>
     );

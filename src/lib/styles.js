@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const primaryColor = '#43a047';
+export const primaryColor = '#43a047';
 
 const styles = {
   container: {
@@ -25,8 +25,6 @@ const styles = {
   input:{
     alignSelf: 'stretch',
     height: 40,
-    backgroundColor: 'rgba(0,0,0,0.2)',
-    color: '#000000',
     marginBottom: 10,
     padding: 10
   },
@@ -34,7 +32,7 @@ const styles = {
     alignSelf: 'stretch',
     backgroundColor: primaryColor,
     paddingVertical: 15,
-    marginTop: 15
+    borderRadius: 25
   },
   buttonText:{
     textAlign: 'center',
