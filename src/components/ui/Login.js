@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 /* eslint-disable-next-line object-curly-newline */
 import { View, Image, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import styles from '../../lib/styles';
 import * as localStorage from '../../lib/app-local-storage';
 import { handleLogin } from '../../middleware/axios';
 import * as UiActions from '../../redux/actions/ui-actions';
@@ -57,12 +58,12 @@ class Login extends Component {
     // Options: height|position|padding     Usage: behavior='padding'
     // Resource: https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
     return (
-      <KeyboardAvoidingView style={styles.mainContainer}>
-        <View style={styles.innerContainer}>
-          <View style={styles.innerContainer}>
+      <KeyboardAvoidingView style={styles.container}>
+        <View style={[styles.container, styles.padding20]}>
+          <View style={[styles.container, styles.padding20]}>
             {/* eslint-disable-next-line global-require */}
             <Image source={require('../../assets/cow.png')} style={{ width: 100, height: 112.5 }} />
-            <Text style={styles.logo}>
+            <Text style={[styles.textPrimary, { fontWeight: '900', fontSize: 20 }]}>
                 Moola Manager
             </Text>
           </View>
@@ -131,44 +132,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#eceff1'
-  },
-  innerContainer: {
-    flex: 1,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20
-  },
-  logo: {
-    color: '#43a047',
-    fontWeight: '900',
-    fontSize: 20
-  },
-  input:{
-    alignSelf: 'stretch',
-    height: 40,
-    backgroundColor: 'rgba(0,0,0,0.2)',
-    color: '#000000',
-    marginBottom: 10,
-    padding: 10
-  },
-  buttonContainer:{
-    alignSelf: 'stretch',
-    backgroundColor: '#43a047',
-    paddingVertical: 15,
-    marginTop: 15
-  },
-  buttonText:{
-    textAlign: 'center',
-    color: '#ffffff',
-    fontWeight: '700'
-  }
-});
