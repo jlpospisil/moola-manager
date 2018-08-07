@@ -7,11 +7,31 @@ import * as AccountActions from '../../redux/actions/account-actions';
 import styles from '../../lib/styles';
 
 class NewAccount extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      name: null,
+      description: null,
+      balance: null
+    };
+
+    this.updateAccount = this.updateAccount.bind(this);
+  }
+
+  updateAccount(item) {
+    const { current_account, actions } = this.props;
+    this.setState(item);
+    // TODO: get this working so the account can be saved
+    // actions.updateCurrentAccount({
+    //   ...current_account,
+    //   ...item
+    // });
   }
 
   render() {
+    const { name, description, balance } = this.state;
+
     // Note: Android and iOS both interact with this prop differently. Android may behave better when given no behavior prop at all, whereas iOS is the opposite.
     // Options: height|position|padding     Usage: behavior='padding'
     // Resource: https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
@@ -25,6 +45,8 @@ class NewAccount extends React.Component {
             autoFocus
             returnKeyType='next'
             style={styles.input}
+            value={name}
+            onChangeText={val => this.updateAccount({ name: val })}
           />
 
           <FormLabel>
@@ -33,6 +55,8 @@ class NewAccount extends React.Component {
           <FormInput
             returnKeyType='next'
             style={styles.input}
+            value={description}
+            onChangeText={val => this.updateAccount({ description: val })}
           />
 
           <FormLabel>
@@ -42,6 +66,8 @@ class NewAccount extends React.Component {
             keyboardType='numeric'
             returnKeyType='go'
             style={styles.input}
+            value={balance}
+            onChangeText={val => this.updateAccount({ balance: val })}
           />
         </View>
       </KeyboardAvoidingView>
@@ -51,7 +77,7 @@ class NewAccount extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    // accounts: state.accounts.accounts,
+    current_account: state.accounts.current_account
   };
 };
 
