@@ -10,7 +10,6 @@ import Categories from '../categories/Categories';
 import NewCategory from '../categories/NewCategory';
 import Home from './Home';
 import NavigationIcon from './NavigationIcon';
-import styles from '../../lib/styles';
 
 const commonComponents = {
   NewTransaction: {
@@ -85,7 +84,8 @@ const routes = {
         navigationOptions: ({ navigation }) => ({
           headerTitle: 'New Account',
           headerRight: HeaderSaveButton({
-            onPress: () => { alert('here'); }
+            onPress: () => { navigation.state.params.saveNewAccount() }
+            // onPress: () => { console.log({ navigation }) }
           })
         })
       }

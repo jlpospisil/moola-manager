@@ -17,7 +17,6 @@ export const updateLoading = (loading) => {
 };
 
 export const updateCurrentAccount = (current_account) => {
-  console.log('here', { current_account });
   return {
     type: actions.UPDATE_CURRENT_ACCOUNT,
     current_account
@@ -35,13 +34,13 @@ export const loadAccounts = () => {
   };
 };
 
-export const addAccount = (data) => {
+export const createNewAccount = (data) => {
   return {
     types: ['AXIOS', actions.ADD_ACCOUNT],
     payload: {
       request: {
         url: base_url,
-        type: 'POST',
+        method: 'POST',
         data
       }
     }

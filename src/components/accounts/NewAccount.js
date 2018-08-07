@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+import { withNavigation } from 'react-navigation';
 import { View, KeyboardAvoidingView } from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements';
 import * as AccountActions from '../../redux/actions/account-actions';
@@ -16,17 +18,29 @@ class NewAccount extends React.Component {
       balance: null
     };
 
-    this.updateAccount = this.updateAccount.bind(this);
+    this._updateCurrentAccount = this._updateCurrentAccount.bind(this);
   }
 
-  updateAccount(item) {
+  componentWillMount() {
+    const { navigation } = this.props;
+    navigation.setParams({
+      saveNewAccount: this._saveAccount.bind(this),
+    });
+  }
+
+  _updateCurrentAccount(item) {
     const { current_account, actions } = this.props;
     this.setState(item);
-    // TODO: get this working so the account can be saved
-    // actions.updateCurrentAccount({
-    //   ...current_account,
-    //   ...item
-    // });
+    actions.updateCurrentAccount({
+      ...current_account,
+      ...item
+    });
+  }
+
+  _saveAccount() {
+    const { current_account, actions, navigation } = this.props;
+    actions.createNewAccount(current_account);
+    navigation.navigate('Accounts');
   }
 
   render() {
@@ -46,7 +60,7 @@ class NewAccount extends React.Component {
             returnKeyType='next'
             style={styles.input}
             value={name}
-            onChangeText={val => this.updateAccount({ name: val })}
+            onChangeText={val => this._updateCurrentAccount({ name: val })}
           />
 
           <FormLabel>
@@ -56,7 +70,7 @@ class NewAccount extends React.Component {
             returnKeyType='next'
             style={styles.input}
             value={description}
-            onChangeText={val => this.updateAccount({ description: val })}
+            onChangeText={val => this._updateCurrentAccount({ description: val })}
           />
 
           <FormLabel>
@@ -67,13 +81,19 @@ class NewAccount extends React.Component {
             returnKeyType='go'
             style={styles.input}
             value={balance}
-            onChangeText={val => this.updateAccount({ balance: val })}
+            onChangeText={val => this._updateCurrentAccount({ balance: val })}
           />
         </View>
       </KeyboardAvoidingView>
     );
   }
 }
+
+NewAccount.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  current_account: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -87,4 +107,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewAccount);
+export default withNavigation(
+  connect(mapStateToProps, mapDispatchToProps)(NewAccount)
+);
