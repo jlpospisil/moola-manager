@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-  View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView
-} from 'react-native';
+import { View, KeyboardAvoidingView } from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements';
 import * as AccountActions from '../../redux/actions/account-actions';
 import styles from '../../lib/styles';
@@ -46,12 +44,6 @@ class NewAccount extends React.Component {
             style={styles.input}
           />
         </View>
-
-        <TouchableOpacity style={styles.buttonContainer} onPress={() => console.log('pressed')}>
-          <Text style={styles.buttonText}>
-            SAVE
-          </Text>
-        </TouchableOpacity>
       </KeyboardAvoidingView>
     );
   }

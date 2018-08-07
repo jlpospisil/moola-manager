@@ -1,5 +1,7 @@
+import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import HeaderSaveButton from './HeaderSaveButton';
 import Accounts from '../accounts/Accounts';
 import NewAccount from '../accounts/NewAccount';
 import NewTransaction from '../transactions/NewTransaction';
@@ -8,6 +10,7 @@ import Categories from '../categories/Categories';
 import NewCategory from '../categories/NewCategory';
 import Home from './Home';
 import NavigationIcon from './NavigationIcon';
+import styles from '../../lib/styles';
 
 const commonComponents = {
   NewTransaction: {
@@ -80,7 +83,10 @@ const routes = {
       NewAccount: {
         screen: NewAccount,
         navigationOptions: ({ navigation }) => ({
-          headerTitle: 'New Account'
+          headerTitle: 'New Account',
+          headerRight: HeaderSaveButton({
+            onPress: () => { alert('here'); }
+          })
         })
       }
     }),
