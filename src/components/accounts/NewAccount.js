@@ -12,12 +12,6 @@ class NewAccount extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      name: null,
-      description: null,
-      balance: null
-    };
-
     this._updateCurrentAccount = this._updateCurrentAccount.bind(this);
   }
 
@@ -30,7 +24,6 @@ class NewAccount extends React.Component {
 
   _updateCurrentAccount(item) {
     const { current_account, actions } = this.props;
-    this.setState(item);
     actions.updateCurrentAccount({
       ...current_account,
       ...item
@@ -44,7 +37,7 @@ class NewAccount extends React.Component {
   }
 
   render() {
-    const { name, description, balance } = this.state;
+    const { current_account } = this.props;
 
     // Note: Android and iOS both interact with this prop differently. Android may behave better when given no behavior prop at all, whereas iOS is the opposite.
     // Options: height|position|padding     Usage: behavior='padding'
@@ -59,7 +52,7 @@ class NewAccount extends React.Component {
             autoFocus
             returnKeyType='next'
             style={styles.input}
-            value={name}
+            value={current_account.name}
             onChangeText={val => this._updateCurrentAccount({ name: val })}
             onSubmitEditing={() => this.descriptionInput.focus()}
           />
@@ -70,7 +63,7 @@ class NewAccount extends React.Component {
           <FormInput
             returnKeyType='next'
             style={styles.input}
-            value={description}
+            value={current_account.description}
             ref={(input) => { this.descriptionInput = input; }}
             onChangeText={val => this._updateCurrentAccount({ description: val })}
             onSubmitEditing={() => this.balanceInput.focus()}
@@ -83,7 +76,7 @@ class NewAccount extends React.Component {
             keyboardType='numeric'
             returnKeyType='go'
             style={styles.input}
-            value={balance}
+            value={current_account.balance}
             ref={(input) => { this.balanceInput = input; }}
             onChangeText={val => this._updateCurrentAccount({ balance: val })}
             onSubmitEditing={() => this._saveAccount()}
