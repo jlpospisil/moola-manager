@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Alert } from 'react-native';
 import ActionButton from 'react-native-action-button';
 import { Icon } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';

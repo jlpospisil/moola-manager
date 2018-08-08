@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withNavigation } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import {
   Alert, View, FlatList, RefreshControl, TouchableOpacity, Text
@@ -28,13 +29,19 @@ class Accounts extends React.Component {
     actions.loadAccounts();
   }
 
+  _editAccount(account) {
+    const { navigation } = this.props;
+    navigation.navigate('EditAccount');
+  }
+
   render() {
     const { accounts, loading, actions } = this.props;
 
-    // TODO: split swipeable list item into a separate component
-    const AccountListItem = ({
-      id, name, description, balance
-    }) => {
+    const AccountListItem = (account) => {
+      const {
+        id, name, description, balance
+      } = account;
+
       return (
         <Swipeable
           rightButtonWidth={65}
@@ -52,7 +59,11 @@ class Accounts extends React.Component {
               <Icon name='share' color='#ffffff' size={28} />
             </TouchableOpacity>,
             <TouchableOpacity
-              onPress={() => Alert.alert('Edit', 'Edit here')}
+              onPress={() => {
+                const { actions } = this.props;
+                actions.updateCurrentAccount(account);
+                this._editAccount(account);
+              }}
               style={[styles.listItemButton, { backgroundColor: 'rgba(33,33,33,0.4)' }]}
             >
               <Icon name='edit' color='#ffffff' size={28} />
@@ -96,7 +107,8 @@ class Accounts extends React.Component {
 Accounts.propTypes = {
   loading: PropTypes.bool.isRequired,
   accounts: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -112,4 +124,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Accounts);
+export default withNavigation(
+  connect(mapStateToProps, mapDispatchToProps)(Accounts)
+);

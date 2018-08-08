@@ -3,7 +3,7 @@ import { createStackNavigator } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import HeaderSaveButton from './HeaderSaveButton';
 import Accounts from '../accounts/Accounts';
-import NewAccount from '../accounts/AddEditAccount';
+import AddEditAccount from '../accounts/AddEditAccount';
 import NewTransaction from '../transactions/NewTransaction';
 import Calendar from '../transactions/Calendar';
 import Categories from '../categories/Categories';
@@ -80,12 +80,20 @@ const routes = {
         })
       },
       NewAccount: {
-        screen: NewAccount,
+        screen: AddEditAccount,
         navigationOptions: ({ navigation }) => ({
           headerTitle: 'New Account',
           headerRight: HeaderSaveButton({
-            onPress: () => { navigation.state.params.saveNewAccount() }
-            // onPress: () => { console.log({ navigation }) }
+            onPress: () => { navigation.state.params.saveNewAccount(); }
+          })
+        })
+      },
+      EditAccount: {
+        screen: AddEditAccount,
+        navigationOptions: ({ navigation }) => ({
+          headerTitle: 'Edit Account',
+          headerRight: HeaderSaveButton({
+            onPress: () => { navigation.state.params.updateAccount(); }
           })
         })
       }

@@ -12,14 +12,28 @@ class AddEditAccount extends React.Component {
   constructor(props) {
     super(props);
 
+    this._saveOrUpdateAccount = this._saveOrUpdateAccount.bind(this);
     this._updateCurrentAccount = this._updateCurrentAccount.bind(this);
   }
 
   componentWillMount() {
     const { navigation } = this.props;
     navigation.setParams({
-      saveNewAccount: this._saveAccount.bind(this),
+      saveNewAccount: this._saveNewAccount.bind(this),
+      updateAccount: this._updateExistingAccount.bind(this)
     });
+  }
+
+  componentDidUpdate() {
+    const { navigation, actions, current_account } = this.props;
+    if (navigation.state.routeName === 'NewAccount' && current_account.id !== null) {
+      actions.updateCurrentAccount({
+        id: null,
+        name: null,
+        description: null,
+        balance: null
+      });
+    }
   }
 
   _updateCurrentAccount(item) {
@@ -30,9 +44,24 @@ class AddEditAccount extends React.Component {
     });
   }
 
-  _saveAccount() {
+  _saveOrUpdateAccount() {
+    const { current_account } = this.props;
+    if (current_account.id === null) {
+      this._saveNewAccount();
+    }
+
+    this._updateExistingAccount();
+  }
+
+  _saveNewAccount() {
     const { current_account, actions, navigation } = this.props;
     actions.createNewAccount(current_account);
+    navigation.navigate('Accounts');
+  }
+
+  _updateExistingAccount() {
+    const { current_account, actions, navigation } = this.props;
+    actions.updateAccount(current_account);
     navigation.navigate('Accounts');
   }
 
@@ -76,10 +105,10 @@ class AddEditAccount extends React.Component {
             keyboardType='numeric'
             returnKeyType='go'
             style={styles.input}
-            value={current_account.balance}
+            value={`${current_account.balance || ''}`}
             ref={(input) => { this.balanceInput = input; }}
             onChangeText={val => this._updateCurrentAccount({ balance: val })}
-            onSubmitEditing={() => this._saveAccount()}
+            onSubmitEditing={() => this._saveOrUpdateAccount()}
           />
         </View>
       </KeyboardAvoidingView>

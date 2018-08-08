@@ -52,8 +52,8 @@ export const updateAccount = (data) => {
     types: ['AXIOS', actions.UPDATE_ACCOUNT],
     payload: {
       request: {
-        url: base_url,
-        method: 'POST',
+        url: `${base_url}/${data.id}`,
+        method: 'PUT',
         data
       }
     }

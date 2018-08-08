@@ -52,6 +52,26 @@ export default (state = initialState, action) => {
 
         return state;
       }
+      case actions.UPDATE_ACCOUNT: {
+        const response = action.payload;
+        const { accounts } = state;
+
+        if (response.status === 200) {
+          const { id } = response.data;
+          return {
+            ...state,
+            accounts: accounts.map((account) => {
+              if (account.id === id) {
+                return response.data;
+              }
+
+              return account;
+            })
+          };
+        }
+
+        return state;
+      }
       case actions.DELETE_ACCOUNT: {
         const response = action.payload;
         const { accounts } = state;
