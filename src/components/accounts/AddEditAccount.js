@@ -8,7 +8,7 @@ import { FormLabel, FormInput } from 'react-native-elements';
 import * as AccountActions from '../../redux/actions/account-actions';
 import styles from '../../lib/styles';
 
-class NewAccount extends React.Component {
+class AddEditAccount extends React.Component {
   constructor(props) {
     super(props);
 
@@ -87,7 +87,7 @@ class NewAccount extends React.Component {
   }
 }
 
-NewAccount.propTypes = {
+AddEditAccount.propTypes = {
   navigation: PropTypes.object.isRequired,
   current_account: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
@@ -106,5 +106,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default withNavigation(
-  connect(mapStateToProps, mapDispatchToProps)(NewAccount)
+  connect(mapStateToProps, mapDispatchToProps)(AddEditAccount)
 );

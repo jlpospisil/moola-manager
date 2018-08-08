@@ -3,7 +3,7 @@ import { createStackNavigator } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import HeaderSaveButton from './HeaderSaveButton';
 import Accounts from '../accounts/Accounts';
-import NewAccount from '../accounts/NewAccount';
+import NewAccount from '../accounts/AddEditAccount';
 import NewTransaction from '../transactions/NewTransaction';
 import Calendar from '../transactions/Calendar';
 import Categories from '../categories/Categories';
