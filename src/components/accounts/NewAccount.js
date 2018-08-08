@@ -61,6 +61,7 @@ class NewAccount extends React.Component {
             style={styles.input}
             value={name}
             onChangeText={val => this._updateCurrentAccount({ name: val })}
+            onSubmitEditing={() => this.descriptionInput.focus()}
           />
 
           <FormLabel>
@@ -70,7 +71,9 @@ class NewAccount extends React.Component {
             returnKeyType='next'
             style={styles.input}
             value={description}
+            ref={(input) => { this.descriptionInput = input; }}
             onChangeText={val => this._updateCurrentAccount({ description: val })}
+            onSubmitEditing={() => this.balanceInput.focus()}
           />
 
           <FormLabel>
@@ -81,7 +84,9 @@ class NewAccount extends React.Component {
             returnKeyType='go'
             style={styles.input}
             value={balance}
+            ref={(input) => { this.balanceInput = input; }}
             onChangeText={val => this._updateCurrentAccount({ balance: val })}
+            onSubmitEditing={() => this._saveAccount()}
           />
         </View>
       </KeyboardAvoidingView>
