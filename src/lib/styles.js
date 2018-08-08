@@ -20,7 +20,7 @@ const styles = {
     alignItems: 'center',
     borderBottomColor: '#bbb',
     borderBottomWidth: 1,
-    width: 75
+    width: 65
   },
   input:{
     alignSelf: 'stretch',

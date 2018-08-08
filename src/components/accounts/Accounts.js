@@ -32,9 +32,12 @@ class Accounts extends React.Component {
     const { accounts, loading, actions } = this.props;
 
     // TODO: split swipeable list item into a separate component
-    const AccountListItem = ({ id, name, description, balance }) => {
+    const AccountListItem = ({
+      id, name, description, balance
+    }) => {
       return (
         <Swipeable
+          rightButtonWidth={65}
           rightButtons={[
             <TouchableOpacity
               onPress={() => actions.deleteAccount(id)}
