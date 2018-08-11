@@ -20,6 +20,14 @@ export default (state = initialState, action) => {
           loading
         };
       }
+      case actions.CLEAR_CURRENT_ACCOUNT: {
+        console.log('clearing');
+        const { current_account } = initialState;
+        return {
+          ...state,
+          current_account
+        };
+      }
       case actions.UPDATE_CURRENT_ACCOUNT: {
         const { current_account } = action;
         return {

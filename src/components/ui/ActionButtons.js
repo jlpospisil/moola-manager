@@ -1,14 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ActionButton from 'react-native-action-button';
 import { Icon } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
+import * as AccountActions from '../../redux/actions/account-actions';
 
 class ActionButtons extends React.Component {
   constructor(props) {
     super(props);
 
-    const { navigation } = this.props;
+    const { navigation, actions } = this.props;
 
     this.state = {
       availableFabs: [
@@ -16,7 +19,10 @@ class ActionButtons extends React.Component {
           key: 'account',
           title: 'New Account',
           icon: 'credit-card' ,
-          onPress: () => navigation.navigate('NewAccount')
+          onPress: () => {
+            actions.accounts.clearCurrentAccount();
+            navigation.navigate('NewAccount');
+          }
         },
         {
           key: 'category',
@@ -74,11 +80,28 @@ class ActionButtons extends React.Component {
 
 ActionButtons.propTypes = {
   navigation: PropTypes.object.isRequired,
-  fabs: PropTypes.array
+  fabs: PropTypes.array,
+  actions: PropTypes.object.isRequired
 };
 
 ActionButtons.defaultProps = {
   fabs: []
 };
 
-export default withNavigation(ActionButtons);
+const mapStateToProps = (state) => {
+  return {
+
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: {
+      accounts: bindActionCreators(AccountActions, dispatch)
+    }
+  };
+};
+
+export default withNavigation(
+  connect(mapStateToProps, mapDispatchToProps)(ActionButtons)
+);

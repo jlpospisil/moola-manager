@@ -24,18 +24,6 @@ class AddEditAccount extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-    const { navigation, actions, current_account } = this.props;
-    if (navigation.state.routeName === 'NewAccount' && current_account.id !== null) {
-      actions.updateCurrentAccount({
-        id: null,
-        name: null,
-        description: null,
-        balance: null
-      });
-    }
-  }
-
   _updateCurrentAccount(item) {
     const { current_account, actions } = this.props;
     actions.updateCurrentAccount({
@@ -55,13 +43,13 @@ class AddEditAccount extends React.Component {
 
   _saveNewAccount() {
     const { current_account, actions, navigation } = this.props;
-    actions.createNewAccount(current_account);
+    actions.createNewAccount(current_account).then(actions.clearCurrentAccount);
     navigation.navigate('Accounts');
   }
 
   _updateExistingAccount() {
     const { current_account, actions, navigation } = this.props;
-    actions.updateAccount(current_account);
+    actions.updateAccount(current_account).then(actions.clearCurrentAccount);
     navigation.navigate('Accounts');
   }
 

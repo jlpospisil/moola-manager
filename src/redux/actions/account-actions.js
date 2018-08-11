@@ -3,6 +3,7 @@ const base_url = '/api/account';
 export const actions = {
   LOAD_ACCOUNTS: 'LOAD_ACCOUNTS',
   UPDATE_LOADING: 'UPDATE_LOADING',
+  CLEAR_CURRENT_ACCOUNT: 'CLEAR_CURRENT_ACCOUNT',
   UPDATE_CURRENT_ACCOUNT: 'UPDATE_CURRENT_ACCOUNT',
   ADD_ACCOUNT: 'ADD_ACCOUNT',
   UPDATE_ACCOUNT: 'UPDATE_ACCOUNT',
@@ -13,6 +14,12 @@ export const updateLoading = (loading) => {
   return {
     type: actions.UPDATE_LOADING,
     loading
+  };
+};
+
+export const clearCurrentAccount = () => {
+  return {
+    type: actions.CLEAR_CURRENT_ACCOUNT
   };
 };
 
