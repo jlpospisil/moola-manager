@@ -4,6 +4,7 @@ import { createMaterialBottomTabNavigator } from 'react-navigation-material-bott
 import HeaderSaveButton from './HeaderSaveButton';
 import Accounts from '../accounts/Accounts';
 import AddEditAccount from '../accounts/AddEditAccount';
+import Transactions from '../transactions/Transactions';
 import NewTransaction from '../transactions/NewTransaction';
 import Calendar from '../transactions/Calendar';
 import Categories from '../categories/Categories';
@@ -95,6 +96,12 @@ const routes = {
           headerRight: HeaderSaveButton({
             onPress: () => { navigation.state.params.updateAccount(); }
           })
+        })
+      },
+      AccountTransactions: {
+        screen: Transactions,
+        navigationOptions: ({ navigation }) => ({
+          headerTitle: `${navigation.state.params.title}` || 'Transactions'
         })
       }
     }),

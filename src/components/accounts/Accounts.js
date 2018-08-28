@@ -33,6 +33,13 @@ class Accounts extends React.Component {
     navigation.navigate('EditAccount');
   }
 
+  _viewTransactions(account) {
+    const { navigation } = this.props;
+    const { id, name } = account;
+
+    navigation.navigate('AccountTransactions', { title: `${name} Transactions` });
+  }
+
   render() {
     const { accounts, loading, actions } = this.props;
 
@@ -47,7 +54,9 @@ class Accounts extends React.Component {
           title={name}
           subtitle={description}
           rightTitle={`$${balance}`}
-          onPress={() => Alert.alert('TODO', `TODO: show transaction list for account with id ${account.id}`)}
+          onPress={() => {
+            this._viewTransactions(account);
+          }}
           onEdit={() => {
             updateCurrentAccount(account);
             this._editAccount(account);

@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
-import ui from './ui-reducer';
-import settings from './settings-reducer';
 import accounts from './account-reducer';
+import settings from './settings-reducer';
+import transactions from './transaction-reducer';
+import ui from './ui-reducer';
 
 const rootReducer = combineReducers({
-  ui,
+  accounts,
   settings,
-  accounts
+  transactions,
+  ui
 });
 
 export default rootReducer;
