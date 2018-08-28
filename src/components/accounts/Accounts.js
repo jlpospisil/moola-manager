@@ -47,7 +47,7 @@ class Accounts extends React.Component {
           title={name}
           subtitle={description}
           rightTitle={`$${balance}`}
-          onPress={() => {}}
+          onPress={() => Alert.alert('TODO', `TODO: show transaction list for account with id ${account.id}`)}
           onEdit={() => {
             updateCurrentAccount(account);
             this._editAccount(account);
