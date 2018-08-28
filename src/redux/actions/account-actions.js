@@ -68,7 +68,6 @@ export const updateAccount = (data) => {
 };
 
 export const deleteAccount = (id) => {
-  console.log(`delete ${id}`);
   return {
     types: ['AXIOS', actions.DELETE_ACCOUNT],
     id,

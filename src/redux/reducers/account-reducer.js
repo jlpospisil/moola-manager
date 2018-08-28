@@ -21,7 +21,6 @@ export default (state = initialState, action) => {
         };
       }
       case actions.CLEAR_CURRENT_ACCOUNT: {
-        console.log('clearing');
         const { current_account } = initialState;
         return {
           ...state,
