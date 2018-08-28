@@ -29,14 +29,17 @@ class Accounts extends React.Component {
   }
 
   _editAccount(account) {
-    const { navigation } = this.props;
+    const { navigation, actions } = this.props;
+    const { updateCurrentAccount } = actions;
+    updateCurrentAccount(account);
     navigation.navigate('EditAccount');
   }
 
   _viewTransactions(account) {
-    const { navigation } = this.props;
+    const { navigation, actions } = this.props;
+    const { updateCurrentAccount } = actions;
     const { id, name } = account;
-
+    updateCurrentAccount(account);
     navigation.navigate('AccountTransactions', { title: `${name} Transactions` });
   }
 
@@ -44,7 +47,7 @@ class Accounts extends React.Component {
     const { accounts, loading, actions } = this.props;
 
     const AccountListItem = (account) => {
-      const { updateCurrentAccount, deleteAccount } = actions;
+      const { deleteAccount } = actions;
       const {
         id, name, description, balance
       } = account;
@@ -58,7 +61,6 @@ class Accounts extends React.Component {
             this._viewTransactions(account);
           }}
           onEdit={() => {
-            updateCurrentAccount(account);
             this._editAccount(account);
           }}
           onDelete={() => deleteAccount(id)}

@@ -10,18 +10,39 @@ import SwipeableListItem from '../ui/SwipeableListItem';
 import ActionButtons from '../ui/ActionButtons';
 import * as TransactionActions from '../../redux/actions/transaction-actions';
 
-class Transactions extends React.Component {
+class Transactions extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this._loadTransactions = this._loadTransactions.bind(this);
+  }
+
+  componentWillMount() {
+    const { _loadTransactions } = this;
+    _loadTransactions();
+  }
+
+  _loadTransactions() {
+    const { current_account, actions } = this.props;
+    const { loadAccountTransactions } = actions;
+
+    if (current_account && current_account.id) {
+      loadAccountTransactions(current_account.id);
+    }
+  }
+
   render() {
+    const { _loadTransactions } = this;
     const { transactions, loading } = this.props;
 
     const TransactionListItem = (transaction) => {
       const {
-        id, name, description, amount
+        id, description, amount
       } = transaction;
 
       return (
         <SwipeableListItem
-          title={name}
+          title='Vendor here'
           subtitle={description}
           rightTitle={`$${amount}`}
           onEdit={() => Alert.alert('TODO', 'Edit transaction here')}
@@ -40,7 +61,7 @@ class Transactions extends React.Component {
           refreshControl={(
             <RefreshControl
               refreshing={loading}
-              onRefresh={() => {}}
+              onRefresh={_loadTransactions}
             />
           )}
         />
@@ -53,13 +74,16 @@ class Transactions extends React.Component {
 
 Transactions.propTypes = {
   loading: PropTypes.bool.isRequired,
-  transactions: PropTypes.array.isRequired
+  transactions: PropTypes.array.isRequired,
+  current_account: PropTypes.object,
+  actions: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
   return {
     transactions: state.transactions.transactions,
-    loading: state.transactions.loading
+    loading: state.transactions.loading,
+    current_account: state.accounts.current_account
   };
 };
 
