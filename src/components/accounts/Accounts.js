@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import {
-  Alert, View, FlatList, RefreshControl, TouchableOpacity, Text
+  Alert, View, FlatList, RefreshControl
 } from 'react-native';
-import { ListItem, Avatar, Icon } from 'react-native-elements';
-import Swipeable from 'react-native-swipeable';
 import styles from '../../lib/styles';
+import SwipeableListItem from '../ui/SwipeableListItem';
 import ActionButtons from '../ui/ActionButtons';
 import * as AccountActions from '../../redux/actions/account-actions';
 
@@ -38,48 +37,24 @@ class Accounts extends React.Component {
     const { accounts, loading, actions } = this.props;
 
     const AccountListItem = (account) => {
+      const { updateCurrentAccount, deleteAccount } = actions;
       const {
         id, name, description, balance
       } = account;
 
       return (
-        <Swipeable
-          rightButtonWidth={65}
-          rightButtons={[
-            <TouchableOpacity
-              onPress={() => actions.deleteAccount(id)}
-              style={[styles.listItemButton, { backgroundColor: 'rgba(217,0,0,0.8)' }]}
-            >
-              <Icon name='delete-forever' color='#ffffff' size={28} />
-            </TouchableOpacity>,
-            <TouchableOpacity
-              onPress={() => Alert.alert('Share', 'Share here')}
-              style={[styles.listItemButton, { backgroundColor: 'rgba(3,155,229,0.8)' }]}
-            >
-              <Icon name='share' color='#ffffff' size={28} />
-            </TouchableOpacity>,
-            <TouchableOpacity
-              onPress={() => {
-                const { actions } = this.props;
-                actions.updateCurrentAccount(account);
-                this._editAccount(account);
-              }}
-              style={[styles.listItemButton, { backgroundColor: 'rgba(33,33,33,0.4)' }]}
-            >
-              <Icon name='edit' color='#ffffff' size={28} />
-            </TouchableOpacity>
-          ]}
-          onRightButtonsOpenRelease={() => { console.log('onOpen'); }}
-          onRightButtonsCloseRelease={() => { console.log('onClose'); }}
-        >
-          <ListItem
-            title={name}
-            subtitle={description}
-            hideChevron
-            rightTitle={`$${balance}`}
-            avatar={<Avatar rounded title={name.substr(0, 1)} source={null} />}
-          />
-        </Swipeable>
+        <SwipeableListItem
+          title={name}
+          subtitle={description}
+          rightTitle={`$${balance}`}
+          onPress={() => {}}
+          onEdit={() => {
+            updateCurrentAccount(account);
+            this._editAccount(account);
+          }}
+          onDelete={() => deleteAccount(id)}
+          onShare={() => Alert.alert('Share', 'Share here')}
+        />
       );
     };
 
