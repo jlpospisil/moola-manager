@@ -67,6 +67,13 @@ export default (state = initialState, action) => {
 
         return state;
       }
+      case actions.CLEAR_CURRENT_TRANSACTION: {
+        const { current_transaction } = initialState;
+        return {
+          ...state,
+          current_transaction
+        };
+      }
       default: {
         return state;
       }

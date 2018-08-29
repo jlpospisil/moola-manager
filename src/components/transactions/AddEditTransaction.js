@@ -44,8 +44,8 @@ class AddEditTransaction extends React.Component {
 
   _saveNewTransaction() {
     const { current_transaction, actions, navigation } = this.props;
-    const { createNewTransaction } = actions;
-    createNewTransaction(current_transaction);
+    const { createNewTransaction, clearCurrentTransaction } = actions;
+    createNewTransaction(current_transaction).then(clearCurrentTransaction);
     navigation.goBack();
   }
 

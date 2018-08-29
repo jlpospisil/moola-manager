@@ -9,13 +9,20 @@ export const actions = {
   ADD_TRANSACTION: 'ADD_TRANSACTION',
   UPDATE_CURRENT_TRANSACTION: 'UPDATE_CURRENT_TRANSACTION',
   LOAD_ACCOUNT_TRANSACTIONS: 'LOAD_ACCOUNT_TRANSACTIONS',
-  DELETE_TRANSACTION: 'DELETE_TRANSACTION'
+  DELETE_TRANSACTION: 'DELETE_TRANSACTION',
+  CLEAR_CURRENT_TRANSACTION: 'CLEAR_CURRENT_TRANSACTION'
 };
 
 export const updateLoading = (loading) => {
   return {
     type: actions.UPDATE_LOADING,
     loading
+  };
+};
+
+export const clearCurrentTransaction = () => {
+  return {
+    type: actions.CLEAR_CURRENT_TRANSACTION
   };
 };
 
