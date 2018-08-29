@@ -19,8 +19,7 @@ class AddEditAccount extends React.Component {
   componentWillMount() {
     const { navigation } = this.props;
     navigation.setParams({
-      saveNewAccount: this._saveNewAccount.bind(this),
-      updateAccount: this._updateExistingAccount.bind(this)
+      saveAccount: this._saveOrUpdateAccount.bind(this)
     });
   }
 
@@ -37,8 +36,9 @@ class AddEditAccount extends React.Component {
     if (current_account.id === null) {
       this._saveNewAccount();
     }
-
-    this._updateExistingAccount();
+    else {
+      this._updateExistingAccount();
+    }
   }
 
   _saveNewAccount() {
