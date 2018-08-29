@@ -3,8 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
-import { KeyboardAvoidingView, View, Alert } from 'react-native';
+import {
+  KeyboardAvoidingView, View, Alert, Picker
+} from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements';
+import * as AccountActions from '../../redux/actions/account-actions';
 import * as TransactionActions from '../../redux/actions/transaction-actions';
 import styles from '../../lib/styles';
 
@@ -17,10 +20,12 @@ class AddEditTransaction extends React.Component {
   }
 
   componentWillMount() {
-    const { navigation, current_account } = this.props;
+    const { navigation, current_account, actions } = this.props;
+    const { loadAccounts } = actions.accounts;
     navigation.setParams({
       saveTransaction: this._saveOrUpdateTransaction.bind(this),
     });
+    loadAccounts();
     this._updateCurrentTransaction({ account_id: current_account.id });
   }
 
@@ -46,6 +51,7 @@ class AddEditTransaction extends React.Component {
     const { current_transaction, actions, navigation } = this.props;
     const { createNewTransaction, clearCurrentTransaction } = actions;
     createNewTransaction(current_transaction).then(clearCurrentTransaction);
+    // TODO: navigate to account with id=current_transaction.account_id instead
     navigation.goBack();
   }
 
@@ -55,7 +61,7 @@ class AddEditTransaction extends React.Component {
   }
 
   render() {
-    const { current_transaction } = this.props;
+    const { current_transaction, accounts } = this.props;
 
     // Note: Android and iOS both interact with this prop differently. Android may behave better when given no behavior prop at all, whereas iOS is the opposite.
     // Options: height|position|padding     Usage: behavior='padding'
@@ -63,6 +69,18 @@ class AddEditTransaction extends React.Component {
     return (
       <KeyboardAvoidingView style={[styles.container, styles.padding20]}>
         <View style={[styles.container, { alignItems: 'flex-start' }]}>
+          <FormLabel>
+            Account
+          </FormLabel>
+
+          <Picker
+            style={styles.fullWidth}
+            selectedValue={current_transaction.account_id}
+            onValueChange={val => this._updateCurrentTransaction({ account_id: val })}
+          >
+            { accounts.map(account => <Picker.Item key={account.id} label={account.name} value={account.id} />) }
+          </Picker>
+
           <FormLabel>
             Merchant
           </FormLabel>
@@ -114,6 +132,7 @@ AddEditTransaction.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    accounts: state.accounts.accounts,
     current_account: state.accounts.current_account,
     current_transaction: state.transactions.current_transaction,
   };
@@ -121,7 +140,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(TransactionActions, dispatch)
+    actions: {
+      ...bindActionCreators(TransactionActions, dispatch),
+      accounts: {
+        ...bindActionCreators(AccountActions, dispatch)
+      }
+    }
   };
 };
 

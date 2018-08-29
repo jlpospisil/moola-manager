@@ -57,6 +57,7 @@ export default (state = initialState, action) => {
         const response = action.payload;
         const { transactions } = state;
 
+        // TODO: only do this if the transaction was for the current_account
         if (response.status === 200) {
           const { id } = action.meta.previousAction;
           return {
