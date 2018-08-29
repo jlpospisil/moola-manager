@@ -1,11 +1,12 @@
 import React from 'react';
+import { Alert } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import HeaderSaveButton from './HeaderSaveButton';
 import Accounts from '../accounts/Accounts';
 import AddEditAccount from '../accounts/AddEditAccount';
 import Transactions from '../transactions/Transactions';
-import NewTransaction from '../transactions/NewTransaction';
+import AddEditTransaction from '../transactions/AddEditTransaction';
 import Calendar from '../transactions/Calendar';
 import Categories from '../categories/Categories';
 import NewCategory from '../categories/NewCategory';
@@ -14,9 +15,12 @@ import NavigationIcon from './NavigationIcon';
 
 const commonComponents = {
   NewTransaction: {
-    screen: NewTransaction,
+    screen: AddEditTransaction,
     navigationOptions: ({ navigation }) => ({
-      headerTitle: 'New Transaction'
+      headerTitle: 'New Transaction',
+      headerRight: HeaderSaveButton({
+        onPress: () => { Alert.alert('save', 'save new transaction here') }
+      })
     })
   }
 };

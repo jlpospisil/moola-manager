@@ -2,7 +2,13 @@ import { actions } from '../actions/transaction-actions';
 
 const initialState = {
   loading: false,
-  transactions: []
+  transactions: [],
+  current_transaction: {
+    id: null,
+    vendor: null,
+    description: null,
+    amount: null
+  }
 };
 
 export default (state = initialState, action) => {
