@@ -19,7 +19,7 @@ const commonComponents = {
     navigationOptions: ({ navigation }) => ({
       headerTitle: 'New Transaction',
       headerRight: HeaderSaveButton({
-        onPress: () => { Alert.alert('save', 'save new transaction here') }
+        onPress: () => { navigation.state.params.saveTransaction(); }
       })
     })
   }
@@ -89,7 +89,7 @@ const routes = {
         navigationOptions: ({ navigation }) => ({
           headerTitle: 'New Account',
           headerRight: HeaderSaveButton({
-            onPress: () => { navigation.state.params.saveNewAccount(); }
+            onPress: () => { navigation.state.params.saveAccount(); }
           })
         })
       },
@@ -98,7 +98,7 @@ const routes = {
         navigationOptions: ({ navigation }) => ({
           headerTitle: 'Edit Account',
           headerRight: HeaderSaveButton({
-            onPress: () => { navigation.state.params.updateAccount(); }
+            onPress: () => { navigation.state.params.saveAccount(); }
           })
         })
       },

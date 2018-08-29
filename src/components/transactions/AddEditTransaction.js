@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { KeyboardAvoidingView, View, Alert } from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements';
@@ -8,8 +9,18 @@ import * as TransactionActions from '../../redux/actions/transaction-actions';
 import styles from '../../lib/styles';
 
 class AddEditTransaction extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
 
+    this._saveOrUpdateTransaction = this._saveOrUpdateTransaction.bind(this);
+    this._updateCurrentTransaction = this._updateCurrentTransaction.bind(this);
+  }
+
+  componentWillMount() {
+    const { navigation } = this.props;
+    navigation.setParams({
+      saveTransaction: this._saveOrUpdateTransaction.bind(this),
+    });
   }
 
   _updateCurrentTransaction(item) {
@@ -17,7 +28,22 @@ class AddEditTransaction extends React.Component {
   }
 
   _saveOrUpdateTransaction() {
-    Alert.alert('save', 'save or update transaction here');
+    const { current_transaction } = this.props;
+
+    if (current_transaction.id === null) {
+      this._saveNewTransaction();
+    }
+    else {
+      this._updateExistingTransaction();
+    }
+  }
+
+  _saveNewTransaction() {
+    Alert.alert('save', 'save new transaction');
+  }
+
+  _updateExistingTransaction() {
+    Alert.alert('save', 'update existing transaction');
   }
 
   render() {
@@ -72,6 +98,7 @@ class AddEditTransaction extends React.Component {
 }
 
 AddEditTransaction.propTypes = {
+  navigation: PropTypes.object.isRequired,
   current_transaction: PropTypes.object.isRequired
 };
 
@@ -87,4 +114,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddEditTransaction);
+export default withNavigation(
+  connect(mapStateToProps, mapDispatchToProps)(AddEditTransaction)
+);
