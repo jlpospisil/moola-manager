@@ -5,6 +5,7 @@ const initialState = {
   transactions: [],
   current_transaction: {
     id: null,
+    account_id: null,
     vendor: null,
     description: null,
     amount: null

@@ -1,11 +1,10 @@
 import React from 'react';
-import { Alert } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import HeaderSaveButton from './HeaderSaveButton';
 import Accounts from '../accounts/Accounts';
 import AddEditAccount from '../accounts/AddEditAccount';
-import Transactions from '../transactions/Transactions';
+import AccountTransactions from '../transactions/AccountTransactions';
 import AddEditTransaction from '../transactions/AddEditTransaction';
 import Calendar from '../transactions/Calendar';
 import Categories from '../categories/Categories';
@@ -103,7 +102,7 @@ const routes = {
         })
       },
       AccountTransactions: {
-        screen: Transactions,
+        screen: AccountTransactions,
         navigationOptions: ({ navigation }) => ({
           headerTitle: `${navigation.state.params.title}` || 'Transactions'
         })

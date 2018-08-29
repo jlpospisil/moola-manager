@@ -17,14 +17,15 @@ class AddEditTransaction extends React.Component {
   }
 
   componentWillMount() {
-    const { navigation } = this.props;
+    const { navigation, current_account } = this.props;
     navigation.setParams({
       saveTransaction: this._saveOrUpdateTransaction.bind(this),
     });
+    this._updateCurrentTransaction({ account_id: current_account.id });
   }
 
   _updateCurrentTransaction(item) {
-    const { current_transaction, actions } = this.props;
+    const { current_account, current_transaction, actions } = this.props;
     actions.updateCurrentTransaction({
       ...current_transaction,
       ...item
@@ -47,6 +48,7 @@ class AddEditTransaction extends React.Component {
   }
 
   _updateExistingTransaction() {
+    const { current_transaction } = this.props;
     Alert.alert('save', 'update existing transaction');
   }
 
@@ -103,12 +105,14 @@ class AddEditTransaction extends React.Component {
 
 AddEditTransaction.propTypes = {
   navigation: PropTypes.object.isRequired,
+  current_account: PropTypes.object,
   current_transaction: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
+    current_account: state.accounts.current_account,
     current_transaction: state.transactions.current_transaction,
   };
 };

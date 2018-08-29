@@ -8,9 +8,11 @@ import {
 import styles from '../../lib/styles';
 import SwipeableListItem from '../ui/SwipeableListItem';
 import ActionButtons from '../ui/ActionButtons';
+import * as AccountActions from '../../redux/actions/account-actions';
 import * as TransactionActions from '../../redux/actions/transaction-actions';
+import { initialState as initialAccountState } from '../../redux/reducers/account-reducer';
 
-class Transactions extends React.PureComponent {
+class AccountTransactions extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -20,6 +22,13 @@ class Transactions extends React.PureComponent {
   componentWillMount() {
     const { _loadTransactions } = this;
     _loadTransactions();
+  }
+
+  componentWillUnmount() {
+    const { actions } = this.props;
+    const { updateCurrentAccount } = actions.accounts;
+    const { current_account } = initialAccountState;
+    updateCurrentAccount(current_account);
   }
 
   _loadTransactions() {
@@ -72,7 +81,7 @@ class Transactions extends React.PureComponent {
   }
 }
 
-Transactions.propTypes = {
+AccountTransactions.propTypes = {
   loading: PropTypes.bool.isRequired,
   transactions: PropTypes.array.isRequired,
   current_account: PropTypes.object,
@@ -89,8 +98,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(TransactionActions, dispatch)
+    actions: {
+      ...bindActionCreators(TransactionActions, dispatch),
+      accounts: {
+        ...bindActionCreators(AccountActions, dispatch)
+      }
+    }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Transactions);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountTransactions);
