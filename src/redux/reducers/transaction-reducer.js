@@ -20,6 +20,13 @@ export default (state = initialState, action) => {
           loading
         };
       }
+      case actions.UPDATE_CURRENT_TRANSACTION: {
+        const { current_transaction } = action;
+        return {
+          ...state,
+          current_transaction
+        };
+      }
       case actions.LOAD_ACCOUNT_TRANSACTIONS: {
         const response = action.payload;
         const transactions = response.status === 200 && Array.isArray(response.data) ? response.data : [];

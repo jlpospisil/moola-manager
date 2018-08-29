@@ -24,12 +24,15 @@ class AddEditTransaction extends React.Component {
   }
 
   _updateCurrentTransaction(item) {
-    console.log({ item });
+    const { current_transaction, actions } = this.props;
+    actions.updateCurrentTransaction({
+      ...current_transaction,
+      ...item
+    });
   }
 
   _saveOrUpdateTransaction() {
     const { current_transaction } = this.props;
-
     if (current_transaction.id === null) {
       this._saveNewTransaction();
     }
@@ -39,7 +42,8 @@ class AddEditTransaction extends React.Component {
   }
 
   _saveNewTransaction() {
-    Alert.alert('save', 'save new transaction');
+    const { current_transaction } = this.props;
+    Alert.alert('save', `save new transaction ${JSON.stringify(current_transaction)}`);
   }
 
   _updateExistingTransaction() {
@@ -88,7 +92,7 @@ class AddEditTransaction extends React.Component {
             style={styles.input}
             value={`${current_transaction.amount || ''}`}
             ref={(input) => { this.amountInput = input; }}
-            onChangeText={val => this._updateCurrentTransaction({ balance: val })}
+            onChangeText={val => this._updateCurrentTransaction({ amount: val })}
             onSubmitEditing={() => this._saveOrUpdateTransaction()}
           />
         </View>
@@ -99,7 +103,8 @@ class AddEditTransaction extends React.Component {
 
 AddEditTransaction.propTypes = {
   navigation: PropTypes.object.isRequired,
-  current_transaction: PropTypes.object.isRequired
+  current_transaction: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => {
