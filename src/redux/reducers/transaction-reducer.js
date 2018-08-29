@@ -6,7 +6,7 @@ const initialState = {
   current_transaction: {
     id: null,
     account_id: null,
-    vendor: null,
+    merchant: null,
     description: null,
     amount: null
   }
@@ -36,6 +36,22 @@ export default (state = initialState, action) => {
           loading: false,
           transactions
         };
+      }
+      case actions.ADD_TRANSACTION: {
+        const response = action.payload;
+        const { transactions } = state;
+        if (response.status === 200) {
+          const { id } = action.meta.previousAction;
+          return {
+            ...state,
+            transactions: [
+              ...transactions.filter(transaction => transaction.id !== id),
+              response.data
+            ]
+          };
+        }
+
+        return state;
       }
       default: {
         return state;

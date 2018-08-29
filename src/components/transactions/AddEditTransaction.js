@@ -43,8 +43,10 @@ class AddEditTransaction extends React.Component {
   }
 
   _saveNewTransaction() {
-    const { current_transaction } = this.props;
-    Alert.alert('save', `save new transaction ${JSON.stringify(current_transaction)}`);
+    const { current_transaction, actions, navigation } = this.props;
+    const { createNewTransaction } = actions;
+    createNewTransaction(current_transaction);
+    navigation.goBack();
   }
 
   _updateExistingTransaction() {
@@ -62,14 +64,14 @@ class AddEditTransaction extends React.Component {
       <KeyboardAvoidingView style={[styles.container, styles.padding20]}>
         <View style={[styles.container, { alignItems: 'flex-start' }]}>
           <FormLabel>
-            Vendor
+            Merchant
           </FormLabel>
           <FormInput
             autoFocus
             returnKeyType='next'
             style={styles.input}
-            value={current_transaction.vendor}
-            onChangeText={val => this._updateCurrentTransaction({ vendor: val })}
+            value={current_transaction.merchant}
+            onChangeText={val => this._updateCurrentTransaction({ merchant: val })}
             onSubmitEditing={() => this.descriptionInput.focus()}
           />
 

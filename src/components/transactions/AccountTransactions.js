@@ -49,7 +49,7 @@ class AccountTransactions extends React.PureComponent {
 
       return (
         <SwipeableListItem
-          title='Vendor here'
+          title='Merchant here'
           subtitle={description}
           rightTitle={`$${amount}`}
           onEdit={() => Alert.alert('TODO', 'Edit transaction here')}
