@@ -10,7 +10,6 @@ import SwipeableListItem from '../ui/SwipeableListItem';
 import ActionButtons from '../ui/ActionButtons';
 import * as AccountActions from '../../redux/actions/account-actions';
 import * as TransactionActions from '../../redux/actions/transaction-actions';
-import { initialState as initialAccountState } from '../../redux/reducers/account-reducer';
 
 class AccountTransactions extends React.PureComponent {
   constructor(props) {
@@ -26,9 +25,8 @@ class AccountTransactions extends React.PureComponent {
 
   componentWillUnmount() {
     const { actions } = this.props;
-    const { updateCurrentAccount } = actions.accounts;
-    const { current_account } = initialAccountState;
-    updateCurrentAccount(current_account);
+    const { clearCurrentAccount } = actions.accounts;
+    clearCurrentAccount();
   }
 
   _loadTransactions() {

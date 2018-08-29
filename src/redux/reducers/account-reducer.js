@@ -1,6 +1,6 @@
 import { actions } from '../actions/account-actions';
 
-export const initialState = {
+const initialState = {
   loading: false,
   accounts: [],
   current_account: {
