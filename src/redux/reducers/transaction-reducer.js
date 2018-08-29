@@ -53,6 +53,20 @@ export default (state = initialState, action) => {
 
         return state;
       }
+      case actions.DELETE_TRANSACTION: {
+        const response = action.payload;
+        const { transactions } = state;
+
+        if (response.status === 200) {
+          const { id } = action.meta.previousAction;
+          return {
+            ...state,
+            transactions: transactions.filter(transaction => transaction.id !== id)
+          };
+        }
+
+        return state;
+      }
       default: {
         return state;
       }

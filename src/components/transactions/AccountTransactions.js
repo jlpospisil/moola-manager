@@ -40,12 +40,11 @@ class AccountTransactions extends React.PureComponent {
 
   render() {
     const { _loadTransactions } = this;
-    const { transactions, loading } = this.props;
+    const { transactions, loading, actions } = this.props;
+    const { deleteTransaction } = actions;
 
     const TransactionListItem = (transaction) => {
-      const {
-        id, description, amount
-      } = transaction;
+      const { id, description, amount } = transaction;
 
       return (
         <SwipeableListItem
@@ -53,7 +52,7 @@ class AccountTransactions extends React.PureComponent {
           subtitle={description}
           rightTitle={`$${amount}`}
           onEdit={() => Alert.alert('TODO', 'Edit transaction here')}
-          onDelete={() => Alert.alert('TODO', 'Delete transaction here')}
+          onDelete={() => deleteTransaction(id)}
         />
       );
     };

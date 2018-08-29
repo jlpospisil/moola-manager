@@ -1,10 +1,15 @@
 const base_url = '/api/transaction';
 
+const account_specific_url = (account_id) => {
+  return `/api/account/${account_id}/transaction`;
+};
+
 export const actions = {
   UPDATE_LOADING: 'UPDATE_LOADING',
   ADD_TRANSACTION: 'ADD_TRANSACTION',
   UPDATE_CURRENT_TRANSACTION: 'UPDATE_CURRENT_TRANSACTION',
-  LOAD_ACCOUNT_TRANSACTIONS: 'LOAD_ACCOUNT_TRANSACTIONS'
+  LOAD_ACCOUNT_TRANSACTIONS: 'LOAD_ACCOUNT_TRANSACTIONS',
+  DELETE_TRANSACTION: 'DELETE_TRANSACTION'
 };
 
 export const updateLoading = (loading) => {
@@ -26,7 +31,7 @@ export const loadAccountTransactions = (account_id) => {
     types: ['AXIOS', actions.LOAD_ACCOUNT_TRANSACTIONS],
     payload: {
       request:{
-        url: `/api/account/${account_id}/transaction`
+        url: account_specific_url(account_id)
       }
     }
   };
@@ -38,9 +43,23 @@ export const createNewTransaction = (data) => {
     types: ['AXIOS', actions.ADD_TRANSACTION],
     payload: {
       request: {
-        url: account_id ? `/api/account/${account_id}/transaction` : base_url,
+        url: account_id ? account_specific_url(account_id) : base_url,
         method: 'POST',
         data
+      }
+    }
+  };
+};
+
+export const deleteTransaction = (id) => {
+  return {
+    types: ['AXIOS', actions.DELETE_TRANSACTION],
+    id,
+    payload: {
+      request: {
+        url: `${base_url}/${id}`,
+        method: 'DELETE',
+        data: { id } // Not needed for axios request, but is used to get the id of the deleted transaction in transaction-reducer
       }
     }
   };
