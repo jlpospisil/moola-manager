@@ -6,7 +6,7 @@ import {
   Alert, View, FlatList, RefreshControl
 } from 'react-native';
 import styles from '../../lib/styles';
-import SwipeableListItem from '../ui/SwipeableListItem';
+import SwipeableListItem from '../generic/SwipeableListItem';
 import ActionButtons from '../ui/ActionButtons';
 import * as AccountActions from '../../redux/actions/account-actions';
 import * as TransactionActions from '../../redux/actions/transaction-actions';
