@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView, View, Alert, Picker
 } from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements';
+import FloatingLabelInput from '../generic/FloatingLabelInput';
 import * as AccountActions from '../../redux/actions/account-actions';
 import * as TransactionActions from '../../redux/actions/transaction-actions';
 import styles from '../../lib/styles';
@@ -69,7 +70,7 @@ class AddEditTransaction extends React.Component {
     return (
       <KeyboardAvoidingView style={[styles.container, styles.padding20]}>
         <View style={[styles.container, { alignItems: 'flex-start' }]}>
-          <FormLabel>
+          <FormLabel labelStyle={styles.inputLabel}>
             Account
           </FormLabel>
 
@@ -81,39 +82,32 @@ class AddEditTransaction extends React.Component {
             { accounts.map(account => <Picker.Item key={account.id} label={account.name} value={account.id} />) }
           </Picker>
 
-          <FormLabel>
-            Merchant
-          </FormLabel>
-          <FormInput
+          <FloatingLabelInput
+            label='Merchant'
             autoFocus
             returnKeyType='next'
-            style={styles.input}
             value={current_transaction.merchant}
+            style={{ marginBottom: 5 }}
             onChangeText={val => this._updateCurrentTransaction({ merchant: val })}
             onSubmitEditing={() => this.descriptionInput.focus()}
           />
 
-          <FormLabel>
-            Description
-          </FormLabel>
-          <FormInput
+          <FloatingLabelInput
+            label='Description'
             returnKeyType='next'
-            style={styles.input}
+            inputRef={(input) => { this.descriptionInput = input; }}
             value={current_transaction.description}
-            ref={(input) => { this.descriptionInput = input; }}
+            style={{ marginBottom: 5 }}
             onChangeText={val => this._updateCurrentTransaction({ description: val })}
             onSubmitEditing={() => this.amountInput.focus()}
           />
 
-          <FormLabel>
-            Amount
-          </FormLabel>
-          <FormInput
+          <FloatingLabelInput
+            label='Amount'
             keyboardType='numeric'
             returnKeyType='go'
-            style={styles.input}
             value={`${current_transaction.amount || ''}`}
-            ref={(input) => { this.amountInput = input; }}
+            inputRef={(input) => { this.amountInput = input; }}
             onChangeText={val => this._updateCurrentTransaction({ amount: val })}
             onSubmitEditing={() => this._saveOrUpdateTransaction()}
           />

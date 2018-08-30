@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const primaryColor = '#43a047';
 
-const styles = {
+export const styles = {
   container: {
     flex: 1,
     width: '100%',
@@ -27,6 +27,13 @@ const styles = {
     height: 40,
     marginBottom: 10,
     padding: 10
+  },
+  inputLabel:{
+    fontWeight: '900',
+    color: '#888888',
+    fontSize: 14,
+    marginLeft: 10,
+    marginRight: 10
   },
   buttonContainer:{
     alignSelf: 'stretch',
