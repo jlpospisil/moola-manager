@@ -38,7 +38,7 @@ class FloatingLabelInput extends React.PureComponent {
     const { isFocused } = this.state;
     const { fontSize, color, fontWeight } = StyleSheet.flatten(styles.inputLabel);
     const {
-      label, style, inputRef, ...props
+      label, style, inputRef, value, ...props
     } = this.props;
     const labelStyle = {
       position: 'absolute',
@@ -55,10 +55,7 @@ class FloatingLabelInput extends React.PureComponent {
         inputRange: [0, 1],
         outputRange: ['#aaaaaa', color],
       }),
-      fontWeight: this._animatedIsFocused.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['100', fontWeight],
-      })
+      fontWeight: isFocused || !!value ? fontWeight: '100'
     };
     return (
       <View style={[styles.fullWidth, { padding: 10, paddingTop: 18 }, style]}>
@@ -67,6 +64,7 @@ class FloatingLabelInput extends React.PureComponent {
         </Animated.Text>
         <TextInput
           {...props}
+          value={value}
           style={[
             styles.fullWidth,
             {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 /* eslint-disable-next-line object-curly-newline */
 import { View, Image, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import FloatingLabelInput from '../generic/FloatingLabelInput';
 import styles from '../../lib/styles';
 import * as localStorage from '../../lib/app-local-storage';
 import { handleLogin } from '../../middleware/axios';
@@ -69,42 +70,38 @@ class Login extends Component {
           </View>
 
           <View style={[styles.container, styles.padding20]}>
-            <TextInput
+            <FloatingLabelInput
+              label='Remote Server'
               value={remoteServer}
-              style={styles.input}
               autoCapitalize='none'
               autoFocus
               onSubmitEditing={() => this.usernameInput.focus()}
               autoCorrect={false}
               keyboardType='email-address'
               returnKeyType='next'
-              placeholder='Remote Server'
-              placeholderTextColor='rgba(0,0,0,0.3)'
               onChangeText={val => this.setState({ remoteServer: val })}
             />
 
-            <TextInput
+            <FloatingLabelInput
+              label='Username'
               value={username}
-              style={styles.input}
               autoCapitalize='none'
-              ref={(input) => { this.usernameInput = input; }}
+              inputRef={(input) => { this.usernameInput = input; }}
               onSubmitEditing={() => this.passwordInput.focus()}
               autoCorrect={false}
               keyboardType='email-address'
               returnKeyType='next'
-              placeholder='Username'
-              placeholderTextColor='rgba(0,0,0,0.3)'
               onChangeText={val => this.setState({ username: val })}
             />
 
-            <TextInput
+
+            <FloatingLabelInput
+              label='Password'
               value={password}
-              style={styles.input}
               returnKeyType='go'
-              ref={(input) => { this.passwordInput = input; }}
+              inputRef={(input) => { this.passwordInput = input; }}
+              onSubmitEditing={this.loginAttempt}
               autoCapitalize='none'
-              placeholder='Password'
-              placeholderTextColor='rgba(0,0,0,0.3)'
               secureTextEntry
               onChangeText={val => this.setState({ password: val })}
             />
