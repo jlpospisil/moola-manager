@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {
   KeyboardAvoidingView, View, Alert, Picker
 } from 'react-native';
-import { FormLabel, FormInput } from 'react-native-elements';
+import { FormLabel } from 'react-native-elements';
 import FloatingLabelInput from '../generic/FloatingLabelInput';
 import * as AccountActions from '../../redux/actions/account-actions';
 import * as TransactionActions from '../../redux/actions/transaction-actions';

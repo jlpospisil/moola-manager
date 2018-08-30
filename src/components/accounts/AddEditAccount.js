@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { withNavigation } from 'react-navigation';
 import { View, KeyboardAvoidingView } from 'react-native';
-import { FormLabel, FormInput } from 'react-native-elements';
+import FloatingLabelInput from '../generic/FloatingLabelInput';
 import * as AccountActions from '../../redux/actions/account-actions';
 import styles from '../../lib/styles';
 
@@ -62,39 +62,30 @@ class AddEditAccount extends React.Component {
     return (
       <KeyboardAvoidingView style={[styles.container, styles.padding20]}>
         <View style={[styles.container, { alignItems: 'flex-start' }]}>
-          <FormLabel>
-            Account Name
-          </FormLabel>
-          <FormInput
+          <FloatingLabelInput
+            label='Account Name'
             autoFocus
             returnKeyType='next'
-            style={styles.input}
             value={current_account.name}
             onChangeText={val => this._updateCurrentAccount({ name: val })}
             onSubmitEditing={() => this.descriptionInput.focus()}
           />
 
-          <FormLabel>
-            Description
-          </FormLabel>
-          <FormInput
+          <FloatingLabelInput
+            label='Description'
             returnKeyType='next'
-            style={styles.input}
             value={current_account.description}
-            ref={(input) => { this.descriptionInput = input; }}
+            inputRef={(input) => { this.descriptionInput = input; }}
             onChangeText={val => this._updateCurrentAccount({ description: val })}
             onSubmitEditing={() => this.balanceInput.focus()}
           />
 
-          <FormLabel>
-            Starting Balance
-          </FormLabel>
-          <FormInput
+          <FloatingLabelInput
+            label='Starting Balance'
             keyboardType='numeric'
             returnKeyType='go'
-            style={styles.input}
             value={`${current_account.balance || ''}`}
-            ref={(input) => { this.balanceInput = input; }}
+            inputRef={(input) => { this.balanceInput = input; }}
             onChangeText={val => this._updateCurrentAccount({ balance: val })}
             onSubmitEditing={() => this._saveOrUpdateAccount()}
           />
