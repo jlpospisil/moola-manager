@@ -16,6 +16,10 @@ class AddEditTransaction extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      save_attempted: false
+    };
+
     this._saveOrUpdateTransaction = this._saveOrUpdateTransaction.bind(this);
     this._updateCurrentTransaction = this._updateCurrentTransaction.bind(this);
   }
@@ -28,6 +32,7 @@ class AddEditTransaction extends React.Component {
     });
     loadAccounts();
     this._updateCurrentTransaction({ account_id: current_account.id });
+    this.setState({ save_attempted: false });
   }
 
   _updateCurrentTransaction(item) {
@@ -41,6 +46,8 @@ class AddEditTransaction extends React.Component {
   _saveOrUpdateTransaction() {
     const { current_transaction } = this.props;
     const { id, account_id, amount } = current_transaction;
+
+    this.setState({ save_attempted: true });
 
     if (!account_id || !amount) {
       Alerts.error('Missing required fields');
@@ -67,6 +74,7 @@ class AddEditTransaction extends React.Component {
   }
 
   render() {
+    const { save_attempted } = this.state;
     const { current_transaction, accounts } = this.props;
     const { account_id, amount } = current_transaction;
 
@@ -78,7 +86,7 @@ class AddEditTransaction extends React.Component {
         <View style={[Styles.container, { alignItems: 'flex-start' }]}>
           <FloatingLabelPicker
             label='Account'
-            error={!current_transaction.account_id}
+            error={save_attempted && !current_transaction.account_id}
             items={accounts.map((account) => {
               return {
                 value: account.id,
@@ -90,6 +98,7 @@ class AddEditTransaction extends React.Component {
               this._updateCurrentTransaction({ account_id: val });
               this.merchantInput.focus();
             }}
+            style={{ marginBottom: 20 }}
           />
 
           <FloatingLabelInput
@@ -98,7 +107,7 @@ class AddEditTransaction extends React.Component {
             returnKeyType='next'
             inputRef={(input) => { this.merchantInput = input; }}
             value={current_transaction.merchant}
-            style={{ marginBottom: 5 }}
+            style={{ marginBottom: 20 }}
             onChangeText={val => this._updateCurrentTransaction({ merchant: val })}
             onSubmitEditing={() => this.descriptionInput.focus()}
           />
@@ -108,7 +117,7 @@ class AddEditTransaction extends React.Component {
             returnKeyType='next'
             inputRef={(input) => { this.descriptionInput = input; }}
             value={current_transaction.description}
-            style={{ marginBottom: 5 }}
+            style={{ marginBottom: 20 }}
             onChangeText={val => this._updateCurrentTransaction({ description: val })}
             onSubmitEditing={() => this.amountInput.focus()}
           />
@@ -117,7 +126,7 @@ class AddEditTransaction extends React.Component {
             label='Amount'
             keyboardType='numeric'
             returnKeyType='go'
-            error={!current_transaction.amount}
+            error={save_attempted && !current_transaction.amount}
             value={`${current_transaction.amount || ''}`}
             inputRef={(input) => { this.amountInput = input; }}
             onChangeText={val => this._updateCurrentTransaction({ amount: val })}

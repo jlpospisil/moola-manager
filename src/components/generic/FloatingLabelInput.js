@@ -41,40 +41,37 @@ class FloatingLabelInput extends React.PureComponent {
     } = this.props;
     const labelStyle = {
       position: 'absolute',
-      left: 10,
+      left: 0,
       top: this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
         outputRange: [18, 0],
       }),
       fontSize: this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
-        outputRange: [fontSize+6, fontSize],
+        outputRange: [fontSize + 6, fontSize],
       }),
-      color: error ? dangerColor : this._animatedIsFocused.interpolate({
+      color: this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
         outputRange: ['#aaaaaa', color],
       }),
-      fontWeight: isFocused || !!value ? fontWeight: '100'
+      fontWeight: isFocused || !!value ? fontWeight : '100'
     };
     return (
-      <View style={[styles.fullWidth, { padding: 10, paddingTop: 18 }, style]}>
+      <View style={[styles.fullWidth, {  paddingTop: 18 }, style]}>
         <Animated.Text style={labelStyle}>
           {label}
         </Animated.Text>
         <TextInput
           {...props}
           value={value}
-          style={[
-            styles.fullWidth,
-            {
-              height: 28,
-              fontSize: 20,
-              color: '#333333',
-              paddingBottom: 2,
-              borderBottomWidth: isFocused ? 2 : 1,
-              borderBottomColor: isFocused ? primaryColor : '#888888'
-            }
-          ]}
+          style={{
+            height: 28,
+            fontSize: 20,
+            color: '#333333',
+            paddingBottom: 2,
+            borderBottomWidth: error || isFocused ? 2 : 1,
+            borderBottomColor: error ? dangerColor : isFocused ? primaryColor : '#888888'
+          }}
           ref={inputRef}
           underlineColorAndroid='transparent'
           onFocus={this.handleFocus}

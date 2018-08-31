@@ -37,7 +37,7 @@ class FloatingLabelPicker extends React.PureComponent {
     } = this.props;
     const labelStyle = {
       position: 'absolute',
-      left: 10,
+      left: 0,
       top: this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
         outputRange: [18, 0],
@@ -46,21 +46,29 @@ class FloatingLabelPicker extends React.PureComponent {
         inputRange: [0, 1],
         outputRange: [fontSize + 6, fontSize],
       }),
-      color: error ? dangerColor : this._animatedIsFocused.interpolate({
+      color: this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
         outputRange: ['#aaaaaa', color],
       }),
       fontWeight: isFocused || !!selectedValue ? fontWeight : '100'
     };
     return (
-      <View style={[styles.fullWidth, { paddingLeft: 5, paddingTop: 18 }, style]}>
+      <View style={[
+        styles.fullWidth,
+        {
+          paddingTop: 18,
+          borderBottomWidth: error ? 2 : 1,
+          borderBottomColor: error ? dangerColor : '#888888'
+        },
+        style]}
+      >
         <Animated.Text style={labelStyle}>
           {isFocused || !!selectedValue ? label : `Select ${label}`}
         </Animated.Text>
 
         <Picker
           selectedValue={selectedValue}
-          style={[styles.fullWidth, { height: 28 }]}
+          style={{ height: 28 }}
           itemStyle={{ fontSize: 20 }}
           {...props}
         >

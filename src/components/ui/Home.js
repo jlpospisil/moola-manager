@@ -1,8 +1,8 @@
 import React from 'react';
-import { FormLabel, FormInput } from 'react-native-elements';
 import { View, Text } from 'react-native';
+import FloatingLabelInput from '../generic/FloatingLabelInput';
 import * as localStorage from '../../lib/app-local-storage';
-import styles from '../../lib/styles';
+import { Styles } from '../../lib';
 import ActionButtons from './ActionButtons';
 
 class Home extends React.Component {
@@ -31,17 +31,17 @@ class Home extends React.Component {
     const { username } = this.state;
 
     return (
-      <View style={styles.container}>
+      <View style={Styles.container}>
         <Text>
             TODO: actually implement a home screen
         </Text>
 
-        <View style={{ padding: 25, marginTop: 25 }}>
-          <FormLabel>
-                        Username
-          </FormLabel>
-          <FormInput value={username} onChangeText={this.setRemoteUser} />
-
+        <View style={[Styles.fullWidth, { padding: 25, marginTop: 25 }]}>
+          <FloatingLabelInput
+            label='Username'
+            value={username}
+            onChangeText={this.setRemoteUser}
+          />
         </View>
 
         <ActionButtons />

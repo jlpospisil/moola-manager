@@ -12,6 +12,10 @@ class AddEditAccount extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      save_attempted: false
+    };
+
     this._saveOrUpdateAccount = this._saveOrUpdateAccount.bind(this);
     this._updateCurrentAccount = this._updateCurrentAccount.bind(this);
   }
@@ -21,6 +25,7 @@ class AddEditAccount extends React.Component {
     navigation.setParams({
       saveAccount: this._saveOrUpdateAccount.bind(this)
     });
+    this.setState({ save_attempted: false });
   }
 
   _updateCurrentAccount(item) {
@@ -34,6 +39,8 @@ class AddEditAccount extends React.Component {
   _saveOrUpdateAccount() {
     const { current_account } = this.props;
     const { id, name, balance } = current_account;
+
+    this.setState({ save_attempted: true });
 
     if (!name || !balance) {
       Alerts.error('Missing required fields');
@@ -59,6 +66,7 @@ class AddEditAccount extends React.Component {
   }
 
   render() {
+    const { save_attempted } = this.state;
     const { current_account } = this.props;
 
     // Note: Android and iOS both interact with this prop differently. Android may behave better when given no behavior prop at all, whereas iOS is the opposite.
@@ -70,11 +78,12 @@ class AddEditAccount extends React.Component {
           <FloatingLabelInput
             label='Account Name'
             autoFocus
-            error={!current_account.name}
+            error={save_attempted && !current_account.name}
             returnKeyType='next'
             value={current_account.name}
             onChangeText={val => this._updateCurrentAccount({ name: val })}
             onSubmitEditing={() => this.descriptionInput.focus()}
+            style={{ marginBottom: 20 }}
           />
 
           <FloatingLabelInput
@@ -84,13 +93,14 @@ class AddEditAccount extends React.Component {
             inputRef={(input) => { this.descriptionInput = input; }}
             onChangeText={val => this._updateCurrentAccount({ description: val })}
             onSubmitEditing={() => this.balanceInput.focus()}
+            style={{ marginBottom: 20 }}
           />
 
           <FloatingLabelInput
             label='Starting Balance'
             keyboardType='numeric'
             returnKeyType='go'
-            error={!current_account.balance}
+            error={save_attempted && !current_account.balance}
             value={`${current_account.balance || ''}`}
             inputRef={(input) => { this.balanceInput = input; }}
             onChangeText={val => this._updateCurrentAccount({ balance: val })}
