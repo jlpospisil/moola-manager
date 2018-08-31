@@ -67,7 +67,7 @@ class FloatingLabelPicker extends React.PureComponent {
         </Animated.Text>
 
         <Picker
-          selectedValue={selectedValue}
+          selectedValue={selectedValue ? selectedValue.toString() : null}
           style={{ height: 28 }}
           itemStyle={{ fontSize: 20 }}
           {...props}
@@ -82,7 +82,10 @@ class FloatingLabelPicker extends React.PureComponent {
 
 FloatingLabelPicker.propTypes = {
   label: PropTypes.string.isRequired,
-  selectedValue: PropTypes.string,
+  selectedValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
   items: PropTypes.array,
   style: PropTypes.object,
   error: PropTypes.bool

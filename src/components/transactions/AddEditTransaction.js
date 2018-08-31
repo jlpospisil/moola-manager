@@ -22,6 +22,7 @@ class AddEditTransaction extends React.Component {
 
     this._saveOrUpdateTransaction = this._saveOrUpdateTransaction.bind(this);
     this._updateCurrentTransaction = this._updateCurrentTransaction.bind(this);
+    this._transactionSaved = this._transactionSaved.bind(this);
   }
 
   componentWillMount() {
@@ -61,16 +62,34 @@ class AddEditTransaction extends React.Component {
   }
 
   _saveNewTransaction() {
-    const { current_transaction, actions, navigation } = this.props;
-    const { createNewTransaction, clearCurrentTransaction } = actions;
-    createNewTransaction(current_transaction).then(clearCurrentTransaction);
-    // TODO: navigate to account with id=current_transaction.account_id instead
-    navigation.goBack();
+    const { _transactionSaved } = this;
+    const { current_transaction, actions } = this.props;
+    const { createNewTransaction, } = actions;
+    createNewTransaction(current_transaction).then(_transactionSaved);
   }
 
   _updateExistingTransaction() {
     const { current_transaction } = this.props;
     Alert.alert('save', 'update existing transaction');
+  }
+
+  _transactionSaved() {
+    const {
+      current_transaction, actions, navigation, accounts
+    } = this.props;
+    const { clearCurrentTransaction } = actions;
+    const { updateCurrentAccount } = actions.accounts;
+    const account = accounts.find(account => account.id == current_transaction.account_id);
+
+    if (account) {
+      const { name } = account;
+      clearCurrentTransaction();
+      updateCurrentAccount(account);
+      navigation.navigate('AccountTransactions', { title: `${name} Transactions` });
+    }
+    else {
+      navigation.goBack();
+    }
   }
 
   render() {
@@ -86,14 +105,14 @@ class AddEditTransaction extends React.Component {
         <View style={[Styles.container, { alignItems: 'flex-start' }]}>
           <FloatingLabelPicker
             label='Account'
-            error={save_attempted && !current_transaction.account_id}
+            error={save_attempted && !account_id}
             items={accounts.map((account) => {
               return {
                 value: account.id,
                 label: account.name
               };
             })}
-            selectedValue={current_transaction.account_id}
+            selectedValue={account_id}
             onValueChange={(val) => {
               this._updateCurrentTransaction({ account_id: val });
               this.merchantInput.focus();
@@ -126,8 +145,8 @@ class AddEditTransaction extends React.Component {
             label='Amount'
             keyboardType='numeric'
             returnKeyType='go'
-            error={save_attempted && !current_transaction.amount}
-            value={`${current_transaction.amount || ''}`}
+            error={save_attempted && !amount}
+            value={`${amount || ''}`}
             inputRef={(input) => { this.amountInput = input; }}
             onChangeText={val => this._updateCurrentTransaction({ amount: val })}
             onSubmitEditing={() => this._saveOrUpdateTransaction()}
