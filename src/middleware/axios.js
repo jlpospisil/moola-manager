@@ -1,6 +1,7 @@
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 import Config from '../config';
+import Alerts from '../lib/alerts';
 import * as localStorage from '../lib/app-local-storage';
 
 const { API_ADDRESS } = Config;
@@ -56,15 +57,21 @@ client.interceptors.response.use(async (response) => {
   url = url.replace(remoteServer.baseURL, '');
 
   // If 403, refresh/renew token and retry
-  if (error.response.status === 403 && url !== LOGIN_URL) {
-    // Attempt to retrieve a new token
-    await handleLogin();
+  if (error.response.status === 403) {
+    // Invalid login attempt
+    if (url === LOGIN_URL) {
+      Alerts.error('Unable to authenticate')
+    }
+    else {
+      // Attempt to retrieve a new token
+      await handleLogin();
 
-    // If a new token was successfully retrieved, retry the request
-    authToken = await localStorage.getItem('auth-token');
+      // If a new token was successfully retrieved, retry the request
+      authToken = await localStorage.getItem('auth-token');
 
-    if (authToken) {
-      return client.request(error.config);
+      if (authToken) {
+        return client.request(error.config);
+      }
     }
   }
 
