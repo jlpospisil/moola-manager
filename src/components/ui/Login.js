@@ -14,8 +14,6 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      // checkingCredentials: false,
-      remoteServer: null,
       username: null,
       password: null,
     };
@@ -25,7 +23,6 @@ class Login extends Component {
 
   async componentDidMount() {
     this.setState({
-      remoteServer: await localStorage.getItem('remote-server'),
       username: await localStorage.getItem('remote-username'),
       password: await localStorage.getItem('remote-password')
     });
@@ -33,14 +30,13 @@ class Login extends Component {
 
   async loginAttempt() {
     /* eslint-disable-next-line object-curly-newline */
-    const { remoteServer, username, password } = this.state;
+    const { username, password } = this.state;
     const { uiActions } = this.props;
 
     // this.setState({ checkingCredentials: true });
     uiActions.updateSignedIn(false);
 
-    if (remoteServer && username && password) {
-      await localStorage.setItem('remote-server', remoteServer);
+    if (username && password) {
       await localStorage.setItem('remote-username', username);
       await localStorage.setItem('remote-password', password);
       await handleLogin();
@@ -53,7 +49,7 @@ class Login extends Component {
   }
 
   render() {
-    const { remoteServer, username, password } = this.state;
+    const { username, password } = this.state;
 
     // Note: Android and iOS both interact with this prop differently. Android may behave better when given no behavior prop at all, whereas iOS is the opposite.
     // Options: height|position|padding     Usage: behavior='padding'
@@ -71,22 +67,10 @@ class Login extends Component {
 
           <View style={[styles.container, styles.padding20]}>
             <FloatingLabelInput
-              label='Remote Server'
-              value={remoteServer}
-              autoCapitalize='none'
-              autoFocus
-              onSubmitEditing={() => this.usernameInput.focus()}
-              autoCorrect={false}
-              keyboardType='email-address'
-              returnKeyType='next'
-              onChangeText={val => this.setState({ remoteServer: val })}
-            />
-
-            <FloatingLabelInput
               label='Username'
+              autoFocus
               value={username}
               autoCapitalize='none'
-              inputRef={(input) => { this.usernameInput = input; }}
               onSubmitEditing={() => this.passwordInput.focus()}
               autoCorrect={false}
               keyboardType='email-address'

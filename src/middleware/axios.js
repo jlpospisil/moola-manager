@@ -1,20 +1,21 @@
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
+import Config from '../config';
 import * as localStorage from '../lib/app-local-storage';
 
-let authToken = null;
-const remoteServer = { baseURL: null, responseType: 'json' };
-const client = axios.create(remoteServer);
+const { API_ADDRESS } = Config;
 const LOGIN_URL = '/login';
+const remoteServer = {
+  baseURL: API_ADDRESS,
+  responseType: 'json'
+};
+const client = axios.create(remoteServer);
+let authToken = null;
 
 /**
  * Intercept request to inject the remoteServer from local storage
  */
 client.interceptors.request.use(async (config) => {
-  if (!remoteServer.baseURL) {
-    remoteServer.baseURL = await localStorage.getItem('remote-server');
-  }
-
   if (!authToken && config.url !== LOGIN_URL) {
     authToken = await localStorage.getItem('auth-token');
 
@@ -24,7 +25,6 @@ client.interceptors.request.use(async (config) => {
     }
   }
 
-  config.baseURL = remoteServer.baseURL;
   config.headers.common.Authorization = `Bearer ${authToken}`;
 
   if (!config.baseURL) {
@@ -79,10 +79,10 @@ export const handleLogin = async () => {
   // Remove old token
   await localStorage.removeItem('auth-token');
 
-  const remoteLoginServer = await localStorage.getItem('remote-server');
   const username = await localStorage.getItem('remote-username');
   const password = await localStorage.getItem('remote-password');
-  if (remoteLoginServer && username && password) {
+
+  if (username && password) {
     await client.post(LOGIN_URL, { username, password });
   }
 };
