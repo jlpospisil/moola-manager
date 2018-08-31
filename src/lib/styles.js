@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export const primaryColor = '#43a047';
+export const successColor = '#3c763d';
+export const infoColor = '#31708f';
+export const dangerColor = '#a94442';
 
 export const styles = {
   container: {

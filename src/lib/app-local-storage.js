@@ -37,3 +37,10 @@ export const clear = () => {
 
   }
 };
+
+export default {
+  clear,
+  getItem,
+  setItem,
+  removeItem
+};

@@ -1,4 +1,5 @@
 import Toast from 'react-native-root-toast';
+import { successColor, infoColor, dangerColor } from './styles';
 
 const common_settings = {
   duration: Toast.durations.LONG,
@@ -8,7 +9,7 @@ const common_settings = {
 const success = (message, settings={}) => {
   Toast.show(message, {
     ...common_settings,
-    backgroundColor: '#3c763d',
+    backgroundColor: successColor,
     ...settings
   });
 };
@@ -16,7 +17,7 @@ const success = (message, settings={}) => {
 const info = (message, settings={}) => {
   Toast.show(message, {
     ...common_settings,
-    backgroundColor: '#31708f',
+    backgroundColor: infoColor,
     ...settings
   });
 };
@@ -24,7 +25,7 @@ const info = (message, settings={}) => {
 const error = (message, settings={}) => {
   Toast.show(message, {
     ...common_settings,
-    backgroundColor: '#a94442',
+    backgroundColor: dangerColor,
     ...settings
   });
 };

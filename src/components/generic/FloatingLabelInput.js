@@ -6,7 +6,7 @@ import {
   Animated,
   StyleSheet
 } from 'react-native';
-import styles, { primaryColor } from '../../lib/styles';
+import styles, { primaryColor, dangerColor } from '../../lib/styles';
 
 
 class FloatingLabelInput extends React.PureComponent {
@@ -37,7 +37,7 @@ class FloatingLabelInput extends React.PureComponent {
     const { isFocused } = this.state;
     const { fontSize, color, fontWeight } = StyleSheet.flatten(styles.inputLabel);
     const {
-      label, style, inputRef, value, ...props
+      label, style, inputRef, value, error, ...props
     } = this.props;
     const labelStyle = {
       position: 'absolute',
@@ -50,7 +50,7 @@ class FloatingLabelInput extends React.PureComponent {
         inputRange: [0, 1],
         outputRange: [fontSize+6, fontSize],
       }),
-      color: this._animatedIsFocused.interpolate({
+      color: error ? dangerColor : this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
         outputRange: ['#aaaaaa', color],
       }),
@@ -90,7 +90,12 @@ FloatingLabelInput.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string,
   style: PropTypes.object,
-  inputRef: PropTypes.func
+  inputRef: PropTypes.func,
+  error: PropTypes.bool
+};
+
+FloatingLabelInput.defaultProps = {
+  error: false
 };
 
 export default FloatingLabelInput;

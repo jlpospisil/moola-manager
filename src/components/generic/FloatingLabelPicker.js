@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import {
   View, Picker, Animated, StyleSheet
 } from 'react-native';
-import styles from '../../lib/styles';
-
+import styles, { dangerColor } from '../../lib/styles';
 
 class FloatingLabelPicker extends React.PureComponent {
   state = {
@@ -34,7 +33,7 @@ class FloatingLabelPicker extends React.PureComponent {
     const { isFocused } = this.state;
     const { fontSize, color, fontWeight } = StyleSheet.flatten(styles.inputLabel);
     const {
-      label, items, selectedValue, style, ...props
+      label, items, selectedValue, style, error, ...props
     } = this.props;
     const labelStyle = {
       position: 'absolute',
@@ -47,7 +46,7 @@ class FloatingLabelPicker extends React.PureComponent {
         inputRange: [0, 1],
         outputRange: [fontSize + 6, fontSize],
       }),
-      color: this._animatedIsFocused.interpolate({
+      color: error ? dangerColor : this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
         outputRange: ['#aaaaaa', color],
       }),
@@ -77,11 +76,13 @@ FloatingLabelPicker.propTypes = {
   label: PropTypes.string.isRequired,
   selectedValue: PropTypes.string,
   items: PropTypes.array,
-  style: PropTypes.object
+  style: PropTypes.object,
+  error: PropTypes.bool
 };
 
 FloatingLabelPicker.defaultProps = {
-  items: []
+  items: [],
+  error: false
 };
 
 export default FloatingLabelPicker;

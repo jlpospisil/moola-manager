@@ -6,7 +6,7 @@ import { withNavigation } from 'react-navigation';
 import { View, KeyboardAvoidingView } from 'react-native';
 import FloatingLabelInput from '../generic/FloatingLabelInput';
 import * as AccountActions from '../../redux/actions/account-actions';
-import styles from '../../lib/styles';
+import { Alerts, Styles } from '../../lib';
 
 class AddEditAccount extends React.Component {
   constructor(props) {
@@ -33,7 +33,12 @@ class AddEditAccount extends React.Component {
 
   _saveOrUpdateAccount() {
     const { current_account } = this.props;
-    if (current_account.id === null) {
+    const { id, name, balance } = current_account;
+
+    if (!name || !balance) {
+      Alerts.error('Missing required fields');
+    }
+    else if (id === null) {
       this._saveNewAccount();
     }
     else {
@@ -60,11 +65,12 @@ class AddEditAccount extends React.Component {
     // Options: height|position|padding     Usage: behavior='padding'
     // Resource: https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
     return (
-      <KeyboardAvoidingView style={[styles.container, styles.padding20]}>
-        <View style={[styles.container, { alignItems: 'flex-start' }]}>
+      <KeyboardAvoidingView style={[Styles.container, Styles.padding20]}>
+        <View style={[Styles.container, { alignItems: 'flex-start' }]}>
           <FloatingLabelInput
             label='Account Name'
             autoFocus
+            error={!current_account.name}
             returnKeyType='next'
             value={current_account.name}
             onChangeText={val => this._updateCurrentAccount({ name: val })}
@@ -84,6 +90,7 @@ class AddEditAccount extends React.Component {
             label='Starting Balance'
             keyboardType='numeric'
             returnKeyType='go'
+            error={!current_account.balance}
             value={`${current_account.balance || ''}`}
             inputRef={(input) => { this.balanceInput = input; }}
             onChangeText={val => this._updateCurrentAccount({ balance: val })}

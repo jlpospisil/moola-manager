@@ -10,7 +10,7 @@ import FloatingLabelInput from '../generic/FloatingLabelInput';
 import FloatingLabelPicker from '../generic/FloatingLabelPicker';
 import * as AccountActions from '../../redux/actions/account-actions';
 import * as TransactionActions from '../../redux/actions/transaction-actions';
-import styles from '../../lib/styles';
+import { Alerts, Styles } from '../../lib';
 
 class AddEditTransaction extends React.Component {
   constructor(props) {
@@ -40,7 +40,12 @@ class AddEditTransaction extends React.Component {
 
   _saveOrUpdateTransaction() {
     const { current_transaction } = this.props;
-    if (current_transaction.id === null) {
+    const { id, account_id, amount } = current_transaction;
+
+    if (!account_id || !amount) {
+      Alerts.error('Missing required fields');
+    }
+    else if (id === null) {
       this._saveNewTransaction();
     }
     else {
@@ -63,15 +68,17 @@ class AddEditTransaction extends React.Component {
 
   render() {
     const { current_transaction, accounts } = this.props;
+    const { account_id, amount } = current_transaction;
 
     // Note: Android and iOS both interact with this prop differently. Android may behave better when given no behavior prop at all, whereas iOS is the opposite.
     // Options: height|position|padding     Usage: behavior='padding'
     // Resource: https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
     return (
-      <KeyboardAvoidingView style={[styles.container, styles.padding20]}>
-        <View style={[styles.container, { alignItems: 'flex-start' }]}>
+      <KeyboardAvoidingView style={[Styles.container, Styles.padding20]}>
+        <View style={[Styles.container, { alignItems: 'flex-start' }]}>
           <FloatingLabelPicker
             label='Account'
+            error={!current_transaction.account_id}
             items={accounts.map((account) => {
               return {
                 value: account.id,
@@ -79,13 +86,17 @@ class AddEditTransaction extends React.Component {
               };
             })}
             selectedValue={current_transaction.account_id}
-            onValueChange={val => this._updateCurrentTransaction({ account_id: val })}
+            onValueChange={(val) => {
+              this._updateCurrentTransaction({ account_id: val });
+              this.merchantInput.focus();
+            }}
           />
 
           <FloatingLabelInput
             label='Merchant'
             autoFocus
             returnKeyType='next'
+            inputRef={(input) => { this.merchantInput = input; }}
             value={current_transaction.merchant}
             style={{ marginBottom: 5 }}
             onChangeText={val => this._updateCurrentTransaction({ merchant: val })}
@@ -106,6 +117,7 @@ class AddEditTransaction extends React.Component {
             label='Amount'
             keyboardType='numeric'
             returnKeyType='go'
+            error={!current_transaction.amount}
             value={`${current_transaction.amount || ''}`}
             inputRef={(input) => { this.amountInput = input; }}
             onChangeText={val => this._updateCurrentTransaction({ amount: val })}
@@ -121,7 +133,8 @@ AddEditTransaction.propTypes = {
   navigation: PropTypes.object.isRequired,
   current_account: PropTypes.object,
   current_transaction: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  accounts: PropTypes.array
 };
 
 const mapStateToProps = (state) => {
