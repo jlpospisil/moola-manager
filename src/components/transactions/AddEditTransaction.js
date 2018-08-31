@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { FormLabel } from 'react-native-elements';
 import FloatingLabelInput from '../generic/FloatingLabelInput';
+import FloatingLabelPicker from '../generic/FloatingLabelPicker';
 import * as AccountActions from '../../redux/actions/account-actions';
 import * as TransactionActions from '../../redux/actions/transaction-actions';
 import styles from '../../lib/styles';
@@ -70,17 +71,17 @@ class AddEditTransaction extends React.Component {
     return (
       <KeyboardAvoidingView style={[styles.container, styles.padding20]}>
         <View style={[styles.container, { alignItems: 'flex-start' }]}>
-          <FormLabel labelStyle={styles.inputLabel}>
-            Account
-          </FormLabel>
-
-          <Picker
-            style={styles.fullWidth}
+          <FloatingLabelPicker
+            label='Account'
+            items={accounts.map((account) => {
+              return {
+                value: account.id,
+                label: account.name
+              };
+            })}
             selectedValue={current_transaction.account_id}
             onValueChange={val => this._updateCurrentTransaction({ account_id: val })}
-          >
-            { accounts.map(account => <Picker.Item key={account.id} label={account.name} value={account.id} />) }
-          </Picker>
+          />
 
           <FloatingLabelInput
             label='Merchant'

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  StatusBar,
   TextInput,
   Animated,
   StyleSheet
@@ -72,7 +71,7 @@ class FloatingLabelInput extends React.PureComponent {
               fontSize: 20,
               color: '#333333',
               paddingBottom: 2,
-              borderBottomWidth: 1,
+              borderBottomWidth: isFocused ? 2 : 1,
               borderBottomColor: isFocused ? primaryColor : '#888888'
             }
           ]}
