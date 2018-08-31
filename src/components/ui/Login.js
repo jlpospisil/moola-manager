@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 /* eslint-disable-next-line object-curly-newline */
 import { View, Image, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import FloatingLabelInput from '../generic/FloatingLabelInput';
@@ -50,6 +51,7 @@ class Login extends Component {
 
   render() {
     const { username, password } = this.state;
+    const { showForm } = this.props;
 
     // Note: Android and iOS both interact with this prop differently. Android may behave better when given no behavior prop at all, whereas iOS is the opposite.
     // Options: height|position|padding     Usage: behavior='padding'
@@ -65,44 +67,55 @@ class Login extends Component {
             </Text>
           </View>
 
-          <View style={[styles.container, styles.padding20]}>
-            <FloatingLabelInput
-              label='Username'
-              autoFocus
-              value={username}
-              autoCapitalize='none'
-              onSubmitEditing={() => this.passwordInput.focus()}
-              autoCorrect={false}
-              keyboardType='email-address'
-              returnKeyType='next'
-              onChangeText={val => this.setState({ username: val })}
-            />
+          {showForm && (
+            <View style={[styles.container, styles.padding20]}>
+              <FloatingLabelInput
+                label='Username'
+                autoFocus
+                value={username}
+                autoCapitalize='none'
+                onSubmitEditing={() => this.passwordInput.focus()}
+                autoCorrect={false}
+                keyboardType='email-address'
+                returnKeyType='next'
+                onChangeText={val => this.setState({ username: val })}
+              />
 
+              <FloatingLabelInput
+                label='Password'
+                value={password}
+                returnKeyType='go'
+                inputRef={(input) => { this.passwordInput = input; }}
+                onSubmitEditing={this.loginAttempt}
+                autoCapitalize='none'
+                secureTextEntry
+                onChangeText={val => this.setState({ password: val })}
+              />
+            </View>
+          )}
 
-            <FloatingLabelInput
-              label='Password'
-              value={password}
-              returnKeyType='go'
-              inputRef={(input) => { this.passwordInput = input; }}
-              onSubmitEditing={this.loginAttempt}
-              autoCapitalize='none'
-              secureTextEntry
-              onChangeText={val => this.setState({ password: val })}
-            />
-          </View>
-
-          <View style={{ alignSelf: 'stretch', paddingHorizontal: 20 }}>
-            <TouchableOpacity style={styles.buttonContainer} onPress={this.loginAttempt}>
-              <Text style={styles.buttonText}>
+          {showForm && (
+            <View style={{ alignSelf: 'stretch', paddingHorizontal: 20 }}>
+              <TouchableOpacity style={styles.buttonContainer} onPress={this.loginAttempt}>
+                <Text style={styles.buttonText}>
                   LOGIN
-              </Text>
-            </TouchableOpacity>
-          </View>
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </KeyboardAvoidingView>
     );
   }
 }
+
+Login.propTypes = {
+  showForm: PropTypes.bool
+};
+
+Login.defaultProps = {
+  showForm: true
+};
 
 const mapStateToProps = (state) => {
   return { };

@@ -23,20 +23,11 @@ class AppContent extends React.Component {
   render() {
     const { checking_auth_status, signed_in } = this.props;
 
-    if (checking_auth_status) {
-      return (
-        <View style={styles.container}>
-          <Text>
-            TODO: add splash screen
-          </Text>
-        </View>
-      );
-    }
-    else if (signed_in) {
+    if (signed_in) {
       return <Navigation />;
     }
     else {
-      return <Login />;
+      return <Login showForm={!checking_auth_status} />;
     }
   }
 }
