@@ -3,7 +3,7 @@ import { successColor, infoColor, dangerColor } from './styles';
 
 const common_settings = {
   duration: Toast.durations.LONG,
-  position: Toast.positions.TOP,
+  position: Toast.positions.TOP + 40,
 };
 
 const success = (message, settings={}) => {
