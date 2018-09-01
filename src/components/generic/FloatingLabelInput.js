@@ -76,7 +76,6 @@ class FloatingLabelInput extends React.PureComponent {
           underlineColorAndroid='transparent'
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
-          blurOnSubmit
         />
       </View>
     );
@@ -88,11 +87,13 @@ FloatingLabelInput.propTypes = {
   value: PropTypes.string,
   style: PropTypes.object,
   inputRef: PropTypes.func,
-  error: PropTypes.bool
+  error: PropTypes.bool,
+  blurOnSubmit: PropTypes.bool
 };
 
 FloatingLabelInput.defaultProps = {
-  error: false
+  error: false,
+  blurOnSubmit: false
 };
 
 export default FloatingLabelInput;
