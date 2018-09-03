@@ -9,7 +9,7 @@ import styles from '../../lib/styles';
 class SwipeableListItem extends React.PureComponent {
   render() {
     const {
-      title, subtitle, rightTitle, onPress, hideAvatar, onDelete, onShare, onEdit, onRightButtonsOpenRelease, onRightButtonsCloseRelease
+      title, subtitle, rightTitle, onPress, hideAvatar, onDelete, onShare, onEdit, ...props
     } = this.props;
 
     const rightButtons = [];
@@ -51,8 +51,7 @@ class SwipeableListItem extends React.PureComponent {
       <Swipeable
         rightButtonWidth={65}
         rightButtons={rightButtons}
-        onRightButtonsOpenRelease={onRightButtonsOpenRelease}
-        onRightButtonsCloseRelease={onRightButtonsCloseRelease}
+        {...props}
       >
         <ListItem
           title={title}
@@ -75,9 +74,7 @@ SwipeableListItem.propTypes = {
   onPress: PropTypes.func,
   onDelete: PropTypes.func,
   onShare: PropTypes.func,
-  onEdit: PropTypes.func,
-  onRightButtonsOpenRelease: PropTypes.func,
-  onRightButtonsCloseRelease: PropTypes.func
+  onEdit: PropTypes.func
 };
 
 SwipeableListItem.defaultProps = {

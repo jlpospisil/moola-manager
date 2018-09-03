@@ -77,9 +77,10 @@ class AddEditTransaction extends React.Component {
     const {
       current_transaction, actions, navigation, accounts
     } = this.props;
+    const { account_id } = current_transaction;
     const { clearCurrentTransaction } = actions;
     const { updateCurrentAccount } = actions.accounts;
-    const account = accounts.find(account => account.id == current_transaction.account_id);
+    const account = accounts.find(account => account.id == account_id);
 
     if (account) {
       const { name } = account;
@@ -95,7 +96,10 @@ class AddEditTransaction extends React.Component {
   render() {
     const { save_attempted } = this.state;
     const { current_transaction, accounts } = this.props;
-    const { account_id, amount } = current_transaction;
+    const {
+      account_id, amount, merchant, description
+    } = current_transaction;
+    const { id: merchant_id, name: merchant_name } = merchant;
 
     // Note: Android and iOS both interact with this prop differently. Android may behave better when given no behavior prop at all, whereas iOS is the opposite.
     // Options: height|position|padding     Usage: behavior='padding'
@@ -125,9 +129,9 @@ class AddEditTransaction extends React.Component {
             autoFocus
             returnKeyType='next'
             inputRef={(input) => { this.merchantInput = input; }}
-            value={current_transaction.merchant}
+            value={merchant_name}
             style={{ marginBottom: 20 }}
-            onChangeText={val => this._updateCurrentTransaction({ merchant: val })}
+            onChangeText={val => this._updateCurrentTransaction({ merchant: { id: merchant_id, name: val } })}
             onSubmitEditing={() => this.descriptionInput.focus()}
           />
 
@@ -135,7 +139,7 @@ class AddEditTransaction extends React.Component {
             label='Description'
             returnKeyType='next'
             inputRef={(input) => { this.descriptionInput = input; }}
-            value={current_transaction.description}
+            value={description}
             style={{ marginBottom: 20 }}
             onChangeText={val => this._updateCurrentTransaction({ description: val })}
             onSubmitEditing={() => this.amountInput.focus()}

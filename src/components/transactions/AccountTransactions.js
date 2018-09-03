@@ -44,12 +44,14 @@ class AccountTransactions extends React.PureComponent {
     const { deleteTransaction } = actions;
 
     const TransactionListItem = (transaction) => {
-      const { id, description, amount } = transaction;
+      const { id, description, amount, merchant } = transaction;
+      const { id: merchant_id, name: merchant_name } = merchant || {};
 
       return (
         <SwipeableListItem
-          title='Merchant here'
-          subtitle={description}
+          hideAvatar
+          title={merchant_name || ' '}
+          subtitle={description || ' '}
           rightTitle={`$${amount}`}
           onEdit={() => Alert.alert('TODO', 'Edit transaction here')}
           onDelete={() => deleteTransaction(id)}
