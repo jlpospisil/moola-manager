@@ -10,7 +10,8 @@ export const actions = {
   UPDATE_CURRENT_TRANSACTION: 'UPDATE_CURRENT_TRANSACTION',
   LOAD_ACCOUNT_TRANSACTIONS: 'LOAD_ACCOUNT_TRANSACTIONS',
   DELETE_TRANSACTION: 'DELETE_TRANSACTION',
-  CLEAR_CURRENT_TRANSACTION: 'CLEAR_CURRENT_TRANSACTION'
+  CLEAR_CURRENT_TRANSACTION: 'CLEAR_CURRENT_TRANSACTION',
+  LOAD_MERCHANTS: 'LOAD_MERCHANTS'
 };
 
 export const updateLoading = (loading) => {
@@ -67,6 +68,17 @@ export const deleteTransaction = (id) => {
         url: `${base_url}/${id}`,
         method: 'DELETE',
         data: { id } // Not needed for axios request, but is used to get the id of the deleted transaction in transaction-reducer
+      }
+    }
+  };
+};
+
+export const loadMerchants = () => {
+  return {
+    types: ['AXIOS', actions.LOAD_MERCHANTS],
+    payload: {
+      request: {
+        url: '/api/merchant'
       }
     }
   };

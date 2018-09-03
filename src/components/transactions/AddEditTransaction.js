@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
-import {
-  KeyboardAvoidingView, View, Alert, Picker
-} from 'react-native';
+import { KeyboardAvoidingView, View, Alert } from 'react-native';
 import FloatingLabelInput from '../generic/FloatingLabelInput';
 import FloatingLabelPicker from '../generic/FloatingLabelPicker';
 import * as AccountActions from '../../redux/actions/account-actions';
@@ -27,11 +25,13 @@ class AddEditTransaction extends React.Component {
 
   componentWillMount() {
     const { navigation, current_account, actions } = this.props;
-    const { loadAccounts } = actions.accounts;
+    const { loadMerchants, accounts: accountActions } = actions;
+    const { loadAccounts } = accountActions;
     navigation.setParams({
       saveTransaction: this._saveOrUpdateTransaction.bind(this),
     });
     loadAccounts();
+    loadMerchants();
     this._updateCurrentTransaction({ account_id: current_account.id });
     this.setState({ save_attempted: false });
   }
@@ -95,7 +95,7 @@ class AddEditTransaction extends React.Component {
 
   render() {
     const { save_attempted } = this.state;
-    const { current_transaction, accounts } = this.props;
+    const { current_transaction, accounts, merchants } = this.props;
     const {
       account_id, amount, merchant, description
     } = current_transaction;
@@ -124,6 +124,7 @@ class AddEditTransaction extends React.Component {
             style={{ marginBottom: 20 }}
           />
 
+          { /* TODO: implement autocomplete using this.props.merchants */}
           <FloatingLabelInput
             label='Merchant'
             autoFocus
@@ -174,6 +175,7 @@ const mapStateToProps = (state) => {
     accounts: state.accounts.accounts,
     current_account: state.accounts.current_account,
     current_transaction: state.transactions.current_transaction,
+    merchants: state.transactions.merchants
   };
 };
 

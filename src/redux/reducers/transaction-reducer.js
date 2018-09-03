@@ -12,7 +12,8 @@ const initialState = {
     },
     description: null,
     amount: null
-  }
+  },
+  merchants: []
 };
 
 export default (state = initialState, action) => {
@@ -77,6 +78,17 @@ export default (state = initialState, action) => {
           ...state,
           current_transaction
         };
+      }
+      case actions.LOAD_MERCHANTS: {
+        const response = action.payload;
+        if (response.status === 200) {
+          return {
+            ...state,
+            merchants: response.data
+          };
+        }
+
+        return state;
       }
       default: {
         return state;
