@@ -31,10 +31,10 @@ class AccountTransactions extends React.PureComponent {
 
   _loadTransactions() {
     const { current_account, actions } = this.props;
-    const { loadAccountTransactions } = actions;
+    const { loadAccountTransactions, loadMerchants } = actions;
 
     if (current_account && current_account.id) {
-      loadAccountTransactions(current_account.id);
+      loadMerchants().then(loadAccountTransactions(current_account.id));
     }
   }
 

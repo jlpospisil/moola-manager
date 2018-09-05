@@ -45,8 +45,8 @@ export const loadAccountTransactions = (account_id) => {
   };
 };
 
-export const createNewTransaction = (data) => {
-  const { account_id } = data;
+export const createNewTransaction = (transaction) => {
+  const { account_id, ...data } = transaction;
   return {
     types: ['AXIOS', actions.ADD_TRANSACTION],
     payload: {
