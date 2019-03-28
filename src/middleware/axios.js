@@ -16,7 +16,9 @@ let authToken = null;
 /**
  * Intercept request to inject the remoteServer from local storage
  */
-client.interceptors.request.use(async (config) => {
+client.interceptors.request.use(async (requestConfig) => {
+  const config = requestConfig;
+
   if (!authToken && config.url !== LOGIN_URL) {
     authToken = await localStorage.getItem('auth-token');
 
