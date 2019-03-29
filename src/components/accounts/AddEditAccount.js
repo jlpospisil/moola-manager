@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { withNavigation } from 'react-navigation';
-import { View, KeyboardAvoidingView } from 'react-native';
+import { View, KeyboardAvoidingView, Platform } from 'react-native';
 import FloatingLabelInput from '../generic/FloatingLabelInput';
 import * as AccountActions from '../../redux/actions/account-actions';
 import { Alerts, Styles } from '../../lib';
@@ -73,7 +73,10 @@ class AddEditAccount extends React.Component {
     // Options: height|position|padding     Usage: behavior='padding'
     // Resource: https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
     return (
-      <KeyboardAvoidingView style={[Styles.container, Styles.padding20]}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        style={[Styles.container, Styles.padding20]}
+      >
         <View style={[Styles.container, { alignItems: 'flex-start' }]}>
           <FloatingLabelInput
             label='Account Name'

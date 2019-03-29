@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
-import { KeyboardAvoidingView, View, Alert } from 'react-native';
+import { KeyboardAvoidingView, View, Alert, Platform } from 'react-native';
 import FloatingLabelInput from '../generic/FloatingLabelInput';
 import FloatingLabelPicker from '../generic/FloatingLabelPicker';
 import * as AccountActions from '../../redux/actions/account-actions';
@@ -105,7 +105,10 @@ class AddEditTransaction extends React.Component {
     // Options: height|position|padding     Usage: behavior='padding'
     // Resource: https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
     return (
-      <KeyboardAvoidingView style={[Styles.container, Styles.padding20]}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        style={[Styles.container, Styles.padding20]}
+      >
         <View style={[Styles.container, { alignItems: 'flex-start' }]}>
           <FloatingLabelPicker
             label='Account'

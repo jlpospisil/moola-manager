@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 /* eslint-disable-next-line object-curly-newline */
-import { View, Image, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { View, Image, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import FloatingLabelInput from '../generic/FloatingLabelInput';
 import styles from '../../lib/styles';
 import * as localStorage from '../../lib/app-local-storage';
@@ -57,7 +57,10 @@ class Login extends Component {
     // Options: height|position|padding     Usage: behavior='padding'
     // Resource: https://facebook.github.io/react-native/docs/keyboardavoidingview#behavior
     return (
-      <KeyboardAvoidingView style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        style={styles.container}
+      >
         <View style={[styles.container, styles.padding20]}>
           <View style={[styles.container, styles.padding20]}>
             {/* eslint-disable-next-line global-require */}
