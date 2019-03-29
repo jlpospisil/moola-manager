@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import HeaderSaveButton from './HeaderSaveButton';
 import Accounts from '../accounts/Accounts';
@@ -142,4 +142,4 @@ const navigatorConfig = {
 
 const Navigation = createMaterialBottomTabNavigator(routes, navigatorConfig);
 
-export default Navigation;
+export default createAppContainer(Navigation);
