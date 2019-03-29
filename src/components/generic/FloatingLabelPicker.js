@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, Picker, Animated, StyleSheet
+  Platform, View, Picker, Animated, StyleSheet, ActionSheetIOS, TouchableOpacity, Text,
 } from 'react-native';
-import styles, { dangerColor } from '../../lib/styles';
+import styles, { dangerColor, primaryColor } from '../../lib/styles';
 
 class FloatingLabelPicker extends React.PureComponent {
   state = {
@@ -25,9 +25,24 @@ class FloatingLabelPicker extends React.PureComponent {
     }).start();
   }
 
-  handleFocus = () => this.setState({ isFocused: true });
-
-  handleBlur = () => this.setState({ isFocused: false });
+  showActionSheet = () => {
+    const { items = [], onValueChange = () => {} } = this.props;
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options: [
+          ...items.map(i => i.label),
+          'Cancel',
+        ],
+        cancelButtonIndex: items.length,
+      },
+      (itemIndex) => {
+        const item = items[itemIndex] || null;
+        if (item) {
+          onValueChange(item.value.toString());
+        }
+      }
+    );
+  };
 
   render() {
     const { isFocused } = this.state;
@@ -52,6 +67,8 @@ class FloatingLabelPicker extends React.PureComponent {
       }),
       fontWeight: isFocused || !!selectedValue ? fontWeight : '100'
     };
+    const selectedItem = items.find(i => selectedValue && i.value.toString() === selectedValue.toString());
+    const selectedItemLabel = selectedItem ? selectedItem.label : null;
     return (
       <View style={[
         styles.fullWidth,
@@ -66,15 +83,35 @@ class FloatingLabelPicker extends React.PureComponent {
           {isFocused || !!selectedValue ? label : `Select ${label}`}
         </Animated.Text>
 
-        <Picker
-          selectedValue={selectedValue ? selectedValue.toString() : null}
-          style={{ height: 28 }}
-          itemStyle={{ fontSize: 20 }}
-          {...props}
-        >
-          <Picker.Item key={null} label='' value={null} />
-          { items.map(item => <Picker.Item key={item.value.toString()} label={item.label} value={item.value.toString()} />) }
-        </Picker>
+        {/* On android, display a picker */}
+        {Platform.OS !== 'ios' && (
+          <Picker
+            selectedValue={selectedValue ? selectedValue.toString() : null}
+            style={{ height: 28 }}
+            itemStyle={{ fontSize: 20 }}
+            {...props}
+          >
+            <Picker.Item key={null} label='' value={null} />
+            { items.map(item => <Picker.Item key={item.value.toString()} label={item.label} value={item.value.toString()} />) }
+          </Picker>
+        )}
+
+        {/* The picker does not function or look right on ios, so use ActionSheetIOS instead */}
+        {Platform.OS === 'ios' && (
+          <TouchableOpacity onPress={this.showActionSheet}>
+            <Text
+              {...props}
+              style={{
+                height: 28,
+                fontSize: 20,
+                color: '#333333',
+              }}
+              underlineColorAndroid='transparent'
+            >
+              { selectedItemLabel }
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -88,12 +125,14 @@ FloatingLabelPicker.propTypes = {
   ]),
   items: PropTypes.array,
   style: PropTypes.object,
-  error: PropTypes.bool
+  error: PropTypes.bool,
+  onValueChange: PropTypes.func,
 };
 
 FloatingLabelPicker.defaultProps = {
   items: [],
-  error: false
+  error: false,
+  onValueChange: () => {},
 };
 
 export default FloatingLabelPicker;
